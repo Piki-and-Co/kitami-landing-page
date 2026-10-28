@@ -2,7 +2,7 @@
  * tarteaucitron.js — Configuration centralisée
  *
  * Ce fichier est importé par toutes les pages du site.
- * Il initialise tarteaucitron et déclare les services (Matomo, futurs Google/Meta).
+ * Il initialise tarteaucitron (gestion des cookies) et déclare les services (futurs Google/Meta).
  *
  * Pré-requis : charger tarteaucitron.js AVANT ce fichier.
  * <script src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@latest/tarteaucitron.js"></script>
@@ -41,39 +41,5 @@ tarteaucitron.init({
   /* Conservation du consentement : 6 mois (182 jours) */
   "cookieExpire":      182
 });
-
-
-// Service de mesure d'audience
-tarteaucitron.services.matomoCustom = {
-  "key":         "matomoCustom",
-  "type":        "analytic",
-  "name":        "Matomo (mesure d'audience)",
-  "uri":         "https://piki-and-co.com/legal/cookies",
-  "needConsent": true,
-  "cookies":     ["_pk_id", "_pk_ses", "_pk_ref", "mtm_consent", "mtm_cookie_consent", "SRVGROUP"],
-
-  "js": function () {
-    "use strict";
-    if (tarteaucitron.services.matomoCustom.added) return;
-    tarteaucitron.services.matomoCustom.added = true;
-
-    var _paq = window._paq = window._paq || [];
-    var u = "https://an.kjbconseil.com/";
-    _paq.push(["setTrackerUrl", u + "matomo.php"]);
-    _paq.push(["setSiteId", "6"]);
-    _paq.push(["setCookieDomain", "*.ki-tami.com"]);
-    _paq.push(["setDomains", ["*.ki-tami.com"]]);
-    _paq.push(["trackPageView"]);
-    _paq.push(["enableLinkTracking"]);
-
-    tarteaucitron.addScript(u + "matomo.js");
-  },
-
-  "fallback": function () {
-    "use strict";
-    /* Rien à faire en cas de refus */
-  }
-};
-(tarteaucitron.job = tarteaucitron.job || []).push("matomoCustom");
 
 // Services futurs possibles à ajouter ci-dessous comme Google Analytics / Facebook Pixel / etc.
