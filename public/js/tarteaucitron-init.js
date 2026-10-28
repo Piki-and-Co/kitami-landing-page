@@ -61,8 +61,8 @@ tarteaucitron.services.matomoCustom = {
     var u = "https://an.kjbconseil.com/";
     _paq.push(["setTrackerUrl", u + "matomo.php"]);
     _paq.push(["setSiteId", "6"]);
-    _paq.push(["setCookieDomain", "*.piki-and-co.com"]);
-    _paq.push(["setDomains", ["*.piki-and-co.com"]]);
+    _paq.push(["setCookieDomain", "*.ki-tami.com"]);
+    _paq.push(["setDomains", ["*.ki-tami.com"]]);
     _paq.push(["trackPageView"]);
     _paq.push(["enableLinkTracking"]);
 

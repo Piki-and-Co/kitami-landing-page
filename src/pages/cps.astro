@@ -1,5 +1,5 @@
 ---
-import BiumizLayout from '@/layouts/BiumizLayout.astro';
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
 
 import { Image } from 'astro:assets';
 
@@ -26,17 +26,12 @@ const CpsFaqSchema = JSON.stringify({
 	],
 });
 ---
-<BiumizLayout
+<KitamiLayout
 		title="Les compétences humaines"
 		description="Le socle de l'équilibre mental et émotionnel de votre enfant."
-		breadcrumbs={[{ name: 'Biumiz', href: '/' }, { name: 'Les CPS', href: '/cps' }]}
-		faqScema = {CpsFaqSchema}
+		breadcrumbs={[{ name: 'Ki-tami', href: '/' }, { name: 'Les CPS', href: '/cps' }]}
+		faqSchema = {CpsFaqSchema}
 >
-
-	<Fragment slot="head">
-		<script type="application/ld+json" set:html={CpsFaqSchema}/>
-  	</Fragment>
-
 
 	<!-- CPS -->
 	<section class="section section--tinted" id="CPS">
@@ -114,7 +109,7 @@ const CpsFaqSchema = JSON.stringify({
 		<h2>Prêt à entrer dans l'aventure<br />qui fait grandir ?</h2>
 		<a href="/inscription" class="btn-primary">Rejoignez l'aventure !</a>
 	</section>
-</BiumizLayout>
+</KitamiLayout>
 <style>
 	
 	a {
@@ -176,7 +171,7 @@ const CpsFaqSchema = JSON.stringify({
 	}
 	
 	.section--tinted {
-		background: linear-gradient(to bottom, var(--biumiz-bg-start), var(--biumiz-bg-end)) !important;
+		background: linear-gradient(to bottom, var(--kitami-bg-start), var(--kitami-bg-end)) !important;
 		color: var(--white) !important;
 	}
 

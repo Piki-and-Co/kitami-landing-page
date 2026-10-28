@@ -1,9 +1,9 @@
 ---
-import BiumizLayout from '@/layouts/BiumizLayout.astro';
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
 
 import { Image } from 'astro:assets';
 import doudou from '@assets/Doudou_NewDA-HD_Droite.webp';
-import uniteDiag from '@assets/UnitéDiag_NewDA-HD_Droite.webp';
+import uniteDiag from '@assets/UniteDiag_NewDA-HD_Droite.webp';
 import fleur from '@assets/FleurChoupie.webp';
 
 const JeuFaqSchema = JSON.stringify({
@@ -39,27 +39,21 @@ const JeuFaqSchema = JSON.stringify({
 	],
 });
 ---
-<BiumizLayout
-		title="Biumiz, jeu multi-supports"
-		description="Biumiz repose sur trois composants produit sur trois supports différents."
-		breadcrumbs={[{ name: 'Biumiz', href: '/' }, { name: 'Le jeu', href: '/lejeu' }]}
-		faqScema = {JeuFaqSchema}
+<KitamiLayout
+		title="Ki-tämi, jeu multi-supports"
+		description="Ki-tämi repose sur trois composants produit sur trois supports différents."
+		breadcrumbs={[{ name: 'Ki-tämi', href: '/' }, { name: 'Le jeu', href: '/lejeu' }]}
+		faqSchema = {JeuFaqSchema}
 >
-
-
-	<Fragment slot="head">
-		<script type="application/ld+json" set:html={JeuFaqSchema}/>
-  	</Fragment>
-
 	<!-- les composants -->
 	<section class="section section--tinted" id="leJeu">
 		<div class="container">
-			<p class="section-eyebrow">Biumiz, le jeu narratif multi-support</p>
+			<p class="section-eyebrow">Ki-tämi, le jeu narratif multi-support</p>
 			<h2 class="section-heading">Un univers ludique jusque <span class="highlight">dans le réel</span></h2>
 			<p class="section-lead">
-			Avec <strong>Biumiz</strong>, il ne s’agit pas d’exercices, mais de vivre de grandes histoires ! 
-			Grâce à notre toute nouvelle pédagogie expérientielle et immersive, l’enfant apprend l’interaction, l'entraide, l’empathie, il développe sa confiance en lui… et en anglais !</br>
-			Biumiz repose sur trois composants, ce qui en fait un jeu transmédia ou multi-supports.
+			Avec <strong>Ki-tämi</strong>, il ne s’agit pas d’exercices, mais de vivre de grandes histoires !
+			Grâce à notre toute nouvelle pédagogie expérientielle et immersive, l’enfant apprend l’interaction, l'entraide, l’empathie, il développe sa confiance en lui… et en anglais !<br/>
+			Ki-tämi repose sur trois composants, ce qui en fait un jeu transmédia ou multi-supports.
 			</p>
 			<div class="piliers-list">
 				<div class="pilier-row">
@@ -146,7 +140,7 @@ const JeuFaqSchema = JSON.stringify({
 		<a href="/inscription" class="btn-primary">Rejoignez l'aventure !</a>
 	</section>
  
-</BiumizLayout>
+</KitamiLayout>
 <style>
 	.section { 
 		padding: var(--section-gap) 0; 
@@ -154,7 +148,7 @@ const JeuFaqSchema = JSON.stringify({
 	}
 	
 	.section--tinted {
-		background: linear-gradient(to bottom, var(--biumiz-bg-start), var(--biumiz-bg-end)) !important;
+		background: linear-gradient(to bottom, var(--kitami-bg-start), var(--kitami-bg-end)) !important;
 		color: var(--white) !important;
 	}
 

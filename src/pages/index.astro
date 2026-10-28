@@ -1,12 +1,12 @@
 ---
-import BiumizLayout from '@/layouts/BiumizLayout.astro';
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
 
 import { Image } from 'astro:assets';
 import imgLandingPage from '@assets/LandingPage.webp';
 import conectus from '@assets/CONECTUS-BaselineFR_HD2018_Blanc.webp';
 import cnrs from '@assets/LOGO_CNRS_HD.webp';
 import unistra from '@assets/Unistra2_HD_FondBlanc.webp';
-import logoBiumizFull from '@assets/Logo_Biumiz-Full.webp';
+import logoKitamiLight from '@assets/LogoKitamiLight.webp';
 import logoEMS from '@assets/LogoEMS.webp';
 import logoAccro from '@assets/LogoAccro.webp';
 import logoTS2026 from '@assets/LogoTangoScan-2026.webp';
@@ -28,14 +28,14 @@ const team = [
 	{
 		prenom: "Amandine",
 		nom: "Piguel",
-		poste: "Co-inventrice de Biumiz, directrice produit",
-		description: "A partir des retours des utilisateurs et experts, définit les évolutions à apporter à Biumiz",
+		poste: "Co-inventrice de Ki-tämi, directrice produit",
+		description: "A partir des retours des utilisateurs et experts, définit les évolutions à apporter à Ki-tämi",
 		photo: photoAmandine
 	},
 	{
 		prenom: "Laurence",
 		nom: "Schmoll",
-		poste: "Chercheuse & co-inventrice de Biumiz",
+		poste: "Chercheuse & co-inventrice de Ki-tämi",
 		description: "Spécialiste en didactique des langues et conception de jeux sérieux, elle est l'autrice de la progression en didactique des langues et de l'ingénierie pédagogique",
 		photo: photoLaurence
 	},	
@@ -50,7 +50,7 @@ const team = [
 		prenom: "Charlotte",
 		nom: "Gahmia",
 		poste: "Graphiste/Illustratrice",
-		description: "Créatrice de l'univers visuel de Biumiz et des personnages",
+		description: "Créatrice de l'univers visuel de Ki-tämi et des personnages",
 		photo: photoCharlotte
 	},
 	{
@@ -114,7 +114,7 @@ const IndexFaqSchema = JSON.stringify({
 	"name": "A partir de quel âge mon enfant peut jouer ?",
 	"acceptedAnswer": {
 	"@type": "Answer",
-	"text": "Conformément aux recommandations officielles, Biumiz est conçu pour les enfants à partir de 4 ans. Il est découpé en plusieurs niveaux, chacun calibré par tranche d'âge. Une session du jeu vidéo Biumiz dure 15 minutes maximum. Nous recommandons 1 à 2 sessions par semaine.",
+	"text": "Conformément aux recommandations officielles, Ki-tämi est conçu pour les enfants à partir de 4 ans. Il est découpé en plusieurs niveaux, chacun calibré par tranche d'âge. Une session du jeu vidéo Ki-tämi dure 15 minutes maximum. Nous recommandons 1 à 2 sessions par semaine.",
       }
 	},
 	{
@@ -127,7 +127,7 @@ const IndexFaqSchema = JSON.stringify({
 	},
 	{
 	"@type": "Question",
-	"name": "Les enseignants peuvent-ils utiliser Biumiz en classe ?",
+	"name": "Les enseignants peuvent-ils utiliser Ki-tämi en classe ?",
 	"acceptedAnswer": {
 	"@type": "Answer",
 	"text": "Absolument ! Nos jeux sont alignés avec les programmes de l'Education Nationale, avec le Cadre Européen Commun de Référence pour les Langues et les recommandations de Santé Publique France sur les CPS. Les différents supports papiers et numériques offrent une flexibilité pédagogique complète.",
@@ -138,29 +138,24 @@ const IndexFaqSchema = JSON.stringify({
 });
 ---
 
-<BiumizLayout
-		title="Biumiz, le jeu qui fait grandir par les langues"
+<KitamiLayout
+		title="Ki-tämi, le jeu qui fait grandir par les langues"
 		description="Accompagnez votre enfant dans le développement de ses compétences cognitives, émotionnelles et relationnelles."
 		faqSchema = {IndexFaqSchema}
 		>
-
-
-<Fragment slot="head">
-    <script type="application/ld+json" set:html={IndexFaqSchema}/>
-  </Fragment>
 
 	<!-- Hero -->
 	<section class="section section--tinted hero-section">
 		<div class="hero-container">
 			<div class="hero-content">
 				<div class="logo-wrapper">
-					<Image src={logoBiumizFull} alt="Biumiz" width={1014} height={661} loading="eager" format="webp"/>
+					<Image src={logoKitamiLight} alt="Ki-tami" width={1014} height={661} loading="eager" format="webp"/>
 				</div>
 				<p class="section-eyebrow">Pour les enfants de 4 à 10 ans</p>
-				<h1 class="hero-title">Biumiz, le jeu qui construit 
+				<h1 class="hero-title">Ki-tämi, le jeu qui construit
 					<span class="highlight">l'équilibre mental</span> de votre enfant</h1>
 				<p class="hero-description">
-					Faites vivre de grandes histoires à votre enfant avec Biumiz ! 
+					Faites vivre de grandes histoires à votre enfant avec Ki-tämi !
 					Plongé dans un univers ludique, positif, engageant et profondément respectueux de ses besoins,
 					votre enfant développe ses compétences humaines en apprenant à communiquer en anglais,
 					tout en s'amusant en famille ou en classe !
@@ -171,8 +166,8 @@ const IndexFaqSchema = JSON.stringify({
 			</div>
 				<div class="hero-image-container">
 					<div class="hero-image-wrapper">
-						<Image src={imgLandingPage} alt="Rejoingez Biumiz dans ses aventures !" 
-						width={8268} height={5374} loading="eager" format="webp"/>
+						<Image src={imgLandingPage} alt="Rejoingez Ki-tämi dans ses aventures !"
+						width={1600} height={1040} loading="eager" format="webp"/>
 				</div>
 			</div>
 		</div>
@@ -184,7 +179,7 @@ const IndexFaqSchema = JSON.stringify({
 			<p class="section-eyebrow">Conçu pour vous et avec vous</p>
 			<h2 class="section-heading">Un produit ancré dans votre quotidien</h2>
 			<p class="section-lead">
-				Depuis ses tous débuts, Biumiz est co-construit avec des parents et des professionnel·le·s des enfants
+				Depuis ses tous débuts, Ki-tämi est co-construit avec des parents et des professionnel·le·s des enfants
 				pour être au plus proche de vos besoins et de votre réalité. 				
 			</p>
 			<div class="grid">
@@ -228,7 +223,7 @@ const IndexFaqSchema = JSON.stringify({
 			<div class="partners-grid">
 				<div class="partner-card">
 					<Image src={conectus} alt="SATT Conectus d'Alsace" 
-					width={6184} height={2009} loading="eager" format="webp"/>
+					width={640} height={208} loading="eager" format="webp"/>
 				</div>
 				<div class="partner-card">
 					<Image src={cnrs} alt="Centre Nationale de la Recherche Scientifique" 
@@ -236,7 +231,7 @@ const IndexFaqSchema = JSON.stringify({
 				</div>
 				<div class="partner-card">
 					<Image src={unistra} alt="Université de Strasbourg" 
-					width={3310} height={1193} loading="eager" format="webp"/>
+					width={662} height={238} loading="eager" format="webp"/>
 				</div>
 			</div>
 		</div>
@@ -246,15 +241,15 @@ const IndexFaqSchema = JSON.stringify({
 			<div class="partners-grid">
 				<div class="partner-card">
 					<Image src={logoEMS} alt="Eurométropole de Strasbourg" 
-					width={6184} height={2009} loading="eager" format="webp"/>
+					width={614} height={120} loading="eager" format="webp"/>
 				</div>
 				<div class="partner-card">
 					<Image src={logoAccro} alt="Association Accro" 
-					width={705} height={705} loading="eager" format="webp"/>
+					width={400} height={400} loading="eager" format="webp"/>
 				</div>
 				<div class="partner-card">
 					<Image src={logoTS2026} alt="Concours Tango & Scan, lauréats 2026" 
-					width={3310} height={1193} loading="eager" format="webp"/>
+					width={553} height={165} loading="eager" format="webp"/>
 				</div>
 			</div>
 		</div>
@@ -266,14 +261,14 @@ const IndexFaqSchema = JSON.stringify({
       <p class="section-eyebrow">Question fréquentes</p>
       <details class="faq-parent">
         <summary>A partir de quel âge mon enfant peut jouer ?</summary>
-		<p>Conformément aux recommandations officielles, Biumiz est conçu pour les enfants à partir de 4 ans. Il est découpé en plusieurs niveaux, chacun calibré par tranche d'âge. Une session du jeu vidéo Biumiz dure 15 minutes maximum, à raison d'une à deux sessions par semaine.</p>
+		<p>Conformément aux recommandations officielles, Ki-tämi est conçu pour les enfants à partir de 4 ans. Il est découpé en plusieurs niveaux, chacun calibré par tranche d'âge. Une session du jeu vidéo Ki-tämi dure 15 minutes maximum, à raison d'une à deux sessions par semaine.</p>
       </details>
       <details class="faq-parent">
         <summary>Les jeux vidéo ne sont-ils pas nocifs pour les enfants ?</summary>
 		<p>Ce qui rend les écrans nocifs, c'est l'appauvrissement des interactions sociales. Nos jeux sont conçus pour être un prétexte à l'échange en famille ou en classe. Le jeu vidéo immerge l'enfant dans les notions, puis le jeu de société rassemble tout le monde pour pratiquer ensemble.</p>
       </details>
       <details class="faq-parent">
-        <summary>Les enseignants peuvent-ils utiliser Biumiz en classe ?</summary>
+        <summary>Les enseignants peuvent-ils utiliser Ki-tämi en classe ?</summary>
 		<p>Absolument ! Nos jeux sont alignés avec les programmes de l'Education Nationale, avec le Cadre Européen Commun de Référence pour les Langues et les recommandations de Santé Publique France sur les CPS. Les différents supports papiers et numériques offrent une flexibilité pédagogique complète.</p>
       </details>
     </div>
@@ -281,11 +276,11 @@ const IndexFaqSchema = JSON.stringify({
 
 	<section class="section section--tinted" id="Equipe">
 		<div class="container" style="text-align: center;">
-			<p class="section-eyebrow">Les créateurs.trices de Biumiz</p>
+			<p class="section-eyebrow">Les créateurs.trices de Ki-tämi</p>
 			<h2 class="section-heading-pikico">L'équipe</h2>
 			<p class="section-lead">
-			Biumiz est le résultat de l'étroite collaboration entre des expert.e.s de différents métiers.
-			<p>
+			Ki-tämi est le résultat de l'étroite collaboration entre des expert.e.s de différents métiers.
+			</p>
 			<div class="team-list">
 				{team.map((member) => (
 					<div class="team-card">
@@ -312,7 +307,7 @@ const IndexFaqSchema = JSON.stringify({
 		<a href="/inscription" class="btn-primary">Rejoignez l'aventure !</a>
 	</section>
 
-</BiumizLayout>
+</KitamiLayout>
 
 <style>
 	/* Base de la section avec le violet foncé d'origine */
@@ -401,7 +396,7 @@ const IndexFaqSchema = JSON.stringify({
 	}
 
 	.section--tinted {
-		background: linear-gradient(to bottom, var(--biumiz-bg-start), var(--biumiz-bg-end)) !important;
+		background: linear-gradient(to bottom, var(--kitami-bg-start), var(--kitami-bg-end)) !important;
 		color: var(--white) !important;
 	}
 
@@ -502,7 +497,7 @@ const IndexFaqSchema = JSON.stringify({
 		position: absolute;
 		left: 0;
 		top: 0;
-		color: var(--dark-yellow); /* Utilise le jaune de votre charte graphique Biumiz */
+		color: var(--dark-yellow); /* Utilise le jaune de votre charte graphique Ki-tami */
 		font-weight: 900; /* Rend la coche un peu plus épaisse */
 		font-size: 1.2rem;
 	}

@@ -1,5 +1,5 @@
 /* ================================
-	Biumiz — Design System
+	Ki-tami — Design System
 	Zone "produit" : ton vibrant
 	(conserve l'identité actuelle)
 ================================ */
@@ -13,8 +13,8 @@
 }
 
 :root {
-	--biumiz-bg-start:    rgb(24, 15, 50);
-	--biumiz-bg-end:      rgb(105, 29, 110);
+	--kitami-bg-start:    rgb(24, 15, 50);
+	--kitami-bg-end:      rgb(105, 29, 110);
 	--white:              #ffffff;
 	--dark-yellow:        #ffc23b;
 	--light-yellow:       #ffe67d;
@@ -25,6 +25,7 @@
 	--dark-purple:        #4b5563;
 	--light-purple:       #E9E5F6;
 	--deep-blue:		  #152CCE;
+	--pikico-accent:      #6B46A0;   /* violet médium */
 
 	--font-display:       'Caveat Brush', cursive;
 	--font-body:          'Montserrat', sans-serif;
@@ -99,7 +100,7 @@ strong {
 }
 
 
-/* Boutons Biumiz */
+/* Boutons Kitami */
 .btn-primary {
 	background: var(--dark-yellow);
 	color: black;
@@ -121,7 +122,7 @@ strong {
 	box-shadow: 0 10px 25px rgba(249, 178, 51, 0.3);
 }
 
-/* Nav Biumiz */
+/* Nav Kitami */
 .nav {
 	background: var(--light-purple);
 	padding: 0 2%;
@@ -219,7 +220,7 @@ strong {
 	}
 }
 
-/* Footer Biumiz */
+/* Footer Kitami */
 .footer {
 	background: #0f172a;
 	color: #94a3b8;

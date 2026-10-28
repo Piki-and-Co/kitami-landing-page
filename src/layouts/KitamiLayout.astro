@@ -1,10 +1,10 @@
 ---
-import '@styles/biumiz.css';
+import '@styles/Kitami.css';
 import { Image } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 
 import logoImage from '@assets/logo.webp';
-import logoBiumizFull from '@assets/Logo_Biumiz-Full.webp';
+import logoKitamiDark from '@assets/LogoKitamiLight.webp';
 import linkedin from '@assets/Social-Linkedin_White.webp';
 import instagram from '@assets/Social-Insta_White.webp';
 import tiktok from '@assets/Social-TikTok_White.webp';
@@ -21,7 +21,7 @@ interface Props {
 
 const {
   title,
-  description = "Biumiz — L'application qui accompagne votre enfant.",
+  description = "Ki-tämi — L'application qui accompagne votre enfant.",
   image,
   faqSchema,
   breadcrumbs = [],
@@ -44,12 +44,12 @@ const breadcrumbSchema = breadcrumbs.length > 0 ? JSON.stringify({
 }) : null;
 const ogImage = image
   ? new URL(image, Astro.site).href
-  : new URL('/assets/logo.png', Astro.site).href;
+  : new URL('/assets/LogoKitamiLight.png', Astro.site).href;
 
 const appSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Biumiz",
+  "name": "Ki-tämi",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web, iOS, Android",
   "description": "Application éducative qui accompagne les enfants de 4 à 10 ans dans le développement des compétences psychosociales via des jeux vidéo immersifs et engageants.",
@@ -59,7 +59,7 @@ const appSchema = JSON.stringify({
     "name": "Piki & Co",
     "url": "https://piki-and-co.com",
   },
-  "url": "https://biumiz.piki-and-co.com/",
+  "url": "https://ki-tami.com/",
 });
 ---
 
@@ -71,23 +71,24 @@ const appSchema = JSON.stringify({
 		<meta name="description" content={description} />
 		<meta name="author" content="Piki & Co" />
 		<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-		<title>{title} | Biumiz</title>
+		<title>{title} | Ki-tämi</title>
 		<BaseHead />
 		<link rel="canonical" href={canonicalUrl} />
-		<link rel="icon" type="image/svg+xml" href="/assets/Logo_Biumiz-Full.svg" />
+		<link rel="icon" type="image/png" href="/assets/IcoKitami.png" />
+		<link rel="apple-touch-icon" href="/assets/LogoPhoneKitami.png" />
 
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:title" content={`${title} | Biumiz`} />
+		<meta property="og:title" content={`${title} | Ki-tämi`} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:locale" content="fr_FR" />
-		<meta property="og:site_name" content="Biumiz by Piki & Co" />
+		<meta property="og:site_name" content="Ki-tämi by Piki & Co" />
 
 		<!-- Twitter / X -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={`${title} | Biumiz`} />
+		<meta name="twitter:title" content={`${title} | Ki-tämi`} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
@@ -123,7 +124,6 @@ const appSchema = JSON.stringify({
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
 		<slot name="head" />
-
 		{faqSchema && <script type="application/ld+json" set:html={faqSchema} />}
 	</head>
 

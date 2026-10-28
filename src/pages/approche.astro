@@ -1,9 +1,9 @@
 ---
-import BiumizLayout from '@/layouts/BiumizLayout.astro';
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
 
 import { Image } from 'astro:assets';
 
-import biumizSmile from '@assets/Biumiz_Smile.webp';
+import kitamiSmile from '@assets/Kitami_Smile.webp';
 import tomAmazed from '@assets/Tom_Amazing.webp';
 import tomLaugh from '@assets/Tom_Laugh.webp';
 
@@ -38,16 +38,12 @@ const ApprocheFaqSchema = JSON.stringify({
 	],
 });
 ---
-<BiumizLayout
+<KitamiLayout
 		title="Notre approche"
 		description="Une toute nouvelle pédagogie issue de la recherche publique française en sciences humaines"
-		breadcrumbs={[{ name: 'Biumiz', href: '/' }, { name: 'Notre approche', href: '/approche' }]}
-		faqScema = {ApprocheFaqSchema}
+		breadcrumbs={[{ name: 'Ki-tämi', href: '/' }, { name: 'Notre approche', href: '/approche' }]}
+		faqSchema = {ApprocheFaqSchema}
 >
-	<Fragment slot="head">
-		<script type="application/ld+json" set:html={ApprocheFaqSchema}/>
-  	</Fragment>
-
 
 	<!-- Notre approche -->
 	<section class="section section--tinted" id="Approche">
@@ -61,8 +57,8 @@ const ApprocheFaqSchema = JSON.stringify({
 			<div class="piliers-list">
 				<div class="pilier-row">
 					<div class="pilier-image">
-						<Image src={biumizSmile} alt="S'ouvrir par les langues" 
-						width={1061} height={1031} format="webp" />
+						<Image src={kitamiSmile} alt="S'ouvrir par les langues"
+							   width={1061} height={1031} format="webp" />
 					</div>
 					<div class="pilier-content">
 						<h3 class="pilier-title"><span class="pilier-number">1</span> S'ouvrir par les langues</h3>
@@ -166,8 +162,8 @@ const ApprocheFaqSchema = JSON.stringify({
 					<i><a href="https://dl.acm.org/doi/abs/10.1145/950566.950595" 
 						  target="_blank" rel="noopener noreferrer">What video games have to teach us about learning and literacy.</a>
 					</i> Palgrave Macmillan.</li>
-				<li>Greenfield, P. 1994. 
-					<a href="https://www.cdmc.ucla.edu/wp-content/uploads/sites/170/2018/05/greenfield_1994.pdf" 
+				<li>Greenfield, P. 1994.
+					<i><a href="https://www.cdmc.ucla.edu/wp-content/uploads/sites/170/2018/05/greenfield_1994.pdf"
 					target="_blank" rel="noopener noreferrer">Les jeux vidéo comme instruments de socialisation cognitive.</a>
 					</i> Dans <i>Les jeux vidéo, Réseaux, 12,</i> n°67, 33-56.</li>
 				<li>Jenkins, H. & American Council of Learned Societies. 2006. 
@@ -210,6 +206,7 @@ const ApprocheFaqSchema = JSON.stringify({
         </ul>
         <p>Quelques ressources utiles : <a href="https://pegi.info/fr/page/game-advice" target="_blank" rel="noopener noreferrer">PEGI</a>, <a href="https://www.mon-enfant-et-les-ecrans.fr/" target="_blank" rel="noopener noreferrer">Mon enfant et les écrans (UNAF)</a>.</p>
       </details>
+	</div>
 	</section>
 
 	<section class="cta-section">
@@ -218,7 +215,7 @@ const ApprocheFaqSchema = JSON.stringify({
 	</section>
 
 
-</BiumizLayout>
+</KitamiLayout>
 <style>
 	
 	.section { 
@@ -227,7 +224,7 @@ const ApprocheFaqSchema = JSON.stringify({
 	}
 	
 	.section--tinted {
-		background: linear-gradient(to bottom, var(--biumiz-bg-start), var(--biumiz-bg-end)) !important;
+		background: linear-gradient(to bottom, var(--kitami-bg-start), var(--kitami-bg-end)) !important;
 		color: var(--white) !important;
 	}
 
