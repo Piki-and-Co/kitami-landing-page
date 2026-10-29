@@ -10,7 +10,7 @@
  */
 
 tarteaucitron.init({
-  "privacyUrl":        "https://piki-and-co.com/legal/cookies",    /* Lien vers la politique cookies */
+  "privacyUrl":        "/legal/cookies",    /* Lien vers la politique cookies */
   "bodyPosition":      "bottom",
   "hashtag":           "#cookies",
   "cookieName":        "tarteaucitron",
@@ -33,7 +33,7 @@ tarteaucitron.init({
   "useExternalCss":    false,                   /* Utiliser le CSS intégré à tarteaucitron */
   "useExternalJs":     false,
 
-  "readmoreLink":      "https://piki-and-co.com/legal/cookies",    /* Lien "en savoir plus" */
+  "readmoreLink":      "legal/cookies",    /* Lien "en savoir plus" */
 
   "mandatory":         true,                    /* Afficher la catégorie "cookies nécessaires" */
   "mandatoryCta":      true,

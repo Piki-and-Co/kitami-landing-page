@@ -1,0 +1,45 @@
+---
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
+
+const contactEmail = 'contact@piki-and-co.com';
+---
+
+<KitamiLayout
+  title="Politique de confidentialité — Play Store"
+  description="Politique de confidentialité de l’application (déclaration Data Safety Google Play) : données collectées, usages, prestataires et contact."
+  breadcrumbs={[{ name: 'Politique de confidentialité Play Store', href: '/confidentialite/playstore' }]}
+>
+  <div class="mentions men-section">
+    <div class="prose">
+      <h1>Politique de confidentialité — Play&nbsp;Store (Data Safety)</h1>
+      <p>Cette page décrit les données collectées par l’application mobile, les finalités de ces traitements et les prestataires techniques concernés. Elle correspond à la déclaration <strong>Data Safety</strong> de Google Play.</p>
+
+      <h2>Données collectées</h2>
+      <p>L’application collecte un identifiant d’installation anonyme unique afin d’associer les sessions de jeu et de mesurer l’utilisation. Elle enregistre également des données d’usage et d’interaction, notamment&nbsp;:</p>
+      <ul>
+        <li>le temps passé dans l’application&nbsp;;</li>
+        <li>les scènes et chapitres consultés&nbsp;;</li>
+        <li>les clics, sélections, pauses et demandes d’aide&nbsp;;</li>
+        <li>des événements de gameplay et de progression.</li>
+        <li>version du jeu, version du système, taille et densité de l’écran</li>
+      </ul>
+
+      <h2>Finalités</h2>
+      <p>Ces données sont utilisées pour:</p>
+      <ul>
+        <li>mieux comprendre vos attentes et vos besoins afin de vous proposer une expérience plus utile et agréable. En partageant vos données, vous nous aidez à améliorer continuellement nos services pour qu’ils vous correspondent toujours mieux.</li>
+        <li>analyser les performances techniques et corriger les éventuels problèmes, afin de vous offrir une expérience de jeu toujours plus fluide et agréable.</li>
+      </ul>
+      <p>Elles peuvent également être partagées, avec consentement, afin de permettre aux tuteurs et enseignants de suivre la progression pédagogique des enfants (activités réalisées, temps passé, résultats de mini-jeux).</p>
+
+      <h2>Prestataires et transmission</h2>
+      <p>Les diagnostics sont transmis à un service tiers de monitoring (<strong>Sentry (UE)</strong>). Les données sont temporaires et peuvent être stockées localement sur l’appareil avant leur envoi, puis transmises via des connexions sécurisées à nos serveurs et à des prestataires techniques.</p>
+
+      <h2>Données non collectées</h2>
+      <p>L’application ne collecte pas de localisation GPS, de contacts, de photos, de vidéos, de données microphone, ni de données bancaires. Elle n’utilise pas de services publicitaires ni de suivi ciblé.</p>
+
+      <h2>Contact</h2>
+      <p>Pour toute question relative à cette politique ou pour supprimer vos données&nbsp;: <a href={`mailto:${contactEmail}`}>{contactEmail}</a></p>
+    </div>
+  </div>
+</KitamiLayout>

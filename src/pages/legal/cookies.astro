@@ -1,0 +1,81 @@
+---
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
+---
+
+<KitamiLayout title="Politique de cookies" description="Politique de cookies et traceurs de ki-tami.com, un site édité par Piki & Co.">
+  <style>
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; font-size: 0.875rem; }
+    th, td { border: 1px solid var(--pikico-border); padding: 0.6rem 0.8rem; text-align: left; }
+    th { background: var(--pikico-bg-tinted); font-weight: 600; color: var(--pikico-title); }
+  </style>
+
+  <div class="mentions section">
+    <div class="prose">
+      <h1>Politique de Cookies</h1>
+
+      <h2>Qu'est-ce qu'un cookie ?</h2>
+      <p>Les cookies sont de petits fichiers texte qu'un site web enregistre sur votre ordinateur ou votre appareil mobile lorsque vous le visitez. Ils facilitent votre expérience en ligne en sauvegardant les informations de navigation.</p>
+      <p>En général, les cookies peuvent être classés par :</p>
+      <ul>
+        <li><strong>Domaine</strong> : première partie (émis par le site visité) ou tiers (émis par un service externe).</li>
+        <li><strong>Objectif</strong> : strictement nécessaires, préférences, statistiques, marketing.</li>
+        <li><strong>Durée</strong> : session (supprimés à la fermeture du navigateur) ou persistants.</li>
+      </ul>
+
+      <h2>Cookies strictement nécessaires</h2>
+      <table>
+        <thead>
+          <tr><th>Identifiant</th><th>Domaine</th><<th>Expiration</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>__Secure-ENID</td>
+            <td>.google.com</td>
+            <td>6 mois</td>
+            <td>Utilisé par le reCAPTCHA. Enregistre des préférences, telles que la langue et est utilisé à des fins de sécurité</td>
+          </tr>
+          <tr>
+            <td>SEARCH_SAMESITE</td>
+            <td>.google.com</td>
+            <td>6 mois</td>
+            <td>Cookie technique utilisé par Google pour gérer les règles « SameSite » du navigateur.</td>
+          </tr>
+          <tr>
+            <td>AEC</td>
+            <td>.google.com</td>
+            <td>6 mois</td>
+            <td>Enregistre les préférences de l’utilisateur, telles que la langue choisie, le nombre de résultats de recherche par page, les paramètres de SafeSearch et les fonctionnalités personnalisées.</td>
+          </tr>
+          <tr>
+            <td>NID</td>
+            <td>.google.com</td>
+            <td>6 mois</td>
+            <td>Détecte le spam, la fraude et les abus afin de garantir que les annonceurs ne soient pas facturés indûment pour des impressions ou des interactions publicitaires invalides ou frauduleuses.</td>
+          </tr>
+          <tr>
+            <td>SOCS</td>
+            <td>.google.com</td>
+            <td>13 mois</td>
+            <td>Enregistre les choix actuels de l'utilisateur concernant le consentement aux cookies et les préférences en matière de confidentialité.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Cookies marketing (à venir)</h2>
+      <p>Nous prévoyons d'intégrer prochainement des outils marketing (Google Ads, Meta/Facebook Pixel). Ces cookies ne seront jamais déposés sans votre consentement préalable. Cette page sera mise à jour en conséquence.</p>
+
+      <h2>Gérer vos préférences</h2>
+      <p>Lors de votre première visite, un bandeau vous propose d'accepter ou de refuser les cookies. Vous pouvez modifier vos choix à tout moment en cliquant sur
+        <strong><a href="#" onclick="tarteaucitron.userInterface.openPanel();return false;">Gérer mes cookies</a></strong>.
+        Votre choix est conservé pendant <strong>6 mois</strong>.
+      </p>
+      <p>Vous pouvez également configurer votre navigateur :</p>
+      <ul>
+        <li><strong>Chrome</strong> : Paramètres → Confidentialité et sécurité → Cookies</li>
+        <li><strong>Firefox</strong> : Paramètres → Vie privée et sécurité → Cookies</li>
+        <li><strong>Safari</strong> : Préférences → Confidentialité</li>
+        <li><strong>Edge</strong> : Paramètres → Cookies et autorisations de site</li>
+      </ul>
+    </div>
+  </div>
+</KitamiLayout>
