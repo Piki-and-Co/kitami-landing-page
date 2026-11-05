@@ -28,36 +28,48 @@ import KitamiLayout from '@/layouts/KitamiLayout.astro';
           <tr><th>Identifiant</th><th>Domaine</th><th>Expiration</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>__Secure-ENID</td>
-            <td>.google.com</td>
-            <td>6 mois</td>
-            <td>Utilisé par le reCAPTCHA. Enregistre des préférences, telles que la langue et est utilisé à des fins de sécurité</td>
-          </tr>
-          <tr>
-            <td>SEARCH_SAMESITE</td>
-            <td>.google.com</td>
-            <td>6 mois</td>
-            <td>Cookie technique utilisé par Google pour gérer les règles « SameSite » du navigateur.</td>
-          </tr>
-          <tr>
-            <td>AEC</td>
-            <td>.google.com</td>
-            <td>6 mois</td>
-            <td>Enregistre les préférences de l’utilisateur, telles que la langue choisie, le nombre de résultats de recherche par page, les paramètres de SafeSearch et les fonctionnalités personnalisées.</td>
-          </tr>
-          <tr>
-            <td>NID</td>
-            <td>.google.com</td>
-            <td>6 mois</td>
-            <td>Détecte le spam, la fraude et les abus afin de garantir que les annonceurs ne soient pas facturés indûment pour des impressions ou des interactions publicitaires invalides ou frauduleuses.</td>
-          </tr>
-          <tr>
-            <td>SOCS</td>
-            <td>.google.com</td>
-            <td>13 mois</td>
-            <td>Enregistre les choix actuels de l'utilisateur concernant le consentement aux cookies et les préférences en matière de confidentialité.</td>
-          </tr>
+        <tr>
+          <td>tarteaucitron</td>
+          <td>.piki-and-co.com</td>
+          <td>Première partie</td>
+          <td>6 mois</td>
+          <td>Enregistre vos choix de consentement. Exempté de consentement conformément aux recommandations de la CNIL.</td>
+        </tr>
+        <tr>
+          <td>__Secure-ENID</td>
+          <td>.google.com</td>
+          <td>Tiers</td>
+          <td>6 mois</td>
+          <td>Utilisé par le reCAPTCHA. Enregistre des préférences, telles que la langue et est utilisé à des fins de sécurité</td>
+        </tr>
+        <tr>
+          <td>SEARCH_SAMESITE</td>
+          <td>.google.com</td>
+          <td>Tiers</td>
+          <td>6 mois</td>
+          <td>Cookie technique utilisé par Google pour gérer les règles « SameSite » du navigateur.</td>
+        </tr>
+        <tr>
+          <td>AEC</td>
+          <td>.google.com</td>
+          <td>Tiers</td>
+          <td>6 mois</td>
+          <td>Enregistre les préférences de l’utilisateur, telles que la langue choisie, le nombre de résultats de recherche par page, les paramètres de SafeSearch et les fonctionnalités personnalisées.</td>
+        </tr>
+        <tr>
+          <td>NID</td>
+          <td>.google.com</td>
+          <td>Tiers</td>
+          <td>6 mois</td>
+          <td>Détecte le spam, la fraude et les abus afin de garantir que les annonceurs ne soient pas facturés indûment pour des impressions ou des interactions publicitaires invalides ou frauduleuses.</td>
+        </tr>
+        <tr>
+          <td>SOCS</td>
+          <td>.google.com</td>
+          <td>Tiers</td>
+          <td>13 mois</td>
+          <td>Enregistre les choix actuels de l'utilisateur concernant le consentement aux cookies et les préférences en matière de confidentialité.</td>
+        </tr>
         </tbody>
       </table>
 
@@ -65,8 +77,7 @@ import KitamiLayout from '@/layouts/KitamiLayout.astro';
       <p>Nous prévoyons d'intégrer prochainement des outils marketing (Google Ads, Meta/Facebook Pixel). Ces cookies ne seront jamais déposés sans votre consentement préalable. Cette page sera mise à jour en conséquence.</p>
 
       <h2>Gérer vos préférences</h2>
-      <p>Lors de votre première visite, un bandeau vous propose d'accepter ou de refuser les cookies. Vous pouvez modifier vos choix à tout moment en cliquant sur
-        <strong><a href="#" onclick="tarteaucitron.userInterface.openPanel();return false;">Gérer mes cookies</a></strong>.
+      <p>Lors de votre première visite, un bandeau vous propose d'accepter ou de refuser les cookies. Vous pouvez modifier vos choix à tout moment en cliquant sur <strong><a href="#" onclick="tarteaucitron.userInterface.openPanel();return false;">Gérer mes cookies</a></strong>.
         Votre choix est conservé pendant <strong>6 mois</strong>.
       </p>
       <p>Vous pouvez également configurer votre navigateur :</p>
