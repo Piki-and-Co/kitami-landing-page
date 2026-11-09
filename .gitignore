@@ -4,4 +4,6 @@ dist/
 .astro/
 *.swp
 .DS_Store
-.idea
+.idea/
+/.claude/
+/CLAUDE.md

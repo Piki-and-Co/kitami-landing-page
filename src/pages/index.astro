@@ -1,660 +1,469 @@
 ---
+/*
+ * Accueil — proof of concept d'après le prototype Lovable du CMO
+ * (https://lovable.dev/preview/FrcsinskkN63aEM3ZxMck3scYg2HXXZA, relevé le 2026-11-05).
+ *
+ * - Textes : repris mot pour mot du prototype.
+ * - Couleurs / espacements / breakpoints : repris de la feuille de style servie par le prototype
+ *   (tokens oklch + classes Tailwind), traduits en CSS scopé à cette page.
+ * - Polices : celles du projet (Caveat Brush pour l'affichage, Montserrat pour le texte)
+ *   à la place de Fredoka / Raleway utilisées par le prototype.
+ * - Navigation et pied de page (mentions légales, confidentialité, cookies) : KitamiLayout.
+ * - Tout ce que le prototype laisse vide est marqué TODO(maintainer), visible sur la page.
+ */
 import KitamiLayout from '@/layouts/KitamiLayout.astro';
-
 import { Image } from 'astro:assets';
-import imgLandingPage from '@assets/LandingPage.webp';
-import conectus from '@assets/CONECTUS-BaselineFR_HD2018_Blanc.webp';
-import cnrs from '@assets/LOGO_CNRS_HD.webp';
-import unistra from '@assets/Unistra2_HD_FondBlanc.webp';
+
 import logoKitamiLight from '@assets/LogoKitamiLight.webp';
-import logoEMS from '@assets/LogoEMS.webp';
-import logoAccro from '@assets/LogoAccro.webp';
-import logoTS2026 from '@assets/LogoTangoScan-2026.webp';
+import imgJeuVideo from '@assets/KitamiJeuVideo.webp';
+import imgJeuPlateau from '@assets/KitamiJeuPlateau.webp';
+import imgLivretParents from '@assets/KitamiLivretParents.webp';
 
-import photoAmandine from '@assets/PhotoAmandine.webp';
-import photoAlex from '@assets/PhotoAlex.webp';
-import photoLaurence from '@assets/PhotoLaurence.webp';
-import photoIris from '@assets/PhotoIris.webp';
-import photoElodie from '@assets/PhotoElodie.webp';
-import photoCharlotte from '@assets/PhotoCharlotte.webp';
-import photoWren from '@assets/LogoWren.webp';
-import photoKubra from '@assets/PhotoKubra.webp';
-import photoMegane from '@assets/PhotoMegane.webp';
-import photoQais from '@assets/PhotoQais.webp';
-import photoEnzo from '@assets/PhotoEnzo.webp';
-
-
-const team = [
-	{
-		prenom: "Amandine",
-		nom: "Piguel",
-		poste: "Co-inventrice de Ki-tämi, directrice produit",
-		description: "A partir des retours des utilisateurs et experts, définit les évolutions à apporter à Ki-tämi.",
-		photo: photoAmandine
-	},
-	{
-		prenom: "Laurence",
-		nom: "Schmoll",
-		poste: "Chercheuse & co-inventrice de Ki-tämi",
-		description: "Spécialiste en didactique des langues et conception de jeux sérieux, elle est l'autrice de la progression en didactique des langues et de l'ingénierie pédagogique.",
-		photo: photoLaurence
-	},	
-	{
-		prenom: "Iris",
-		nom: "Caulliez aka Gramophone",
-		poste: "Lead Game & Narrative Designer",
-		description: "Responsable de la conception du jeu, définit les contraintes ludiques et conçoit les expériences interactives et les histoires qui le composent.",
-		photo: photoIris
-	},
-	{
-		prenom: "Charlotte",
-		nom: "Gahmia",
-		poste: "Graphiste/Illustratrice",
-		description: "Créatrice de l'univers visuel de Ki-tämi et des personnages.",
-		photo: photoCharlotte
-	},
-	{
-		prenom: "Elodie",
-		nom: "Magnier",
-		poste: "Orthopédagogue & Neuropédagogue",
-		description: "Responsable de l'adéquation du jeu aux besoins des enfants, autrice de la progression en didactique des CPS.",
-		photo: photoElodie
-	},
-	{
-		prenom: "Kubra",
-		nom: "Dag",
-		poste: "Ingénieure pédagogique",
-		description: "Conçoit l'accompagnement pédagogique de l'adulte et les jeux de société.",
-		photo: photoKubra
-	},
-	{
-		prenom: "Alexandre",
-		nom: "Richard",
-		poste: "Directeur technique (CTO)",
-		description: "Définit et pilote la stratégie technologique.",
-		photo: photoAlex
-	},
-	{
-		prenom: "Wren",
-		nom: "Davies",
-		poste: "Graphiste/Illustratrice",
-		description: "Au côté de Charlotte, dessine les décors et les objets du jeu.",
-		photo: photoWren
-	},
-	{
-		prenom: "Mégane",
-		nom: "Cuvelier",
-		poste: "Graphiste/Illustratrice",
-		description: "Au côté de Charlotte, dessine les personnages du jeu.",
-		photo: photoMegane
-	},
-	{
-		prenom: "Qais",
-		nom: "Beguellel",
-		poste: "VFX Artist/Animateur",
-		description: "Produit les effets spéciaux visuels et les animations nécessaire à l'expérience ludique imaginée par Iris.",
-		photo: photoQais
-	},
-	{
-		prenom: "Enzo",
-		nom: "Berti",
-		poste: "Game Developer / Intégrateur",
-		description: "Agence tous les éléments à l'écran et implémente leur interactivité pour donner vie à l'expérience ludique imaginée par Iris.",
-		photo: photoEnzo
-	}
+const stats = [
+	{ value: "10 ans", label: "de recherche" },
+	{ value: "Plusieurs milliers d'€", label: "investis" },
+	{ value: "De nombreux tests", label: "auprès d'enfants et de classes" },
+	{ value: "Un prix de l'innovation", label: "pour l'une de nos chercheuses" },
 ];
 
+const supports = [
+	{ title: "Un jeu vidéo", image: imgJeuVideo },
+	{ title: "Un jeu de plateau", image: imgJeuPlateau },
+	{ title: "Un livret pour les parents", image: imgLivretParents },
+];
 
-const IndexFaqSchema = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-  {
-	"@type": "Question",
-	"name": "A partir de quel âge mon enfant peut jouer ?",
-	"acceptedAnswer": {
-	"@type": "Answer",
-	"text": "Conformément aux recommandations officielles, Ki-tämi est conçu pour les enfants à partir de 4 ans. Il est découpé en plusieurs niveaux, chacun calibré par tranche d'âge. Une session du jeu vidéo Ki-tämi dure 15 minutes maximum. Nous recommandons 1 à 2 sessions par semaine.",
-      }
-	},
-	{
-	"@type": "Question",
-	"name": "Les jeux vidéo ne sont-ils pas nocifs pour les enfants ?",
-	"acceptedAnswer": {
-	"@type": "Answer",
-	"text": "Ce qui rend les écrans nocifs, c'est l'appauvrissement des interactions sociales. Nos jeux sont conçus pour être un prétexte à l'échange en famille ou en classe. Le jeu vidéo immerge l'enfant dans les notions, puis le jeu de société rassemble tout le monde pour pratiquer ensemble.",
-      }
-	},
-	{
-	"@type": "Question",
-	"name": "Les enseignants peuvent-ils utiliser Ki-tämi en classe ?",
-	"acceptedAnswer": {
-	"@type": "Answer",
-	"text": "Absolument ! Nos jeux sont alignés avec les programmes de l'Education Nationale, avec le Cadre Européen Commun de Référence pour les Langues et les recommandations de Santé Publique France sur les CPS. Les différents supports papiers et numériques offrent une flexibilité pédagogique complète.",
-      }
+const reasons = [
+	"C'est entre 4 et 10 ans que se construit la relation aux autres.",
+	"C'est à cet âge que l'apprentissage des langues est le plus facile et le plus efficace.",
+	"Un usage raisonné des écrans est un outil puissant.",
+];
 
-	}
-   ],
-});
+const videos = ["Vidéo 1", "Vidéo 2"];
+
+// Ordre et libellés du prototype. URLs reprises de KitamiLayout.astro quand elles existent.
+const socials: Array<{ name: string; href: string | null }> = [
+	{ name: "Instagram", href: "https://www.instagram.com/piki.and.co/" },
+	{ name: "Facebook", href: "https://www.facebook.com/61588273838732" },
+	{ name: "WhatsApp", href: null }, // TODO(maintainer): aucune URL WhatsApp dans le projet ni dans le prototype
+	{ name: "YouTube", href: "https://www.youtube.com/@PikiAndCo" },
+	{ name: "LinkedIn", href: "https://www.linkedin.com/company/piki-and-co" },
+];
 ---
 
 <KitamiLayout
-		title="Ki-tämi, le jeu qui fait grandir par les langues"
-		description="Accompagnez votre enfant dans le développement de ses compétences cognitives, émotionnelles et relationnelles."
-		faqSchema = {IndexFaqSchema}
-		>
+	title="Le jeu multi-support des 4-10 ans"
+	description="Ki-Tämi : jeu vidéo, jeu de plateau et livret pour renforcer les compétences humaines des enfants et les éveiller à l'anglais."
+>
+	<div class="accueil">
 
-	<!-- Hero -->
-	<section class="section section--tinted hero-section">
-		<div class="hero-container">
-			<div class="hero-content">
-				<div class="logo-wrapper">
-					<Image src={logoKitamiLight} alt="Ki-tami" width={1014} height={661} loading="eager" format="webp"/>
-				</div>
-				<p class="section-eyebrow">Pour les enfants de 4 à 10 ans</p>
-				<h1 class="hero-title">Ki-tämi, le jeu qui construit
-					<span class="highlight">l'équilibre mental</span> de votre enfant</h1>
-				<p class="hero-description">
-					Faites vivre de grandes histoires à votre enfant avec Ki-tämi !
-					Plongé dans un univers ludique, positif, engageant et profondément respectueux de ses besoins,
-					votre enfant développe ses compétences humaines en apprenant à communiquer en anglais,
-					tout en s'amusant en famille ou en classe !
-				</p>
-				<div class="hero-ctas">
-					<a href="/inscription" class="btn btn-primary">S'inscrire !</a>
-				</div>
-			</div>
-				<div class="hero-image-container">
-					<div class="hero-image-wrapper">
-						<Image src={imgLandingPage} alt="Rejoingez Ki-tämi dans ses aventures !"
-						width={1600} height={1040} loading="eager" format="webp"/>
-				</div>
-			</div>
-		</div>
-	</section>	
-	
-	<!-- Conçu pour vous -->
-	<section class="section " id="PourVous">
-		<div class="container">
-			<p class="section-eyebrow">Conçu pour vous et avec vous</p>
-			<h2 class="section-heading">Un produit ancré dans votre quotidien</h2>
-			<p class="section-lead">
-				Depuis ses tous débuts, Ki-tämi est co-construit avec des parents et des professionnel·le·s des enfants
-				pour être au plus proche de vos besoins et de votre réalité. 				
+		<!-- Hero -->
+		<section class="hero">
+			<h1 class="hero-logo">
+				<Image src={logoKitamiLight} alt="Ki-Tämi" width={965} height={465} loading="eager" format="webp" />
+			</h1>
+			<p class="hero-tagline">
+				Le 1er jeu multi-support pour les 4-10 ans qui renforce les compétences humaines de vos enfants,
+				en les éveillant à l'anglais
 			</p>
-			<div class="grid">
-				<div class="card">
-					<span class="icon">👨‍👩‍👧‍👦</span>
-					<h3>Parents</h3>
-					<p>Offrez à votre enfant les compétences nécessaire à son épanouissement 
-						et son bien-être mental et émotionnel tout au long de sa vie. 
-					</p>
-					<ul class="custom-features-list">
-						<li>Jeux conçus avec des chercheur·se·s universitaires</li>
-						<li>Usage du numérique sain et encadré : environ 15 minutes une à deux fois par semaine</li>
-						<li>Moments de partage en famille avec le jeu de société</li>
-						<li>Apprentissage des langues étrangères par l'immersion orale</li>
-						<li>Adapté à chaque tranche d'âge</li>
-					</ul>
-				</div>
-				<div class="card">
-					<span class="icon">🎓</span>
-					<h3>Enseignant·e·s de primaire</h3>
-					<p>Un outil clef en main pour développer les compétences psychosociales de vos élèves et 
-					enseigner l'anglais.</p>
-					<ul class="custom-features-list">
-						<li>Aligné avec les programmes de l'Education Nationale, les recommandations de Santé Publique France
-						et le CECRL.</li>
-						<li>Développe les trois familles de compétences psychosociales</li>
-						<li>Apprentissage des langues étrangères par une approche communicative et actionnelle</li>
-					</ul>
-
-				</div>
+			<div class="stats">
+				{stats.map((s) => (
+					<div class="stat">
+						<div class="stat-value">{s.value}</div>
+						<div class="stat-label">{s.label}</div>
+					</div>
+				))}
 			</div>
+		</section>
 
-		</div>
-	</section>
-
-	<!-- Partenaires -->
-	<section class="section section--tinted" id="partenaires">
-		<div class="container">
-			<p class="section-eyebrow">Nous travaillons ensemble</p>
-			<h2 class="section-heading">Nos partenaires</h2>
-			<div class="partners-grid">
-				<div class="partner-card">
-					<Image src={conectus} alt="SATT Conectus d'Alsace" 
-					width={640} height={208} loading="eager" format="webp"/>
-				</div>
-				<div class="partner-card">
-					<Image src={cnrs} alt="Centre Nationale de la Recherche Scientifique" 
-					width={705} height={705} loading="eager" format="webp"/>
-				</div>
-				<div class="partner-card">
-					<Image src={unistra} alt="Université de Strasbourg" 
-					width={662} height={238} loading="eager" format="webp"/>
-				</div>
+		<!-- Ki-Tämi, c'est : -->
+		<section class="block block--wide">
+			<h2 class="title">Ki-Tämi, c'est :</h2>
+			<div class="supports">
+				{supports.map((s) => (
+					<figure class="support">
+						<Image src={s.image} alt={s.title} widths={[400, 800]} sizes="(min-width: 48rem) 33vw, 100vw" format="webp" />
+						<figcaption>{s.title}</figcaption>
+					</figure>
+				))}
 			</div>
-		</div>
-		<div class="container">
-			<p class="section-eyebrow">Ils nous soutiennent</p>
-			<h2 class="section-heading">Nos soutiens</h2>
-			<div class="partners-grid">
-				<div class="partner-card">
-					<Image src={logoEMS} alt="Eurométropole de Strasbourg" 
-					width={614} height={120} loading="eager" format="webp"/>
-				</div>
-				<div class="partner-card">
-					<Image src={logoAccro} alt="Association Accro" 
-					width={400} height={400} loading="eager" format="webp"/>
-				</div>
-				<div class="partner-card">
-					<Image src={logoTS2026} alt="Concours Tango & Scan, lauréats 2026" 
-					width={553} height={165} loading="eager" format="webp"/>
-				</div>
-			</div>
-		</div>
-	</section>	
+		</section>
 
-  <!-- FAQ -->
-  <section class="section faq" id="faq">
-    <div class="container">
-      <p class="section-eyebrow">Question fréquentes</p>
-      <details class="faq-parent">
-        <summary>A partir de quel âge mon enfant peut jouer ?</summary>
-		<p>Conformément aux recommandations officielles, Ki-tämi est conçu pour les enfants à partir de 4 ans. Il est découpé en plusieurs niveaux, chacun calibré par tranche d'âge. Une session du jeu vidéo Ki-tämi dure 15 minutes maximum, à raison d'une à deux sessions par semaine.</p>
-      </details>
-      <details class="faq-parent">
-        <summary>Les jeux vidéo ne sont-ils pas nocifs pour les enfants ?</summary>
-		<p>Ce qui rend les écrans nocifs, c'est l'appauvrissement des interactions sociales. Nos jeux sont conçus pour être un prétexte à l'échange en famille ou en classe. Le jeu vidéo immerge l'enfant dans les notions, puis le jeu de société rassemble tout le monde pour pratiquer ensemble.</p>
-      </details>
-      <details class="faq-parent">
-        <summary>Les enseignants peuvent-ils utiliser Ki-tämi en classe ?</summary>
-		<p>Absolument ! Nos jeux sont alignés avec les programmes de l'Education Nationale, avec le Cadre Européen Commun de Référence pour les Langues et les recommandations de Santé Publique France sur les CPS. Les différents supports papiers et numériques offrent une flexibilité pédagogique complète.</p>
-      </details>
-    </div>
-  </section>
+		<!-- Crowdfunding -->
+		<section class="block block--center">
+			<p class="title title--lead">Vous voulez faire partie de l'aventure ?</p>
+			<a href="#" class="btn-crowdfunding" data-todo="crowdfunding-url">Participez à notre campagne de crowdfunding !</a>
+			<p class="todo">TODO(maintainer) : URL de la campagne de crowdfunding (vide dans le prototype)</p>
+		</section>
 
-	<section class="section section--tinted" id="Equipe">
-		<div class="container" style="text-align: center;">
-			<p class="section-eyebrow">Les créateurs.trices de Ki-tämi</p>
-			<h2 class="section-heading-pikico">L'équipe</h2>
-			<p class="section-lead">
-			Ki-tämi est le résultat de l'étroite collaboration entre des expert.e.s de différents métiers.
-			</p>
-			<div class="team-list">
-				{team.map((member) => (
-					<div class="team-card">
-						<div class="team-photo-wrapper">
-							<div class="photo-disk">
-								<Image src={member.photo} alt={`${member.prenom} ${member.nom}`}
-								width={300} height={300} format="webp"/>
-							</div>
+		<!-- Pourquoi c'est important ? -->
+		<section class="block block--narrow">
+			<h2 class="title">Pourquoi c'est important ?</h2>
+			<ol class="reasons">
+				{reasons.map((r, i) => (
+					<li><span class="reason-num" aria-hidden="true">{i + 1}</span>{r}</li>
+				))}
+			</ol>
+		</section>
+
+		<!-- Vidéos -->
+		<section class="block block--wide">
+			<h2 class="title">Découvrez Ki-Tämi en vidéo</h2>
+			<div class="videos">
+				{videos.map((v) => (
+					<figure class="video">
+						<div class="video-placeholder">
+							<span class="play" aria-hidden="true">
+								<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z" /></svg>
+							</span>
+							<span class="video-label">{v} — à venir</span>
 						</div>
-
-							<div class="team-info">
-								<h3 class="team-name">{member.prenom} <span>{member.nom}</span></h3>
-								<p class="team-role">{member.poste}</p>
-								<p class="team-description">{member.description}</p>
-							</div>
-						</div>
-					))}
+					</figure>
+				))}
 			</div>
-		</div>
-	</section>
+			<p class="todo">TODO(maintainer) : vidéos 1 et 2 (lien ou fichier, plateforme d'hébergement, consentement cookies si YouTube)</p>
+		</section>
 
-	<section class="cta-section">
-		<h2>Prêt à entrer dans l'aventure<br />qui fait grandir ?</h2>
-		<a href="/inscription" class="btn-primary">Rejoignez l'aventure !</a>
-	</section>
+		<!-- Newsletter -->
+		<section class="block block--form">
+			<p class="title title--lead">Vous souhaitez vous inscrire à notre newsletter ?</p>
+			<form class="newsletter" data-todo="newsletter-endpoint">
+				<label class="visually-hidden" for="newsletter-email">Votre adresse e-mail</label>
+				<input id="newsletter-email" type="email" name="email" required placeholder="Votre adresse e-mail" autocomplete="email" />
+				<button type="submit">Inscrivez-vous</button>
+			</form>
+			<p class="todo">TODO(maintainer) : destination du formulaire (même liste Brevo que /inscription ?) et mention RGPD</p>
+		</section>
 
+		<!-- Réseaux -->
+		<nav class="socials" aria-label="Réseaux sociaux">
+			{socials.map((s) => s.href
+				? <a href={s.href} target="_blank" rel="noopener noreferrer">{s.name}</a>
+				: <a href="#" data-todo="social-url">{s.name} <span class="todo todo--inline">TODO(maintainer) : URL</span></a>
+			)}
+		</nav>
+
+	</div>
 </KitamiLayout>
 
+<script>
+	// POC : tant que la destination n'est pas fournie, le formulaire ne part nulle part.
+	document.querySelector<HTMLFormElement>('form[data-todo="newsletter-endpoint"]')
+		?.addEventListener('submit', (e) => e.preventDefault());
+</script>
+
 <style>
-	/* Base de la section avec le violet foncé d'origine */
-	.hero-section {
-		padding: 4rem 4rem;
-		overflow: hidden;
+	/* Tokens du prototype (feuille de style Lovable servie, valeurs oklch d'origine). */
+	.accueil {
+		--night-background:  oklch(26% .1 320);
+		--night-foreground:  oklch(98% .01 320);
+		--night-card:        oklch(32% .12 320);
+		--night-muted-fg:    oklch(85% .04 320);
+		--night-border:      oklch(100% 0 0 / .15);
+		--night-input:       oklch(100% 0 0 / .2);
+		--night-primary:     oklch(76% .17 340);
+		--night-primary-fg:  oklch(99% 0 0);
+		--night-secondary:   oklch(85% .1 220);
+		--night-secondary-fg: oklch(25% .1 320);
+		--night-accent:      oklch(88% .15 90);
+		--night-accent-fg:   oklch(25% .1 320);
+		--night-radius:      calc(1.25rem + 8px);
+		--night-glow:        0 20px 50px -15px color-mix(in oklab, var(--night-primary) 60%, transparent);
+
+		background-color: var(--night-background);
+		background-image: radial-gradient(ellipse at 50% 40%, oklch(40% .16 325), oklch(22% .09 315) 75%);
+		color: var(--night-foreground);
+		font-family: var(--font-body);
+		line-height: 1.5;
+		padding-bottom: 3rem;
 	}
 
-	/* Layout en grille : 2 colonnes sur PC, 1 seule colonne empilée sur mobile */
-	.hero-container {
+	/* Caveat Brush n'existe qu'en graisse normale : on garde 400 pour éviter le faux gras. */
+	.title,
+	.stat-value,
+	.support figcaption,
+	.btn-crowdfunding,
+	.reason-num,
+	.video-label,
+	.newsletter button {
+		font-family: var(--font-display);
+		font-weight: 400;
+	}
+
+	/* --- Hero --- */
+	.hero {
+		max-width: 64rem;
 		margin: 0 auto;
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 3rem;
-		align-items: center;
-		width: 100%;
-		max-width: 24rem;
+		padding: 4rem 1.5rem 3rem;
+		text-align: center;
 	}
-
-	@media (min-width: 48rem) {
-		.hero-container {
-			grid-template-columns: 0.9fr 1.1fr; /* La colonne de texte est légèrement plus large */
-			max-width: 90rem;
-		}
-	}
-
-	.hero-ctas .btn-primary { 
-		margin-top: 1.5rem;
-		margin-bottom: 1.5rem;
-	}
-
-	/* Éléments de gauche */
-	.logo-wrapper {
-		width: 14rem;
-		height: auto;
-		margin-bottom: 2.5rem;
-	}
-	.logo-wrapper img {
-		width: 100%;
-		height: auto;
-		display: block; /* Évite un petit espace vide sous l'image */
-	}
-
-	.hero-title {
-		font-size: 2.5rem;
-		font-weight: 800; /* Très gras */
-		line-height: 1.15;
-		margin-bottom: 1.5rem;
-		letter-spacing: -0.02em;
-	}
-
-	@media (min-width: 64rem) {
-		.hero-title {
-		font-size: 3.5rem; /* Titre très grand sur grand écran */
-		}
-	}
-
-	.hero-description {
-		font-size: 1.125rem;
-		font-weight: 400; /* Épaisseur normale/fine */
-		line-height: 1.6;
-		max-width: 540px;
-	}
-
-	/* Éléments de droite (Image et Badge) */
-	.hero-image-container {
+	.hero-logo {
 		display: flex;
 		justify-content: center;
 	}
-
-	.hero-image-wrapper {
-		position: relative;
+	.hero-logo img {
 		width: 100%;
-		max-width: 180rem;
-	}
-
-	.hero-image-wrapper img {
-		width: 100%;
+		max-width: 24rem;
 		height: auto;
-		border-radius: 1.25rem;
-		display: block;
+		filter: drop-shadow(0 18px 45px rgba(0, 0, 0, 0.45));
 	}
-	.section { 
-		padding: var(--section-gap) 0; 
-		background: var(--light-purple);
+	.hero-tagline {
+		max-width: 48rem;
+		margin: 2rem auto 0;
+		font-size: 1.5rem;
+		line-height: 1.375;
 	}
-
-	.section--tinted {
-		background: linear-gradient(to bottom, var(--kitami-bg-start), var(--kitami-bg-end)) !important;
-		color: var(--white) !important;
-	}
-
-	.section-eyebrow {
-		font-size: 0.8rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		margin-bottom: 0.75rem;
-	}
-
-	.section-heading {
-		font-family: var(--font-display);
-		font-size: clamp(1.8rem, 4vw, 2.5rem);
-		font-weight: 400;
-		margin-bottom: 2rem;
-	}
-
-	.section-lead {
-		text-align: center;
-		max-width: 44rem;
-		margin: 0 auto 3rem;
-		font-size: 1.05rem;
-		line-height: 1.8;
-		opacity: 0.9;
-	}
-	
-	.grid {
+	.stats {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-		gap: 1.5rem;
-		margin-bottom: 3rem;
-	}
-
-	.card {
-		background: white;
-		border: 2px solid var(--light-purple);
-		border-radius: 0.75rem;
-		padding: 2rem;
-		text-align: center;
-		box-shadow: 0 10px 30px -10px rgba(18, 19, 44, 0.3);
-		color: var(--dark-purple); /* Assure la lisibilité du texte dans la carte */
-	}
-
-	.icon { 
-		font-size: 2.5rem; 
-		display: block; 
-		margin-bottom: 1rem; 
-	}
-
-	.card h3 { 
-		margin-bottom: 0.5rem;
-		font-size: 1.1rem;
-		color: var(--dark-purple);
-	}
-
-	.card p { 
-		font-size: 0.9rem; 
-	}
-
-	.partners-grid { 
-		display: grid; 
-		grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); 
-		gap: 2rem; 
-		align-items: center; 
-		justify-items: center;
+		gap: 1rem;
 		margin-top: 3rem;
 	}
-	.partner-card img { 
-		max-width: 10rem; 
-		height: auto; 
-		opacity: 0.85; 
-		transition: opacity 0.3s; 
+	.stat {
+		border: 1px solid var(--night-border);
+		border-radius: var(--night-radius);
+		background: color-mix(in oklab, var(--night-card) 50%, transparent);
+		padding: 1.25rem;
 	}
-	.partner-card img:hover { 
-		opacity: 1; 
+	.stat-value {
+		font-size: 1.25rem;
+		line-height: 1.4;
+		color: var(--night-primary);
 	}
-
-	.custom-features-list {
-		list-style: none; /* 1. Supprime les gros ronds noirs par défaut */
-		padding-left: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem; /* Espace vertical entre chaque puce */
-		margin-top: 1rem;
+	.stat-label {
+		margin-top: 0.25rem;
+		font-size: 0.875rem;
+		color: var(--night-muted-fg);
 	}
 
-	.custom-features-list li {
-		position: relative;
-		padding-left: 2rem; /* Crée de l'espace à gauche pour placer la coche jaune */
-		text-align: left;
-		font-size: 0.9rem; 
+	/* --- Blocs --- */
+	.block {
+		margin: 0 auto;
+		padding: 3rem 1.5rem;
 	}
+	.block--wide   { max-width: 72rem; }
+	.block--narrow { max-width: 56rem; padding-block: 4rem; }
+	.block--form   { max-width: 42rem; text-align: center; }
+	.block--center { text-align: center; }
 
-	/* 2. Création et injection de la coche jaune */
-	.custom-features-list li::before {
-		content: "✓"; /* Vous pouvez aussi utiliser l'icône de votre choix */
-		position: absolute;
-		left: 0;
-		top: 0;
-		color: var(--dark-yellow); /* Utilise le jaune de votre charte graphique Ki-tami */
-		font-weight: 900; /* Rend la coche un peu plus épaisse */
-		font-size: 1.2rem;
-	}
-
-  .team-list {
-    display: grid;
-    grid-template-columns: 1fr; /* Une carte par ligne */
-    gap: 1.5rem;
-    max-width: 55rem;
-    margin: 3rem auto 0;
-  	}
-
-  @media (min-width: 64rem) {
-    .team-list {
-        grid-template-columns: 1fr 1fr; /* Deux cartes par ligne sur grand écran */
-        max-width: 65rem;
-    }
-  }
-
-	/* --- LA CARTE D'IDENTITÉ --- */
-	.team-card {
-		background: var(--light-purple);
-		border-radius: 1.5rem;
-		padding: 1rem;
-		display: flex;
-		flex-direction: column; /* Empilé par défaut sur mobile */
-		align-items: center;
-		gap: 1rem;
+	.title {
 		text-align: center;
-		transition: transform 0.3s ease;
-		box-shadow: 0 10px 25px -5px rgba(18, 19, 44, 0.3);
+		font-size: 2.25rem;
+		line-height: 1.11;
+		color: inherit;
 	}
+	.title--lead { font-size: 1.875rem; line-height: 1.2; }
 
-	@media (min-width: 48rem) {
-	.team-card {
-			flex-direction: row; /* En colonnes (Photo | Texte) sur PC */
-			text-align: left;
-			padding: 1.75rem;
-		}
+	/* --- Supports --- */
+	.supports {
+		display: grid;
+		gap: 1.5rem;
+		margin-top: 2rem;
 	}
-
-	/* --- LE DISQUE PHOTO --- */
-	.team-photo-wrapper {
-		flex-shrink: 0;
-	}
-
-	.photo-disk {
-		width: 6rem;
-		height: 6rem;
-		border-radius: 50%; /* Forme de disque parfait */
+	.support {
+		position: relative;
 		overflow: hidden;
-		border: 0.25rem solid var(--white);
-		box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+		border: 4px solid var(--night-foreground);
+		border-radius: var(--night-radius);
+		box-shadow: var(--night-glow);
 	}
-
-	@media (min-width: 48rem) {
-	.photo-disk {
-			width: 7.5rem;
-			height: 7.5rem;
-		}
-	}
-
-	.photo-disk img {
+	.support img {
+		display: block;
 		width: 100%;
-		height: 100%;
-		object-fit: cover; /* L'image remplit le disque sans déformation */
+		height: auto;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		transition: transform 0.5s cubic-bezier(.4, 0, .2, 1);
+	}
+	.support:hover img { transform: scale(1.05); }
+	.support figcaption {
+		position: absolute;
+		inset: auto 0 0 0;
+		padding: 1rem;
+		background: color-mix(in oklab, var(--night-background) 70%, transparent);
+		text-align: center;
+		font-size: 1.5rem;
+		line-height: 1.33;
 	}
 
-	/* --- LES TEXTES --- */
-	.team-info {
+	/* --- Crowdfunding --- */
+	.btn-crowdfunding {
+		display: inline-block;
+		margin-top: 2rem;
+		padding: 1.5rem 2.5rem;
+		border-radius: 9999px;
+		background: var(--night-primary);
+		color: var(--night-primary-fg);
+		font-size: 1.5rem;
+		line-height: 1.33;
+		text-decoration: none;
+		box-shadow: var(--night-glow);
+		transition: transform 0.15s cubic-bezier(.4, 0, .2, 1);
+	}
+	.btn-crowdfunding:hover { transform: scale(1.05); }
+
+	/* --- Raisons --- */
+	.reasons {
+		list-style: none;
+		margin-top: 2rem;
 		display: flex;
 		flex-direction: column;
-		gap: 0rem;
+		gap: 1rem;
+	}
+	.reasons li {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		padding: 1.25rem;
+		border-radius: var(--night-radius);
+		background: color-mix(in oklab, var(--night-card) 60%, transparent);
+		font-size: 1.125rem;
+		line-height: 1.55;
+	}
+	.reason-num {
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 9999px;
+		background: var(--night-secondary);
+		color: var(--night-secondary-fg);
+		font-size: 1.25rem;
 	}
 
-	.team-name {
-		font-family: var(--font-display);
-		font-size: 1.5rem;
-		color: var(--dark-purple);
-		margin: 0;
-		line-height: 1;
+	/* --- Vidéos --- */
+	.videos {
+		display: grid;
+		gap: 1.5rem;
+		margin-top: 2rem;
+	}
+	.video {
+		overflow: hidden;
+		border: 4px solid var(--night-foreground);
+		border-radius: var(--night-radius);
+		background: color-mix(in oklab, var(--night-card) 40%, transparent);
+		box-shadow: var(--night-glow);
+	}
+	.video-placeholder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		aspect-ratio: 16 / 9;
+		width: 100%;
+		background-image: radial-gradient(ellipse at 50% 40%, oklch(40% .16 325), oklch(22% .09 315) 75%);
+	}
+	.play {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 4rem;
+		height: 4rem;
+		border-radius: 9999px;
+		background: color-mix(in oklab, var(--night-primary) 90%, transparent);
+		color: var(--night-primary-fg);
+		box-shadow: var(--night-glow);
+	}
+	.video-label {
+		font-size: 1.125rem;
+		color: var(--night-muted-fg);
 	}
 
-	.team-name span {
-		color: var(--pikico-accent); /* Met en valeur le nom de famille */
+	/* --- Newsletter --- */
+	.newsletter {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		margin-top: 1.5rem;
+	}
+	.newsletter input {
+		flex: 1;
+		padding: 1rem 1.5rem;
+		border: 1px solid var(--night-input);
+		border-radius: 9999px;
+		background: color-mix(in oklab, var(--night-card) 60%, transparent);
+		color: var(--night-foreground);
+		font: inherit;
+	}
+	.newsletter input::placeholder { color: var(--night-muted-fg); }
+	.newsletter input:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px var(--night-primary);
+	}
+	.newsletter button {
+		padding: 1rem 2rem;
+		border: none;
+		border-radius: 9999px;
+		background: var(--night-accent);
+		color: var(--night-accent-fg);
+		font-size: 1.125rem;
+		line-height: 1.55;
+		cursor: pointer;
+		transition: transform 0.15s cubic-bezier(.4, 0, .2, 1);
+	}
+	.newsletter button:hover { transform: scale(1.05); }
+
+	/* --- Réseaux --- */
+	.socials {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+		padding: 1.5rem 1.5rem 0;
+	}
+	.socials a {
+		padding: 0.5rem 1.25rem;
+		border: 1px solid var(--night-border);
+		border-radius: 9999px;
+		color: var(--night-muted-fg);
+		font-size: 0.875rem;
+		text-decoration: none;
+		transition: background-color 0.15s, color 0.15s;
+	}
+	.socials a:hover {
+		background: var(--night-primary);
+		color: var(--night-primary-fg);
 	}
 
-	.team-role {
-		font-size: 1rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: var(--hair-blue);
-		margin-bottom: 0.2rem;
-	}
-
-	.team-description {
-		font-size: 1rem;
-		line-height: 1.5;
-		color: var(--dark-purple);
-		opacity: 0.9;
-		margin: 0;
-	}
-
-	.faq { 
-		padding: 3rem 0; 
-	}
-
-	.section-title {
-		font-size: 0.85rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.1rem;
-		color: var(--hair-blue);
-		margin-bottom: 0.75rem;
-	}
-
-	/* Le parent Accordéon */
-	details.faq-parent { 
-		margin-bottom: 1rem; 
-		overflow: hidden; 
+	/* --- Marqueurs de contenu manquant (à retirer avant mise en ligne) --- */
+	.todo {
+		display: inline-block;
+		margin-top: 1rem;
+		padding: 0.25rem 0.75rem;
+		border: 2px dashed var(--dark-yellow);
 		border-radius: 0.5rem;
-		text-align: left;
+		background: rgba(0, 0, 0, 0.35);
+		color: var(--dark-yellow);
+		font-family: ui-monospace, Menlo, monospace;
+		font-size: 0.8rem;
+	}
+	.block > .todo { display: table; margin-inline: auto; }
+	.todo--inline { margin: 0 0 0 0.25rem; padding: 0 0.4rem; font-size: 0.7rem; }
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
 	}
 
-	summary { 
-		padding: 1rem 1.5rem; 
-		cursor: pointer; 
-		font-weight: bold; 
-		transition: background-color 0.3s; 
-		list-style: none;
+	/* --- Breakpoints du prototype (Tailwind sm / md / lg) --- */
+	@media (min-width: 40rem) {
+		.stats { grid-template-columns: repeat(2, 1fr); }
+		.newsletter { flex-direction: row; }
 	}
-	summary::-webkit-details-marker { display: none; } /* Enleve la flèche native */
-	summary::after { content: "+"; float: right; }
-	details[open] > summary::after { content: "−"; }
-
-	details.faq-parent p, 
-	details.faq-parent ul, 
-	details.faq-parent h3 { 
-		padding: 0.5rem 1.5rem; 
+	@media (min-width: 48rem) {
+		.hero-logo img { max-width: 32rem; }
+		.hero-tagline { font-size: 1.875rem; line-height: 1.375; }
+		.supports { grid-template-columns: repeat(3, 1fr); }
+		.videos { grid-template-columns: repeat(2, 1fr); }
+		.block--center .title--lead { font-size: 2.25rem; line-height: 1.11; }
+		.btn-crowdfunding { font-size: 1.875rem; line-height: 1.2; }
 	}
-
-	details.faq-parent ul {
-		margin-left: 3rem;
-		margin-bottom: 1rem;
+	@media (min-width: 64rem) {
+		.stats { grid-template-columns: repeat(4, 1fr); }
 	}
-
-	.quoting { 
-		font-size: 0.8rem; 
-		opacity: 0.7;
-		font-style: italic;
-	}
-
-	.faq-child { 
-		margin-left: 1.5rem; 
-		margin-top: 0.5rem; 
-		border-radius: 0.25rem;
-	}
-	.faq-child > summary { font-size: 0.95rem; font-weight: 600; }
 </style>
