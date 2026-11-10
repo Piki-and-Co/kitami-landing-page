@@ -1,0 +1,453 @@
+---
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
+import { Image } from 'astro:assets';
+
+import imgLogoPiki from '@assets/logo.webp';
+import photoAmandine from '@assets/PhotoAmandine.webp';
+import photoOlivier from '@assets/PhotoOlivier.webp';
+import photoLaurence from '@assets/PhotoLaurence.webp';
+import photoAlex from '@assets/PhotoAlex.webp';
+import photoIris from '@assets/PhotoIris.webp';
+import photoElodie from '@assets/PhotoElodie.webp';
+import photoCharlotte from '@assets/PhotoCharlotte.webp';
+import photoWren from '@assets/LogoWren.webp';
+import photoKubra from '@assets/PhotoKubra.webp';
+import photoMegane from '@assets/PhotoMegane.webp';
+import photoQais from '@assets/PhotoQais.webp';
+import photoEnzo from '@assets/PhotoEnzo.webp';
+
+
+import biovalley from '@assets/MembreBiovalley.webp';
+import frenchTech from '@assets/Logo_FT_Est_Blanc.webp';
+import semia from '@assets/Logo-Semia.webp';
+import deeptech from '@assets/LesDeeptech_Blanc.webp';
+import conectus from '@assets/CONECTUS-BaselineFR_HD2018_Blanc.webp';
+import france2030 from '@assets/France2030_Blanc.webp';
+import cnrs from '@assets/LOGO_CNRS_HD.webp';
+import lesDeepTech from 'assets/LesDeeptech_Blanc.webp';
+import unistra from '@assets/Unistra2_HD_FondBlanc.webp';
+import EMS from '@assets/LogoEMS.webp';
+import accro from '@assets/LogoAccro.webp';
+import tangoscan from '@assets/LogoTangoScan-2026.webp';
+
+
+
+const team = [
+	{
+		prenom: "Amandine",
+		nom: "Piguel",
+		poste: "Présidente (CEO) & Fondatrice",
+		description: "Définit et pilote la stratégie de développement de l'entreprise.",
+		photo: photoAmandine
+	},
+
+	{
+		prenom: "Laurence",
+		nom: "Schmoll",
+		poste: "Chercheuse & Fondatrice",
+		description: "Spécialiste en didactique des langues et conception de jeux sérieux, elle definit la stratégie d'innovation en sciences humaines.",
+		photo: photoLaurence
+	},
+	{
+		prenom: "Alexandre",
+		nom: "Richard",
+		poste: "Directeur technique (CTO)",
+		description: "Ingénieur en développement logiciel expérimenté, il définit et pilot la stratégie technique et technologique.",
+		photo: photoAlex
+		},
+	{
+		prenom: "Olivier",
+		nom: "Luet",
+		poste: "Directeur marketing (CMO) B2B",
+		description: "Responsable du développement commercial secteur B2B & éducatif",
+		photo: photoOlivier
+		},
+		{
+		prenom: "Iris",
+		nom: "Caulliez aka Gramophone",
+		poste: "Lead Game & Narrative Designer",
+		description: "Responsable de la conception du jeu, définit les contraintes ludiques et conçoit les expériences interactives et les histoires qui le composent.",
+		photo: photoIris
+	},
+	{
+		prenom: "Charlotte",
+		nom: "Gahmia",
+		poste: "Graphiste/Illustratrice",
+		description: "Créatrice de l'univers visuel de Biumiz et des personnages",
+		photo: photoCharlotte
+	},
+	{
+		prenom: "Elodie",
+		nom: "Magnier",
+		poste: "Orthopédagogue & Neuropédagogue",
+		description: "Responsable de l'adéquation du jeu aux besoins des enfants, autrice de la progression en didactique des CPS.",
+		photo: photoElodie
+	},
+	{
+		prenom: "Kubra",
+		nom: "Dag",
+		poste: "Ingénieure pédagogique",
+		description: "Conçoit l'accompagnement pédagogique de l'adulte et les jeux de société",
+		photo: photoKubra
+	},
+	{
+		prenom: "Wren",
+		nom: "Davies",
+		poste: "Graphiste/Illustratrice",
+		description: "Au côté de Charlotte, dessine les décors et les objets du jeu",
+		photo: photoWren
+	},
+	{
+		prenom: "Mégane",
+		nom: "Cuvelier",
+		poste: "Graphiste/Illustratrice",
+		description: "Au côté de Charlotte, dessine les personnages du jeu",
+		photo: photoMegane
+	},
+	{
+		prenom: "Qais",
+		nom: "Beguellel",
+		poste: "VFX Artist/Animateur",
+		description: "Produit les effets spéciaux visuels et les animations nécessaire à l'expérience ludique imaginée par Iris.",
+		photo: photoQais
+	},
+	{
+		prenom: "Enzo",
+		nom: "Berti",
+		poste: "Game Developer / Intégrateur",
+		description: "Agence tous les éléments à l'écran et implémente leur interactivité pour donner vie à l'expérience ludique imaginée par Iris.",
+		photo: photoEnzo
+	}
+
+];
+---
+<KitamiLayout
+		title="Piki & Co, le studio"
+		description="Piki & Co est le studio de développement de Ki-Tämi, fondé dans le cadre de la valorisation des recherches menées avec le CNRS et l'Université de Strasbourg."
+>
+<!-- Hero -->
+	<section class="section hero">
+		<div class="container hero-grid">
+			<div class="hero-content">
+				<h1>Jouer, s'éveiller,<br />s'accomplir.</h1>
+				<p class="hero-lead">
+				En collaboration avec la recherche académique française, Piki&nbsp;&amp;&nbsp;Co est un studio de développement 
+				qui imagine, conçoit et réalise des jeux éducatifs immersifs à la didactique invisible.
+				</p>
+			</div>
+			<div class="hero-visual">
+				<Image src={imgLogoPiki} alt="Piki & Co" width={309} height={220} loading="eager" format="webp"/>
+			</div>
+		</div>
+	</section>
+
+
+<!-- Notre approche / valeurs -->
+	<section class="section" id="approche">
+		<div class="container">
+			<p class="section-eyebrow">Notre approche</p>
+			<h2 class="section-heading-pikico">Jouer et apprendre par les sens et l'émotion</h2>
+			<div class="values-grid">
+				<div class="value-item">
+					<div class="value-number">01</div>
+					<h3>Fondés sur la science</h3>
+					<p>
+					Nous travaillons en étroite collaboration avec les laboratoires de recherches en sciences humaines et sociales,
+					notamment dans les domaines des sciences de l'éducation, de la psychologie
+					de l'apprentissage, de la didactique des langues et du Game Design. Cette collaboration
+					continue encore aujourd'hui.
+					</p>
+				</div>
+				<div class="value-item">
+					<div class="value-number">02</div>
+					<h3>Le jeu comme vecteur</h3>
+					<p>
+					Le jeu engage le joueur ou la joueuse dans une expérience sensorielle et émotionnelle.
+					Cet engagement dans le ressenti favorise l’acquisition de nouvelles notions et le
+					développement de compétences.
+					</p>
+				</div>
+				<div class="value-item">
+					<div class="value-number">03</div>
+					<h3>Conçus avec vous</h3>
+					<p>
+					Parents, enseignants et professionnels de santé contribuent à la co-construction
+					de nos outils pour qu'ils répondent aux vrais besoins du terrain et soient parfaitement
+					adaptés aux enfants, quelque soit leur stade de développement.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Partenaires -->
+	<section class="section section--tinted" id="partenaires">
+		<div class="container" style="text-align: center;">
+			<p class="section-eyebrow">Ils nous font confiance et nous accompagnent</p>
+			<h2 class="section-heading-pikico">Nos partenaires</h2>
+			<div class="partners-grid">
+				<div class="partner-card">
+					<Image src={conectus} alt="SATT Conectus d'Alsace" width={6184} 
+						height={2009} loading="eager" format="webp"/>
+				</div>
+				<div class="partner-card">
+					<Image src={cnrs} alt="Centre Nationale de la Recherche Scientifique" 
+						width={705} height={705} loading="eager" format="webp"/>
+				</div>
+				<div class="partner-card">
+					<Image src={unistra} alt="Université de Strasbourg" 
+						width={3310} height={1193} loading="eager" format="webp"/>
+				</div>
+				<div class="partner-card">
+					<Image src={deeptech} alt="Label Les DeepTech française" 
+						width={1891} height={1891} loading="eager" format="webp"/>
+				</div>
+			</div>
+			<div class="partners-grid">
+				<div class="partner-card">
+					<Image src={biovalley} alt="Biovalley France" 
+						width={4672} height={1244} loading="eager" format="webp"/>
+				</div>
+				<div class="partner-card">
+					<Image src={semia} alt="SEMIA Quest for Change" 
+						width={367} height={137} loading="eager" format="webp"/>
+				</div>
+				<div class="partner-card">
+					<Image src={frenchTech} alt="La FrenchTech Est" 
+						width={883} height={1093} loading="eager" format="webp"/>
+				</div>
+				<div class="partner-card">
+					<Image src={france2030} alt="Financé par le programme France 2030" 
+						width={322} height={316} loading="eager" format="webp"/>
+				</div>
+			</div>
+			<div class="partners-grid">
+				<div class="partner-card">
+					<Image src={EMS} alt="Eurométropole de Strasbourg" 
+					width={6184} height={2009} loading="eager" format="webp"/>
+				</div>
+				<div class="partner-card">
+					<Image src={accro} alt="Association Accro" 
+					width={705} height={705} loading="eager" format="webp"/>
+				</div>
+				<div class="partner-card">
+					<Image src={tangoscan} alt="Concours Tango & Scan, lauréats 2026" 
+					width={3310} height={1193} loading="eager" format="webp"/>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section " id="equipe">
+		<div class="container" style="text-align: center;">
+			<p class="section-eyebrow">Nous nous engageons à vos côtés</p>
+			<h2 class="section-heading-pikico">L'équipe</h2>
+			<div class="team-list">
+				{team.map((member) => (
+				<div class="team-card">
+					<div class="team-photo-wrapper">
+					<div class="photo-disk">
+						<Image src={member.photo} alt={`${member.prenom} ${member.nom}`}
+						width={300} height={300} format="webp"/>
+					</div>
+				</div>
+
+				<div class="team-info">
+					<h3 class="team-name">{member.prenom} <span>{member.nom}</span></h3>
+					<p class="team-role">{member.poste}</p>
+					<p class="team-description">{member.description}</p>
+				</div>
+				</div>
+			))}
+			</div>
+		</div>
+	</section>
+
+
+</KitamiLayout>
+<style>
+	/* --- Hero --- */
+	.hero {
+		max-width: 64rem;
+		margin: 0 auto;
+		padding: 4rem 1.5rem 3rem;
+		text-align: center;
+	}
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 3rem;
+		align-items: center;
+	}
+
+	.hero-logo {
+		display: flex;
+		justify-content: center;
+	}
+	.hero-logo img {
+		width: 100%;
+		max-width: 24rem;
+		height: auto;
+		filter: drop-shadow(0 18px 45px rgba(0, 0, 0, 0.45));
+	}
+	.hero-tagline {
+		max-width: 48rem;
+		margin: 2rem auto 0;
+		font-size: 1.5rem;
+		line-height: 1.375;
+	}
+	.section-eyebrow {
+		font-size: 0.8rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--pikico-accent);
+		margin-bottom: 0.75rem;
+		text-align: center;
+	}
+
+	.section-heading-pikico {
+		text-align: center;
+		margin-bottom: 1.25rem;
+	}
+
+	.section-lead {
+		text-align: center;
+		max-width: 44rem;
+		margin: 0 auto 3rem;
+		color: var(--pikico-muted);
+		font-size: 1.05rem;
+		line-height: 1.8;
+	}
+	.values-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+	.value-item { padding: 1.5rem 0; border-top: 2px solid var(--pikico-border); }
+
+	.value-number {
+		font-size: 2rem;
+		font-weight: 700;
+		color: var(--pikico-border);
+		margin-bottom: 0.5rem;
+		line-height: 1;
+	}
+
+	.value-item h3 { margin-bottom: 0.5rem; }
+
+	.value-item p { color: var(--pikico-muted); font-size: 0.95rem; line-height: 1.7; }
+	.partners-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(9.375rem, 1fr));
+		gap: 2rem;
+		align-items: center;
+		justify-items: center;
+	}
+
+	.partner-card img {
+		max-width: 8rem;
+		height: auto;
+		transition: 0.3s ease;
+	}
+	
+	.team-list {
+		display: grid;
+		grid-template-columns: 1fr; /* Une carte par ligne */
+		gap: 1.5rem;
+		max-width: 55rem;
+		margin: 3rem auto 0;
+	}
+
+	@media (min-width: 64rem) {
+		.team-list {
+			grid-template-columns: 1fr 1fr; /* Deux cartes par ligne sur grand écran */
+			max-width: 65rem;
+		}
+	}
+	
+	.team-card {
+		background: var(--light-purple);
+		border-radius: 1.5rem;
+		padding: 1rem;
+		display: flex;
+		flex-direction: column; /* Empilé par défaut sur mobile */
+		align-items: center;
+		gap: 1rem;
+		text-align: center;
+		transition: transform 0.3s ease;
+		box-shadow: 0 10px 25px -5px rgba(18, 19, 44, 0.3);
+	}
+
+	@media (min-width: 48rem) {
+		.team-card {
+			flex-direction: row; /* En colonnes (Photo | Texte) sur PC */
+			text-align: left;
+			padding: 1.75rem;
+		}
+	}
+
+	/* --- LE DISQUE PHOTO --- */
+	.team-photo-wrapper {
+		flex-shrink: 0;
+	}
+
+	.photo-disk {
+		width: 6rem;
+		height: 6rem;
+		border-radius: 50%; /* Forme de disque parfait */
+		overflow: hidden;
+		border: 0.25rem solid var(--white);
+		box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+	}
+
+	@media (min-width: 48rem) {
+		.photo-disk {
+			width: 7.5rem;
+			height: 7.5rem;
+		}
+	}
+
+	.photo-disk img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover; /* L'image remplit le disque sans déformation */
+	}
+
+	/* --- LES TEXTES --- */
+	.team-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0rem;
+	}
+
+	.team-name {
+		font-family: var(--font-display);
+		font-size: 1.5rem;
+		color: var(--dark-purple);
+		margin: 0;
+		line-height: 1;
+	}
+
+	.team-name span {
+		color: var(--pikico-accent); /* Met en valeur le nom de famille */
+	}
+
+	.team-role {
+		font-size: 1rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--hair-blue);
+		margin-bottom: 0.2rem;
+	}
+
+	.team-description {
+		font-size: 1rem;
+		line-height: 1.5;
+		color: var(--dark-purple);
+		opacity: 0.9;
+		margin: 0;
+	}
+
+</style>
