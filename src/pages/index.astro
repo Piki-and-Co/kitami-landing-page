@@ -14,28 +14,31 @@
 import KitamiLayout from '@/layouts/KitamiLayout.astro';
 import { Image } from 'astro:assets';
 
+import imgLandingPage from '@assets/LandingPage.webp';
 import logoKitamiLight from '@assets/LogoKitamiLight.webp';
 import imgJeuVideo from '@assets/KitamiJeuVideo.webp';
 import imgJeuPlateau from '@assets/KitamiJeuPlateau.webp';
 import imgLivretParents from '@assets/KitamiLivretParents.webp';
+import imgAppliComp from '@assets/KitamiLivretParents.webp';
 
 const stats = [
-	{ value: "10 ans", label: "de recherche" },
-	{ value: "Plusieurs milliers d'€", label: "investis" },
-	{ value: "De nombreux tests", label: "auprès d'enfants et de classes" },
-	{ value: "Un prix de l'innovation", label: "pour l'une de nos chercheuses" },
+	{ value: "10 ans", label: "de recherche académique française" },
+	{ value: "+ 70 enfants", label: "nous ont aidé à développer Ki-tämi" },
+	{ value: "Prix de l'innovation 2026", label: "décerné par le Pôle Universitaire d'Innovation Alsace" },
+	{ value: "DeepTech", label: "Label décerné en 2025 par la Banque Pour L'Innovation (BPI)" },
 ];
 
 const supports = [
 	{ title: "Un jeu vidéo", image: imgJeuVideo },
+	{ title: "Un livret pour les adultes", image: imgLivretParents },
+	{ title: "Une application compagnon pour les parents", image: imgAppliComp },
 	{ title: "Un jeu de plateau", image: imgJeuPlateau },
-	{ title: "Un livret pour les parents", image: imgLivretParents },
 ];
 
 const reasons = [
-	"C'est entre 4 et 10 ans que se construit la relation aux autres.",
+	"De 4 et 10 ans est une période cruciale de la construction de soi et du rapport aux autres.",
 	"C'est à cet âge que l'apprentissage des langues est le plus facile et le plus efficace.",
-	"Un usage raisonné des écrans est un outil puissant.",
+	"Avec un usage raisonné, les écrans deviennent un outil éducatif puissant.",
 ];
 
 const videos = ["Vidéo 1", "Vidéo 2"];
@@ -58,13 +61,23 @@ const socials: Array<{ name: string; href: string | null }> = [
 
 		<!-- Hero -->
 		<section class="hero">
-			<h1 class="hero-logo">
-				<Image src={logoKitamiLight} alt="Ki-Tämi" width={965} height={465} loading="eager" format="webp" />
-			</h1>
-			<p class="hero-tagline">
-				Le 1er jeu multi-support pour les 4-10 ans qui renforce les compétences humaines de vos enfants,
-				en les éveillant à l'anglais
-			</p>
+			<div class="hero-container">
+				<div>
+					<h1 class="hero-logo">
+						<Image src={logoKitamiLight} alt="Ki-Tämi" width={965} height={465} loading="eager" format="webp" />
+					</h1>
+					<p class="hero-tagline">
+					Le 1<sup>er</sup> jeu narratif multi-support qui renforce les compétences humaines de vos enfants,
+						en les éveillant à l'anglais
+					</p>
+				</div>
+				<div class="hero-image-container">
+					<div class="hero-image-wrapper">
+						<Image src={imgLandingPage} alt="Rejoingez Biumiz dans ses aventures !"
+						width={8268} height={5374} loading="eager" format="webp"/>
+					</div>
+				</div>
+			</div>
 			<div class="stats">
 				{stats.map((s) => (
 					<div class="stat">
@@ -90,7 +103,7 @@ const socials: Array<{ name: string; href: string | null }> = [
 
 		<!-- Crowdfunding -->
 		<section class="block block--center">
-			<p class="title title--lead">Vous voulez faire partie de l'aventure ?</p>
+			<p class="title title--lead">Donnez vis à Ki-tämi avec nous !</p>
 			<a href="#" class="btn-crowdfunding" data-todo="crowdfunding-url">Participez à notre campagne de crowdfunding !</a>
 			<p class="todo">TODO(maintainer) : URL de la campagne de crowdfunding (vide dans le prototype)</p>
 		</section>
@@ -211,6 +224,41 @@ const socials: Array<{ name: string; href: string | null }> = [
 		margin: 2rem auto 0;
 		font-size: 1.5rem;
 		line-height: 1.375;
+	}
+	/* Layout en grille : 2 colonnes sur PC, 1 seule colonne empilée sur mobile */
+	.hero-container {
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 3rem;
+		align-items: center;
+		width: 100%;
+		max-width: 24rem;
+	}
+
+	@media (min-width: 48rem) {
+		.hero-container {
+			grid-template-columns: 0.9fr 1.1fr; /* La colonne de texte est légèrement plus large */
+			max-width: 90rem;
+		}
+	}
+	/* Éléments de droite (Image et Badge) */
+	.hero-image-container {
+		display: flex;
+		justify-content: center;
+	}
+
+	.hero-image-wrapper {
+		position: relative;
+		width: 100%;
+		max-width: 180rem;
+	}
+
+	.hero-image-wrapper img {
+		width: 100%;
+		height: auto;
+		border-radius: 1.25rem;
+		display: block;
 	}
 	.stats {
 		display: grid;
