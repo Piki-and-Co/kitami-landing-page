@@ -208,6 +208,18 @@ import KitamiLayout from '@/layouts/KitamiLayout.astro';
     var AUTOHIDE = Boolean(1);
   </script>
   <script src="https://sibforms.com/forms/end-form/build/main.js" is:inline></script>
+  <script>
+    // Pré-remplissage depuis le formulaire newsletter de l'accueil (clé partagée avec src/pages/index.astro).
+    const HANDOFF_KEY = 'kitami-newsletter-email';
+    try {
+      const email = sessionStorage.getItem(HANDOFF_KEY);
+      sessionStorage.removeItem(HANDOFF_KEY);
+      const field = document.querySelector<HTMLInputElement>('#EMAIL');
+      if (email && field && !field.value) field.value = email;
+    } catch {
+      // Stockage indisponible : le champ reste vide.
+    }
+  </script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LfDOhQsAAAAAP1op3mXkpeQaln-uQ0ucAESOmXG&hl=fr" async defer is:inline></script>
 </KitamiLayout>
 <style>

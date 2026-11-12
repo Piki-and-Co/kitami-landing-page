@@ -138,12 +138,14 @@ const videos = ["Vidéo 1", "Vidéo 2"];
 		<!-- Newsletter -->
 		<section class="block block--form">
 			<p class="title title--lead">Vous souhaitez vous inscrire à notre newsletter ?</p>
-			<form class="newsletter" data-todo="newsletter-endpoint">
+			<!-- Même liste Brevo que /inscription : on transmet l'e-mail à cette page, qui porte
+			     les champs obligatoires, le consentement RGPD et le reCAPTCHA.
+			     Pas d'attribut name sur le champ : sans JS, l'e-mail ne finit jamais dans l'URL. -->
+			<form class="newsletter" id="newsletter-handoff" action="/inscription/" method="get">
 				<label class="visually-hidden" for="newsletter-email">Votre adresse e-mail</label>
-				<input id="newsletter-email" type="email" name="email" required placeholder="Votre adresse e-mail" autocomplete="email" />
+				<input id="newsletter-email" type="email" required placeholder="Votre adresse e-mail" autocomplete="email" />
 				<button type="submit">Inscrivez-vous</button>
 			</form>
-			<p class="todo">TODO(maintainer) : destination du formulaire (même liste Brevo que /inscription ?) et mention RGPD</p>
 		</section>
 
 		<!-- Réseaux -->
@@ -158,9 +160,20 @@ const videos = ["Vidéo 1", "Vidéo 2"];
 </KitamiLayout>
 
 <script>
-	// POC : tant que la destination n'est pas fournie, le formulaire ne part nulle part.
-	document.querySelector<HTMLFormElement>('form[data-todo="newsletter-endpoint"]')
-		?.addEventListener('submit', (e) => e.preventDefault());
+	// Newsletter : l'e-mail passe par sessionStorage (jamais par l'URL, lue par gtag/Ads)
+	// puis /inscription le pré-remplit. Clé partagée avec src/pages/inscription/index.astro.
+	const HANDOFF_KEY = 'kitami-newsletter-email';
+	const form = document.querySelector<HTMLFormElement>('#newsletter-handoff');
+	form?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const email = form.querySelector<HTMLInputElement>('#newsletter-email')?.value.trim();
+		try {
+			if (email) sessionStorage.setItem(HANDOFF_KEY, email);
+		} catch {
+			// Stockage indisponible (navigation privée stricte…) : l'utilisateur ressaisira l'e-mail.
+		}
+		window.location.assign(form.action);
+	});
 </script>
 
 <style>
