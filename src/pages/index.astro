@@ -19,7 +19,7 @@ import logoKitamiLight from '@assets/LogoKitamiLight.webp';
 import imgJeuVideo from '@assets/KitamiJeuVideo.webp';
 import imgJeuPlateau from '@assets/KitamiJeuPlateau.webp';
 import imgLivretParents from '@assets/KitamiLivretParents.webp';
-import imgAppliComp from '@assets/KitamiLivretParents.webp';
+import imgAppliComp from '@assets/KitamiAppliComp.webp';
 
 const stats = [
 	{ value: "10 ans", label: "de recherche académique française" },
@@ -44,13 +44,13 @@ const reasons = [
 const videos = ["Vidéo 1", "Vidéo 2"];
 
 // Ordre et libellés du prototype. URLs reprises de KitamiLayout.astro quand elles existent.
-const socials: Array<{ name: string; href: string | null }> = [
-	{ name: "Instagram", href: "https://www.instagram.com/piki.and.co/" },
-	{ name: "Facebook", href: "https://www.facebook.com/61588273838732" },
-	{ name: "WhatsApp", href: null }, // TODO(maintainer): aucune URL WhatsApp dans le projet ni dans le prototype
-	{ name: "YouTube", href: "https://www.youtube.com/@PikiAndCo" },
-	{ name: "LinkedIn", href: "https://www.linkedin.com/company/piki-and-co" },
-];
+// const socials: Array<{ name: string; href: string | null }> = [
+// 	{ name: "Instagram", href: "https://www.instagram.com/piki.and.co/" },
+// 	{ name: "Facebook", href: "https://www.facebook.com/61588273838732" },
+// 	{ name: "WhatsApp", href: null }, // TODO(maintainer): aucune URL WhatsApp dans le projet ni dans le prototype
+// 	{ name: "YouTube", href: "https://www.youtube.com/@PikiAndCo" },
+// 	{ name: "LinkedIn", href: "https://www.linkedin.com/company/piki-and-co" },
+// ];
 ---
 
 <KitamiLayout
@@ -94,7 +94,7 @@ const socials: Array<{ name: string; href: string | null }> = [
 			<div class="supports">
 				{supports.map((s) => (
 					<figure class="support">
-						<Image src={s.image} alt={s.title} widths={[400, 800]} sizes="(min-width: 48rem) 33vw, 100vw" format="webp" />
+						<Image src={s.image} alt={s.title} widths={[400, 800]} sizes="(min-width: 48rem) 50vw, 100vw" format="webp" />
 						<figcaption>{s.title}</figcaption>
 					</figure>
 				))}
@@ -103,9 +103,8 @@ const socials: Array<{ name: string; href: string | null }> = [
 
 		<!-- Crowdfunding -->
 		<section class="block block--center">
-			<p class="title title--lead">Donnez vis à Ki-tämi avec nous !</p>
-			<a href="#" class="btn-crowdfunding" data-todo="crowdfunding-url">Participez à notre campagne de crowdfunding !</a>
-			<p class="todo">TODO(maintainer) : URL de la campagne de crowdfunding (vide dans le prototype)</p>
+			<p class="title title--lead">Donnez vie à Ki-tämi avec nous !</p>
+			<a href="https://app.mymoojo.com/project/ki-tami" class="btn-crowdfunding" data-todo="crowdfunding-url">Participez à notre campagne de crowdfunding !</a>
 		</section>
 
 		<!-- Pourquoi c'est important ? -->
@@ -148,12 +147,12 @@ const socials: Array<{ name: string; href: string | null }> = [
 		</section>
 
 		<!-- Réseaux -->
-		<nav class="socials" aria-label="Réseaux sociaux">
-			{socials.map((s) => s.href
-				? <a href={s.href} target="_blank" rel="noopener noreferrer">{s.name}</a>
-				: <a href="#" data-todo="social-url">{s.name} <span class="todo todo--inline">TODO(maintainer) : URL</span></a>
-			)}
-		</nav>
+		<!--<nav class="socials" aria-label="Réseaux sociaux">-->
+		<!--	{socials.map((s) => s.href-->
+		<!--		? <a href={s.href} target="_blank" rel="noopener noreferrer">{s.name}</a>-->
+		<!--		: <a href="#" data-todo="social-url">{s.name} <span class="todo todo&#45;&#45;inline">TODO(maintainer) : URL</span></a>-->
+		<!--	)}-->
+		<!--</nav>-->
 
 	</div>
 </KitamiLayout>
@@ -317,7 +316,7 @@ const socials: Array<{ name: string; href: string | null }> = [
 		display: block;
 		width: 100%;
 		height: auto;
-		aspect-ratio: 4 / 3;
+		aspect-ratio: 16 / 9;
 		object-fit: cover;
 		transition: transform 0.5s cubic-bezier(.4, 0, .2, 1);
 	}
@@ -506,7 +505,7 @@ const socials: Array<{ name: string; href: string | null }> = [
 	@media (min-width: 48rem) {
 		.hero-logo img { max-width: 32rem; }
 		.hero-tagline { font-size: 1.875rem; line-height: 1.375; }
-		.supports { grid-template-columns: repeat(3, 1fr); }
+		.supports { grid-template-columns: repeat(2, 1fr); }
 		.videos { grid-template-columns: repeat(2, 1fr); }
 		.block--center .title--lead { font-size: 2.25rem; line-height: 1.11; }
 		.btn-crowdfunding { font-size: 1.875rem; line-height: 1.2; }

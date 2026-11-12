@@ -266,6 +266,12 @@ strong {
 	font-size: 0.875rem;
 }
 
+/* Icônes réseaux : pas de soulignement sous l'espace qui suit chaque image */
+.footer-socials a {
+	display: inline-flex;
+	text-decoration: none;
+}
+
 /* Responsive */
 @media (max-width: 48rem) {
 	body {
