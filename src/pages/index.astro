@@ -12,7 +12,8 @@
  * - Tout ce que le prototype laisse vide est marqué TODO(maintainer), visible sur la page.
  */
 import KitamiLayout from '@/layouts/KitamiLayout.astro';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 import imgLandingPage from '@assets/LandingPage.webp';
 import logoKitamiLight from '@assets/LogoKitamiLight.webp';
@@ -20,6 +21,7 @@ import imgJeuVideo from '@assets/KitamiJeuVideo.webp';
 import imgJeuPlateau from '@assets/KitamiJeuPlateau.webp';
 import imgLivretParents from '@assets/KitamiLivretParents.webp';
 import imgAppliComp from '@assets/KitamiAppliComp.webp';
+import posterDemo1 from '@assets/videos/kitami-demo-1-poster.png';
 
 const stats = [
 	{ value: "10 ans", label: "de recherche académique française" },
@@ -41,7 +43,18 @@ const reasons = [
 	"Avec un usage raisonné, les écrans deviennent un outil éducatif puissant.",
 ];
 
-const videos = ["Vidéo 1", "Vidéo 2"];
+// Vidéos auto-hébergées, produites par scripts/encode-video.sh (MP4 dans public/videos/,
+// affiche dans src/assets/videos/). Sans src : carte « à venir » du prototype.
+type Video = { label: string; src?: string; poster?: ImageMetadata; width?: number; height?: number };
+const videoList: Video[] = [
+	{ label: "Vidéo 1", src: "/videos/kitami-demo-1.mp4", poster: posterDemo1, width: 204, height: 360 },
+	{ label: "Vidéo 2" },
+];
+// Affiche du lecteur (pop-in) : URL WebP optimisée, chargée seulement à l'ouverture.
+const videos = await Promise.all(videoList.map(async (v) => ({
+	...v,
+	posterUrl: v.poster ? (await getImage({ src: v.poster, format: 'webp' })).src : undefined,
+})));
 
 // Ordre et libellés du prototype. URLs reprises de KitamiLayout.astro quand elles existent.
 // const socials: Array<{ name: string; href: string | null }> = [
@@ -78,6 +91,8 @@ const videos = ["Vidéo 1", "Vidéo 2"];
 					</div>
 				</div>
 			</div>
+
+
 			<div class="stats">
 				{stats.map((s) => (
 					<div class="stat">
@@ -86,6 +101,12 @@ const videos = ["Vidéo 1", "Vidéo 2"];
 					</div>
 				))}
 			</div>
+		</section>
+
+		<!-- Crowdfunding -->
+		<section class="block block--center">
+			<p class="title title--lead">Donnez vie à Ki-tämi avec nous !</p>
+			<a href="https://app.mymoojo.com/project/ki-tami" class="btn-crowdfunding" data-todo="crowdfunding-url">Participez à notre campagne de crowdfunding !</a>
 		</section>
 
 		<!-- Ki-Tämi, c'est : -->
@@ -99,12 +120,6 @@ const videos = ["Vidéo 1", "Vidéo 2"];
 					</figure>
 				))}
 			</div>
-		</section>
-
-		<!-- Crowdfunding -->
-		<section class="block block--center">
-			<p class="title title--lead">Donnez vie à Ki-tämi avec nous !</p>
-			<a href="https://app.mymoojo.com/project/ki-tami" class="btn-crowdfunding" data-todo="crowdfunding-url">Participez à notre campagne de crowdfunding !</a>
 		</section>
 
 		<!-- Pourquoi c'est important ? -->
@@ -121,18 +136,44 @@ const videos = ["Vidéo 1", "Vidéo 2"];
 		<section class="block block--wide">
 			<h2 class="title">Découvrez Ki-Tämi en vidéo</h2>
 			<div class="videos">
-				{videos.map((v) => (
+				{videos.map((v) => v.src && v.poster ? (
+					<figure class="video">
+						<!-- Lien vers le MP4 : sans JS, le navigateur lit le fichier ; avec JS, ouverture en pop-in. -->
+						<a
+							class="video-trigger"
+							href={v.src}
+							aria-haspopup="dialog"
+							data-video-label={v.label}
+							data-video-poster={v.posterUrl}
+							data-video-width={v.width}
+							data-video-height={v.height}
+						>
+							<Image src={v.poster} alt="" class="video-thumb" width={v.poster.width} height={v.poster.height} format="webp" />
+							<span class="play" aria-hidden="true">
+								<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z" /></svg>
+							</span>
+							<span class="video-caption">{v.label}</span>
+						</a>
+					</figure>
+				) : (
 					<figure class="video">
 						<div class="video-placeholder">
 							<span class="play" aria-hidden="true">
 								<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z" /></svg>
 							</span>
-							<span class="video-label">{v} — à venir</span>
+							<span class="video-label">{v.label} — à venir</span>
 						</div>
 					</figure>
 				))}
 			</div>
-			<p class="todo">TODO(maintainer) : vidéos 1 et 2 (lien ou fichier, plateforme d'hébergement, consentement cookies si YouTube)</p>
+
+			<!-- Lecteur en pop-in : src et affiche posés au clic seulement, rien n'est téléchargé avant. -->
+			<dialog class="video-dialog">
+				<button type="button" class="video-dialog-close" aria-label="Fermer la vidéo">
+					<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+				</button>
+				<video controls playsinline preload="none"></video>
+			</dialog>
 		</section>
 
 		<!-- Newsletter -->
@@ -174,6 +215,34 @@ const videos = ["Vidéo 1", "Vidéo 2"];
 		}
 		window.location.assign(form.action);
 	});
+
+	// Vidéos : clic sur une carte -> pop-in (<dialog> natif : focus piégé, Échap ferme,
+	// focus rendu à la carte), lecture avec le son. Fermeture -> pause.
+	const dialog = document.querySelector<HTMLDialogElement>('.video-dialog');
+	const player = dialog?.querySelector<HTMLVideoElement>('video');
+	if (dialog && player) {
+		document.querySelectorAll<HTMLAnchorElement>('.video-trigger').forEach((trigger) => {
+			trigger.addEventListener('click', (e) => {
+				e.preventDefault();
+				const { videoLabel, videoPoster, videoWidth, videoHeight } = trigger.dataset;
+				if (player.getAttribute('src') !== trigger.getAttribute('href')) {
+					player.src = trigger.getAttribute('href') ?? '';
+					player.poster = videoPoster ?? '';
+					player.width = Number(videoWidth) || 0;
+					player.height = Number(videoHeight) || 0;
+				}
+				dialog.setAttribute('aria-label', videoLabel ?? '');
+				dialog.showModal();
+				// Le clic est un geste utilisateur : lecture avec le son autorisée. Si le navigateur
+				// refuse quand même, les contrôles natifs restent disponibles.
+				player.play().catch(() => {});
+			});
+		});
+		dialog.querySelector('.video-dialog-close')?.addEventListener('click', () => dialog.close());
+		// Clic sur le fond (hors de la vidéo) -> fermeture.
+		dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+		dialog.addEventListener('close', () => player.pause());
+	}
 </script>
 
 <style>
@@ -429,6 +498,90 @@ const videos = ["Vidéo 1", "Vidéo 2"];
 		font-size: 1.125rem;
 		color: var(--night-muted-fg);
 	}
+
+	/* Carte vidéo cliquable : même cadre 16:9 et dégradé que le placeholder,
+	   vignette verticale centrée, légende en bandeau comme les cartes « supports ». */
+	.video-trigger {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		aspect-ratio: 16 / 9;
+		width: 100%;
+		color: inherit;
+		text-decoration: none;
+		background-image: radial-gradient(ellipse at 50% 40%, oklch(40% .16 325), oklch(22% .09 315) 75%);
+	}
+	.video-thumb {
+		position: absolute;
+		inset: 0;
+		margin: auto;
+		height: 100%;
+		width: auto;
+		object-fit: contain;
+	}
+	.video-trigger .play {
+		position: relative;
+		transition: transform 0.2s cubic-bezier(.4, 0, .2, 1);
+	}
+	.video-trigger:hover .play,
+	.video-trigger:focus-visible .play { transform: scale(1.1); }
+	.video-trigger:focus-visible {
+		outline: 3px solid var(--night-accent);
+		outline-offset: -3px;
+	}
+	.video-caption {
+		position: absolute;
+		inset: auto 0 0 0;
+		padding: 1rem;
+		background: color-mix(in oklab, var(--night-background) 70%, transparent);
+		text-align: center;
+		font-size: 1.5rem;
+		line-height: 1.33;
+	}
+
+	/* Pop-in vidéo (<dialog>) : hauteur pilotée par l'écran, largeur par le ratio de la vidéo. */
+	.video-dialog {
+		padding: 0;
+		overflow: hidden;
+		max-width: 90vw;
+		max-height: 90dvh;
+		border: 4px solid var(--night-foreground);
+		border-radius: var(--night-radius);
+		background: #000;
+		box-shadow: var(--night-glow);
+	}
+	.video-dialog::backdrop {
+		background: color-mix(in oklab, var(--night-background) 85%, transparent);
+	}
+	.video-dialog video {
+		display: block;
+		height: min(85dvh, 50rem);
+		width: auto;
+		max-width: 100%;
+	}
+	.video-dialog-close {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border: 0;
+		border-radius: 9999px;
+		background: color-mix(in oklab, var(--night-background) 75%, transparent);
+		color: var(--night-foreground);
+		cursor: pointer;
+	}
+	.video-dialog-close:focus-visible {
+		outline: 3px solid var(--night-accent);
+		outline-offset: 2px;
+	}
+	/* Page figée derrière la pop-in. */
+	:global(html:has(.video-dialog[open])) { overflow: hidden; }
 
 	/* --- Newsletter --- */
 	.newsletter {

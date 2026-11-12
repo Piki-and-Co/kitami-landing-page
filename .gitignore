@@ -8,4 +8,5 @@ dist/
 /.claude/
 /CLAUDE.md
 .npm-cache/
+.npmrc
 /public/vendor/
