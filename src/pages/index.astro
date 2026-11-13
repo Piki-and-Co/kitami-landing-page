@@ -180,16 +180,12 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 		</section>
 
 		<!-- Newsletter -->
-		<section class="block block--form">
-			<p class="title title--lead">Vous souhaitez vous inscrire à notre newsletter ?</p>
-			<!-- Même liste Brevo que /inscription : on transmet l'e-mail à cette page, qui porte
-			     les champs obligatoires, le consentement RGPD et le reCAPTCHA.
-			     Pas d'attribut name sur le champ : sans JS, l'e-mail ne finit jamais dans l'URL. -->
-			<form class="newsletter" id="newsletter-handoff" action="/inscription/" method="get">
-				<label class="visually-hidden" for="newsletter-email">Votre adresse e-mail</label>
-				<input id="newsletter-email" type="email" required placeholder="Votre adresse e-mail" autocomplete="email" />
-				<button type="submit">Inscrivez-vous</button>
-			</form>
+		<!-- Simple lien vers /inscription, qui porte le formulaire Brevo (champs, consentement RGPD, reCAPTCHA). -->
+		<section class="block block--newsletter">
+			<div class="newsletter">
+				<p class="title title--lead">Vous souhaitez vous inscrire à notre newsletter ?</p>
+				<a class="newsletter-cta" href="/inscription/">Inscrivez-vous</a>
+			</div>
 		</section>
 
 		<!-- Réseaux -->
@@ -204,21 +200,6 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 </KitamiLayout>
 
 <script>
-	// Newsletter : l'e-mail passe par sessionStorage (jamais par l'URL, lue par gtag/Ads)
-	// puis /inscription le pré-remplit. Clé partagée avec src/pages/inscription/index.astro.
-	const HANDOFF_KEY = 'kitami-newsletter-email';
-	const form = document.querySelector<HTMLFormElement>('#newsletter-handoff');
-	form?.addEventListener('submit', (e) => {
-		e.preventDefault();
-		const email = form.querySelector<HTMLInputElement>('#newsletter-email')?.value.trim();
-		try {
-			if (email) sessionStorage.setItem(HANDOFF_KEY, email);
-		} catch {
-			// Stockage indisponible (navigation privée stricte…) : l'utilisateur ressaisira l'e-mail.
-		}
-		window.location.assign(form.action);
-	});
-
 	// Vidéos : clic sur une carte -> pop-in (<dialog> natif : focus piégé, Échap ferme,
 	// focus rendu à la carte), lecture avec le son. Fermeture -> pause.
 	const dialog = document.querySelector<HTMLDialogElement>('.video-dialog');
@@ -290,7 +271,7 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 	.btn-crowdfunding,
 	.reason-num,
 	.video-label,
-	.newsletter button {
+	.newsletter-cta {
 		font-family: var(--font-display);
 		font-weight: 400;
 	}
@@ -382,7 +363,7 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 	}
 	.block--wide   { max-width: 72rem; }
 	.block--narrow { max-width: 56rem; padding-block: 4rem; }
-	.block--form   { max-width: 42rem; text-align: center; }
+	.block--newsletter { max-width: 56rem; }
 	.block--center { text-align: center; }
 
 	.title {
@@ -605,38 +586,31 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 	:global(html:has(.video-dialog[open])) { overflow: hidden; }
 
 	/* --- Newsletter --- */
+	/* Titre et bouton : empilés et centrés sur mobile, sur une ligne (groupe centré) dès 48rem. */
 	.newsletter {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
-		margin-top: 1.5rem;
+		align-items: center;
+		justify-content: center;
+		gap: 1.5rem;
 	}
-	.newsletter input {
-		flex: 1;
-		padding: 1rem 1.5rem;
-		border: 1px solid var(--night-input);
-		border-radius: 9999px;
-		background: color-mix(in oklab, var(--night-card) 60%, transparent);
-		color: var(--night-foreground);
-		font: inherit;
-	}
-	.newsletter input::placeholder { color: var(--night-muted-fg); }
-	.newsletter input:focus {
-		outline: none;
-		box-shadow: 0 0 0 2px var(--night-primary);
-	}
-	.newsletter button {
+	.newsletter-cta {
+		flex-shrink: 0;
 		padding: 1rem 2rem;
-		border: none;
 		border-radius: 9999px;
 		background: var(--night-accent);
 		color: var(--night-accent-fg);
 		font-size: 1.125rem;
 		line-height: 1.55;
-		cursor: pointer;
+		white-space: nowrap;
+		text-decoration: none;
 		transition: transform 0.15s cubic-bezier(.4, 0, .2, 1);
 	}
-	.newsletter button:hover { transform: scale(1.05); }
+	.newsletter-cta:hover { transform: scale(1.05); }
+	.newsletter-cta:focus-visible {
+		outline: 3px solid var(--night-foreground);
+		outline-offset: 3px;
+	}
 
 	/* --- Réseaux --- */
 	.socials {
@@ -675,25 +649,16 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 	.block > .todo { display: table; margin-inline: auto; }
 	.todo--inline { margin: 0 0 0 0.25rem; padding: 0 0.4rem; font-size: 0.7rem; }
 
-	.visually-hidden {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		overflow: hidden;
-		clip-path: inset(50%);
-		white-space: nowrap;
-	}
-
 	/* --- Breakpoints du prototype (Tailwind sm / md / lg) --- */
 	@media (min-width: 40rem) {
 		.stats { grid-template-columns: repeat(2, 1fr); }
-		.newsletter { flex-direction: row; }
 	}
 	@media (min-width: 48rem) {
 		.hero-logo img { max-width: 32rem; }
 		.hero-tagline { font-size: 1.875rem; line-height: 1.375; }
 		.supports { grid-template-columns: repeat(2, 1fr); }
 		.videos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+		.newsletter { flex-direction: row; gap: 2rem; }
 		.block--center .title--lead { font-size: 2.25rem; line-height: 1.11; }
 		.btn-crowdfunding { font-size: 1.875rem; line-height: 1.2; }
 	}
