@@ -10,3 +10,5 @@ dist/
 .npm-cache/
 .npmrc
 /public/vendor/
+.env.preview
+/scripts

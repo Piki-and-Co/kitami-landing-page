@@ -21,7 +21,8 @@ import imgJeuVideo from '@assets/KitamiJeuVideo.webp';
 import imgJeuPlateau from '@assets/KitamiJeuPlateau.webp';
 import imgLivretParents from '@assets/KitamiLivretParents.webp';
 import imgAppliComp from '@assets/KitamiAppliComp.webp';
-import posterDemo1 from '@assets/videos/kitami-demo-1-poster.png';
+import posterVideo1 from '@assets/videos/JeuVideoKitami-Demo.webp';
+import posterVideo2 from '@assets/videos/PrixLaurenceSchmoll.webp';
 
 const stats = [
 	{ value: "10 ans", label: "de recherche académique française" },
@@ -43,12 +44,14 @@ const reasons = [
 	"Avec un usage raisonné, les écrans deviennent un outil éducatif puissant.",
 ];
 
-// Vidéos auto-hébergées, produites par scripts/encode-video.sh (MP4 dans public/videos/,
-// affiche dans src/assets/videos/). Sans src : carte « à venir » du prototype.
+// Vidéos auto-hébergées, encodées en local hors dépôt (H.264 + AAC, faststart) depuis le master,
+// qui n'est jamais versionné. MP4 dans public/videos/, affiche dans src/assets/videos/.
+// Sans src : carte « à venir » du prototype.
 type Video = { label: string; src?: string; poster?: ImageMetadata; width?: number; height?: number };
 const videoList: Video[] = [
-	{ label: "Vidéo 1", src: "/videos/kitami-demo-1.mp4", poster: posterDemo1, width: 204, height: 360 },
-	{ label: "Vidéo 2" },
+	{ label: "Ki-tämi en action", src: "/videos/kitami-demo-1.mp4", poster: posterVideo1, width: 608, height: 1080 },
+	{ label: "Prix de l'Innovation 2026", src: "/videos/PrixLaurenceSchmoll.mp4", poster: posterVideo2, width: 1280, height: 720 },
+	{ label: "Vidéo 3" },
 ];
 // Affiche du lecteur (pop-in) : URL WebP optimisée, chargée seulement à l'ouverture.
 const videos = await Promise.all(videoList.map(async (v) => ({
@@ -86,7 +89,7 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 				</div>
 				<div class="hero-image-container">
 					<div class="hero-image-wrapper">
-						<Image src={imgLandingPage} alt="Rejoingez Biumiz dans ses aventures !"
+						<Image src={imgLandingPage} alt="Rejoignez Ki-tämi dans ses aventures !"
 						width={8268} height={5374} loading="eager" format="webp"/>
 					</div>
 				</div>
@@ -148,7 +151,7 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 							data-video-width={v.width}
 							data-video-height={v.height}
 						>
-							<Image src={v.poster} alt="" class="video-thumb" width={v.poster.width} height={v.poster.height} format="webp" />
+							<Image src={v.poster} alt="" class="video-thumb" widths={[400, 800, 1200]} sizes="(min-width: 48rem) min(31vw, 22rem), min(100vw, 22rem)" format="webp" />
 							<span class="play" aria-hidden="true">
 								<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z" /></svg>
 							</span>
@@ -221,6 +224,13 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 	const dialog = document.querySelector<HTMLDialogElement>('.video-dialog');
 	const player = dialog?.querySelector<HTMLVideoElement>('video');
 	if (dialog && player) {
+		const setRatio = (w: number, h: number) => {
+			if (w > 0 && h > 0) player.style.setProperty('--video-ratio', `${w} / ${h}`);
+			else player.style.removeProperty('--video-ratio');
+		};
+		player.addEventListener('loadedmetadata', () => {
+			if (player.videoWidth && player.videoHeight) setRatio(player.videoWidth, player.videoHeight);
+		});
 		document.querySelectorAll<HTMLAnchorElement>('.video-trigger').forEach((trigger) => {
 			trigger.addEventListener('click', (e) => {
 				e.preventDefault();
@@ -228,8 +238,10 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 				if (player.getAttribute('src') !== trigger.getAttribute('href')) {
 					player.src = trigger.getAttribute('href') ?? '';
 					player.poster = videoPoster ?? '';
-					player.width = Number(videoWidth) || 0;
-					player.height = Number(videoHeight) || 0;
+					// Proportions de la vidéo -> taille du lecteur (voir .video-dialog video dans le CSS).
+					// width/height de videoList donnent la taille dès l'ouverture ; loadedmetadata la corrige
+					// ensuite d'après le fichier réel si elles sont fausses ou absentes.
+					setRatio(Number(videoWidth), Number(videoHeight));
 				}
 				dialog.setAttribute('aria-label', videoLabel ?? '');
 				dialog.showModal();
@@ -461,8 +473,14 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 	}
 
 	/* --- Vidéos --- */
+	/* 3 cartes carrées côte à côte (1 colonne sur mobile, cartes plafonnées à 22rem) :
+	   le carré accueille aussi bien une affiche verticale qu'horizontale.
+	   Proportions des cartes : --video-card-ratio (1 = carré ; essayer 4 / 5 ou 5 / 4). */
 	.videos {
+		--video-card-ratio: 1;
 		display: grid;
+		grid-template-columns: minmax(0, 22rem);
+		justify-content: center;
 		gap: 1.5rem;
 		margin-top: 2rem;
 	}
@@ -479,7 +497,7 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 		align-items: center;
 		justify-content: center;
 		gap: 1rem;
-		aspect-ratio: 16 / 9;
+		aspect-ratio: var(--video-card-ratio);
 		width: 100%;
 		background-image: radial-gradient(ellipse at 50% 40%, oklch(40% .16 325), oklch(22% .09 315) 75%);
 	}
@@ -499,14 +517,14 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 		color: var(--night-muted-fg);
 	}
 
-	/* Carte vidéo cliquable : même cadre 16:9 et dégradé que le placeholder,
-	   vignette verticale centrée, légende en bandeau comme les cartes « supports ». */
+	/* Carte vidéo cliquable : même cadre et dégradé que le placeholder, affiche entière centrée
+	   (verticale ou horizontale, le dégradé comble le reste), légende en bandeau. */
 	.video-trigger {
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		aspect-ratio: 16 / 9;
+		aspect-ratio: var(--video-card-ratio);
 		width: 100%;
 		color: inherit;
 		text-decoration: none;
@@ -515,9 +533,8 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 	.video-thumb {
 		position: absolute;
 		inset: 0;
-		margin: auto;
+		width: 100%;
 		height: 100%;
-		width: auto;
 		object-fit: contain;
 	}
 	.video-trigger .play {
@@ -533,14 +550,14 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 	.video-caption {
 		position: absolute;
 		inset: auto 0 0 0;
-		padding: 1rem;
+		padding: 0.5rem 0.75rem;
 		background: color-mix(in oklab, var(--night-background) 70%, transparent);
 		text-align: center;
-		font-size: 1.5rem;
+		font-size: 1.125rem;
 		line-height: 1.33;
 	}
 
-	/* Pop-in vidéo (<dialog>) : hauteur pilotée par l'écran, largeur par le ratio de la vidéo. */
+	/* Pop-in vidéo (<dialog>) : sa taille suit celle du lecteur, voir .video-dialog video. */
 	.video-dialog {
 		padding: 0;
 		overflow: hidden;
@@ -554,11 +571,15 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 	.video-dialog::backdrop {
 		background: color-mix(in oklab, var(--night-background) 85%, transparent);
 	}
+	/* Lecteur aussi grand que possible sans déformer ni bandes noires, vidéo verticale ou horizontale :
+	   au plus 85 % de la hauteur d'écran (et 50rem), au plus 90vw de large moins les 2 × 4px de bordure.
+	   --video-ratio (« largeur / hauteur ») est posé au clic d'après data-video-width/height. */
 	.video-dialog video {
+		--video-max-h: min(85dvh, 50rem);
 		display: block;
-		height: min(85dvh, 50rem);
-		width: auto;
-		max-width: 100%;
+		aspect-ratio: var(--video-ratio, 16 / 9);
+		width: min(calc(90vw - 8px), calc(var(--video-max-h) * var(--video-ratio, 16 / 9)));
+		height: auto;
 	}
 	.video-dialog-close {
 		position: absolute;
@@ -672,7 +693,7 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 		.hero-logo img { max-width: 32rem; }
 		.hero-tagline { font-size: 1.875rem; line-height: 1.375; }
 		.supports { grid-template-columns: repeat(2, 1fr); }
-		.videos { grid-template-columns: repeat(2, 1fr); }
+		.videos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 		.block--center .title--lead { font-size: 2.25rem; line-height: 1.11; }
 		.btn-crowdfunding { font-size: 1.875rem; line-height: 1.2; }
 	}
