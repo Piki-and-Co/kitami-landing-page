@@ -1,16 +1,5 @@
 ---
-/*
- * Accueil — proof of concept d'après le prototype Lovable du CMO
- * (https://lovable.dev/preview/FrcsinskkN63aEM3ZxMck3scYg2HXXZA, relevé le 2026-11-05).
- *
- * - Textes : repris mot pour mot du prototype.
- * - Couleurs / espacements / breakpoints : repris de la feuille de style servie par le prototype
- *   (tokens oklch + classes Tailwind), traduits en CSS scopé à cette page.
- * - Polices : celles du projet (Caveat Brush pour l'affichage, Montserrat pour le texte)
- *   à la place de Fredoka / Raleway utilisées par le prototype.
- * - Navigation et pied de page (mentions légales, confidentialité, cookies) : KitamiLayout.
- * - Tout ce que le prototype laisse vide est marqué TODO(maintainer), visible sur la page.
- */
+
 import KitamiLayout from '@/layouts/KitamiLayout.astro';
 import Faq from '@/components/Faq.astro';
 import { Image, getImage } from 'astro:assets';
@@ -189,15 +178,6 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 				<a class="newsletter-cta" href="/inscription/">Inscrivez-vous</a>
 			</div>
 		</section>
-
-		<!-- Réseaux -->
-		<!--<nav class="socials" aria-label="Réseaux sociaux">-->
-		<!--	{socials.map((s) => s.href-->
-		<!--		? <a href={s.href} target="_blank" rel="noopener noreferrer">{s.name}</a>-->
-		<!--		: <a href="#" data-todo="social-url">{s.name} <span class="todo todo&#45;&#45;inline">TODO(maintainer) : URL</span></a>-->
-		<!--	)}-->
-		<!--</nav>-->
-
 	</div>
 
 	<!-- FAQ : contenu dans src/content/faq/accueil/ (un fichier par question) -->
