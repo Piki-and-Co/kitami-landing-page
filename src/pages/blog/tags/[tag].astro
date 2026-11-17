@@ -1,0 +1,46 @@
+---
+import '@styles/Blog.css';
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { collectTags, getPublishedPosts, postTags, tagHref, type Tag } from '@/lib/blog';
+
+export async function getStaticPaths() {
+  const allTags = collectTags(await getPublishedPosts());
+  return allTags.map((tag) => ({ params: { tag: tag.slug }, props: { tag, allTags } }));
+}
+
+interface Props {
+  tag: Tag;
+  allTags: Tag[];
+}
+
+const { tag, allTags } = Astro.props;
+const count = tag.posts.length;
+---
+
+<KitamiLayout
+  title={`Tag : ${tag.label}`}
+  description={`Articles Piki & Co sur le thème : ${tag.label}`}
+  breadcrumbs={[{ name: 'Blog', href: '/blog/' }, { name: `#${tag.label}`, href: tagHref(tag.label) }]}
+  pageType="CollectionPage"
+  noindex
+>
+  <section class="blog-hero">
+    <div class="container">
+      <a href="/blog/" class="blog-back">← Tous les articles</a>
+      <p class="blog-eyebrow">Le blog Ki-tämi</p>
+      <h1>#{tag.label}</h1>
+      <p class="blog-count">{count} article{count > 1 ? 's' : ''}</p>
+    </div>
+  </section>
+
+  <section class="blog-body">
+    <div class="container">
+      <div class="blog-grid">
+        {tag.posts.map((post) => (
+          <BlogCard post={post} tags={postTags(post, allTags)} activeTag={tag.slug} />
+        ))}
+      </div>
+    </div>
+  </section>
+</KitamiLayout>

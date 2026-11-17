@@ -1,0 +1,257 @@
+/* ================================
+	Ki-tämi — Blog
+	Same vocabulary as the other pages: a gradient header band (white text,
+	Caveat Brush titles), then a light purple band holding white cards.
+================================ */
+
+/* Header band */
+.blog-hero {
+	background: linear-gradient(to bottom, var(--kitami-bg-start), var(--kitami-bg-end));
+	color: var(--white);
+	padding: 4rem 0 3.5rem;
+}
+
+.blog-hero a {
+	color: var(--hair-blue);
+}
+
+.blog-eyebrow {
+	font-size: 0.8rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	margin-bottom: 0.75rem;
+}
+
+.blog-hero h1 {
+	margin-bottom: 1rem;
+}
+
+.blog-lead {
+	max-width: 44rem;
+	margin: 0 auto;
+	font-size: 1.05rem;
+	line-height: 1.8;
+	opacity: 0.9;
+}
+
+.blog-back {
+	display: inline-block;
+	font-size: 0.875rem;
+	margin-bottom: 1.5rem;
+}
+
+.blog-meta-line {
+	font-size: 0.9rem;
+	opacity: 0.85;
+	margin-top: 1rem;
+}
+
+/* Light band */
+.blog-body {
+	background: var(--light-purple);
+	padding: 3rem 0 var(--section-gap);
+}
+
+.blog-body a {
+	color: var(--deep-blue);
+}
+
+/* Tags */
+.blog-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	justify-content: center;
+	list-style: none;
+}
+
+.blog-tags--left {
+	justify-content: flex-start;
+}
+
+.blog-tags--spaced {
+	margin-bottom: 2.5rem;
+}
+
+.blog-tag {
+	display: inline-block;
+	position: relative;
+	z-index: 1; /* above the card's full-surface link */
+	padding: 0.25rem 0.75rem;
+	border: 1px solid var(--pikico-accent);
+	border-radius: 2rem;
+	background: var(--white);
+	color: var(--pikico-accent) !important;
+	font-size: 0.8rem;
+	font-weight: 600;
+	text-decoration: none;
+	transition: background-color 0.2s, color 0.2s;
+}
+
+.blog-tag:hover,
+.blog-tag--active {
+	background: var(--pikico-accent);
+	color: var(--white) !important;
+}
+
+/* On the gradient band */
+.blog-hero .blog-tag {
+	background: transparent;
+	border-color: var(--hair-blue);
+	color: var(--hair-blue) !important;
+}
+
+.blog-hero .blog-tag:hover {
+	background: var(--hair-blue);
+	color: var(--kitami-bg-start) !important;
+}
+
+.blog-count {
+	font-size: 0.875rem;
+	opacity: 0.85;
+}
+
+/* Post cards */
+.blog-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+	gap: 1.5rem;
+	text-align: left;
+}
+
+.blog-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	background: var(--white);
+	border: 2px solid var(--light-purple);
+	border-radius: 0.75rem;
+	padding: 1.75rem;
+	box-shadow: 0 10px 30px -10px rgba(18, 19, 44, 0.3);
+	color: var(--dark-purple);
+	transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.blog-card:hover,
+.blog-card:focus-within {
+	transform: translateY(-2px);
+	box-shadow: 0 14px 34px -10px rgba(18, 19, 44, 0.4);
+}
+
+.blog-card h2 {
+	font-family: var(--font-body);
+	font-size: 1.15rem;
+	font-weight: 700;
+	line-height: 1.35;
+	color: var(--dark-purple);
+}
+
+.blog-card-link {
+	color: inherit !important;
+	text-decoration: none;
+}
+
+/* Makes the whole card clickable while tags stay separate links */
+.blog-card-link::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+}
+
+.blog-card-link:focus-visible {
+	outline: none;
+}
+
+.blog-card:focus-within {
+	outline: 3px solid var(--pikico-accent);
+	outline-offset: 2px;
+}
+
+.blog-card p {
+	font-size: 0.9rem;
+}
+
+.blog-card-meta {
+	margin-top: auto;
+	font-size: 0.8rem !important;
+	opacity: 0.8;
+}
+
+.blog-empty {
+	text-align: center;
+}
+
+/* Search (Pagefind UI) */
+.blog-search {
+	max-width: 44rem;
+	margin: 0 auto 2.5rem;
+	text-align: left;
+	--pagefind-ui-scale: 0.95;
+	--pagefind-ui-primary: var(--pikico-accent);
+	--pagefind-ui-text: var(--dark-purple);
+	--pagefind-ui-background: var(--white);
+	--pagefind-ui-border: var(--pikico-accent);
+	--pagefind-ui-tag: var(--light-purple);
+	--pagefind-ui-border-width: 1px;
+	--pagefind-ui-border-radius: 0.5rem;
+	--pagefind-ui-font: var(--font-body);
+}
+
+@media (max-width: 30rem) {
+	.blog-search {
+		--pagefind-ui-scale: 0.75;
+	}
+}
+
+.blog-search-notice {
+	font-size: 0.9rem;
+	padding: 0.75rem 1rem;
+	background: var(--white);
+	border-radius: 0.5rem;
+	border: 1px dashed var(--pikico-accent);
+}
+
+/* Article */
+.blog-article {
+	max-width: 50rem;
+	margin: 0 auto;
+	background: var(--white);
+	border-radius: 0.75rem;
+	padding: clamp(1.5rem, 5vw, 3.5rem);
+	box-shadow: 0 10px 30px -10px rgba(18, 19, 44, 0.3);
+	text-align: left;
+	color: var(--dark-purple);
+	font-size: 1.05rem;
+	line-height: 1.75;
+}
+
+.blog-article.prose h2 {
+	color: var(--pikico-accent);
+}
+
+.blog-article.prose strong {
+	color: var(--pikico-accent);
+}
+
+.blog-article.prose li {
+	margin-bottom: 0.4rem;
+}
+
+.blog-article.prose > :first-child,
+.blog-article.prose > p:first-child img {
+	margin-top: 0;
+}
+
+/* Consecutive footnote calls ([^2][^3]) read "2,3", not "23" */
+.blog-article.prose sup + sup::before {
+	content: ',';
+}
+
+.blog-article.prose hr {
+	border: none;
+	border-top: 1px solid var(--light-purple);
+	margin: 2.5rem 0;
+}

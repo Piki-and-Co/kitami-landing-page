@@ -5,4 +5,10 @@ dist/
 *.swp
 .DS_Store
 .idea/
-
+/.claude/
+/CLAUDE.md
+.npm-cache/
+.npmrc
+/public/vendor/
+.env.preview
+/scripts

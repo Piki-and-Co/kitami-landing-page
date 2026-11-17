@@ -86,6 +86,58 @@ strong {
 	color: var(--dark-yellow);
 }
 
+/* Content sections, shared by the inner pages (Les CPS, Innovation, Le jeu, Le studio).
+   Identical to the copies still scoped in cps/approche/lejeu.astro. */
+.section {
+	padding: var(--section-gap) 0;
+	background: var(--light-purple);
+}
+
+.section--tinted {
+	background: linear-gradient(to bottom, var(--kitami-bg-start), var(--kitami-bg-end));
+	color: var(--white);
+}
+
+/* Font and line height are explicit so the label looks the same as an h1 (on /approche) */
+.section-eyebrow {
+	font-family: var(--font-body);
+	line-height: 1.6;
+	font-size: 0.8rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	margin-bottom: 0.75rem;
+}
+
+.section-heading {
+	font-family: var(--font-display);
+	font-size: clamp(1.8rem, 4vw, 2.5rem);
+	font-weight: 400;
+	margin-bottom: 2rem;
+}
+
+.section-lead {
+	text-align: center;
+	max-width: 44rem;
+	margin: 0 auto 3rem;
+	font-size: 1.05rem;
+	line-height: 1.8;
+	opacity: 0.9;
+}
+
+/* Read by search engines and screen readers, not shown on screen */
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
 /*mentions legales & co*/
 .mentions {
 	max-width: var(--max-width);
@@ -264,6 +316,12 @@ strong {
 	padding: 3rem 5%;
 	text-align: center;
 	font-size: 0.875rem;
+}
+
+/* Icônes réseaux : pas de soulignement sous l'espace qui suit chaque image */
+.footer-socials a {
+	display: inline-flex;
+	text-decoration: none;
 }
 
 /* Responsive */

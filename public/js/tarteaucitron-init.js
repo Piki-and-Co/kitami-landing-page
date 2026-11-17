@@ -5,7 +5,8 @@
  * Il initialise tarteaucitron (gestion des cookies) et déclare les services (futurs Google/Meta).
  *
  * Pré-requis : charger tarteaucitron.js AVANT ce fichier.
- * <script src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@latest/tarteaucitron.js"></script>
+ * <script src="/vendor/tarteaucitron/tarteaucitron.min.js"></script>
+ * (auto-hébergé, voir integrations/tarteaucitron.mjs)
  * <script src="/js/tarteaucitron-init.js"></script>
  */
 

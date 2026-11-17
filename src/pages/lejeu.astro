@@ -1,55 +1,22 @@
 ---
 import KitamiLayout from '@/layouts/KitamiLayout.astro';
+import Faq from '@/components/Faq.astro';
 
 import { Image } from 'astro:assets';
 import doudou from '@assets/Doudou_NewDA-HD_Droite.webp';
 import uniteDiag from '@assets/UniteDiag_NewDA-HD_Droite.webp';
 import fleur from '@assets/FleurChoupie.webp';
-
-const JeuFaqSchema = JSON.stringify({
-	"@context": "https://schema.org",
-	"@type": "FAQPage",
-	"mainEntity": [
-	{
-      "@type": "Question",
-      "name": "Qu'est-ce qu'un jeu immersif ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Un jeu immersif est un jeu dans lequel le joueur a l'impression de faire partie du monde virtuel. Cette capacité à immerger le joueur en fait un média puissant d'apprentissage : concentration, émotions, expérience sensorielle complète.",
-      },
-    },
-	{
-      "@type": "Question",
-      "name": "Quels mécanismes rendent un jeu immersif ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-		"text": "Le mécanisme d'immersion systémique, quand les règles du jeu réagissent de manière logique aux actions du joueur ; le mécanisme d'immersion narrative et émotionnelle, quand le joueur ou la joueuse peut créer un lien psychologique avec l'histoirei ou les personnages ; le mécanisme d'immersion sensorielle, quand la technologie est utilisée pour eveiller et maintenir l'attention du joueur.",
-      },
-    },
-
-    {
-      "@type": "Question",
-      "name": "Qu'est-ce qu'un jeu engageant ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Un jeu engageant maintient l'intérêt et la motivation sur le long terme. Il repose sur un équilibre entre défi et compétences, et répond à trois besoins : l'autonomie, le gain de compétences et l'identification ou l'appartenance.",
-      },
-    },
-
-	],
-});
 ---
 <KitamiLayout
 		title="Ki-tämi, jeu multi-supports"
 		description="Ki-tämi repose sur trois composants produit sur trois supports différents."
-		breadcrumbs={[{ name: 'Ki-tämi', href: '/' }, { name: 'Le jeu', href: '/lejeu' }]}
-		faqSchema = {JeuFaqSchema}
+		breadcrumbs={[{ name: 'Le jeu', href: '/lejeu/' }]}
 >
 	<!-- les composants -->
 	<section class="section section--tinted" id="leJeu">
 		<div class="container">
 			<p class="section-eyebrow">Ki-tämi, le jeu narratif multi-support</p>
-			<h2 class="section-heading">Un univers ludique jusque <span class="highlight">dans le réel</span></h2>
+			<h1 class="section-heading">Un univers ludique jusque <span class="highlight">dans le réel</span></h1>
 			<p class="section-lead">
 			Avec <strong>Ki-tämi</strong>, il ne s’agit pas d’exercices, mais de vivre de grandes histoires !
 			Grâce à notre toute nouvelle pédagogie expérientielle et immersive, l’enfant apprend l’interaction, l'entraide, l’empathie, il développe sa confiance en lui… et en anglais !<br/>
@@ -102,42 +69,11 @@ const JeuFaqSchema = JSON.stringify({
 	</section>
 
 	
-  <section class="section faq" id="faq">
-    <div class="container">
-	<details class="faq-parent">
-        <summary>Qu'est-ce qu'un jeu immersif ?</summary>
-		<p>Un jeu immersif est un jeu dans lequel <strong>le joueur ou la joueuse a l'impression de faire partie 
-			du monde virtuel</strong>. C'est la capacité d'un jeu à immerger le joueur qui en fait un média 
-		puissant d'apprentissage : concentration, émotions, expérience sensorielle complète.</p>
-		<p>Pour un enfant entre 4 et 10 ans, nous recommandons de se limiter aux mécanismes d'immersion systémique, 
-		narrative et émotionnelle.</p>
-      </details>
-
-      <details class="faq-parent">
-        <summary>Quels mécanismes sont utilisés pour rendre un jeu immersif ?</summary>
-        <ul>
-          <li><strong>L'immersion systémique</strong> : les règles réagissent de manière logique aux actions du joueur.</li>
-          <li><strong>L'immersion narrative et émotionnelle</strong> : lien psychologique avec l'histoire et les personnages.</li>
-          <li><strong>L'immersion sensorielle</strong> : graphismes, son spatialisé, retours haptiques.</li>
-        </ul>
-      </details>
-
-      <details class="faq-parent">
-        <summary>Qu'est-ce qu'un jeu engageant ?</summary>
-		<p>Un jeu vidéo engageant <strong>maintient l'intérêt et la motivation sur le long terme</strong>. 
-		Il repose sur un équilibre entre défi et compétences, et répond à trois besoins :</p>
-        <ul>
-          <li><strong>L'autonomie</strong> : l'impression que ses décisions ont un impact,</li>
-          <li><strong>Le gain de compétences</strong> : le sentiment de progresser,</li>
-		  <li><strong>L'identification ou l'appartenance</strong> : se reconnaître dans un personnage 
-			  et partager son expérience.</li>
-        </ul>
-      </details>
-    </div>
-  </section>
+	<!-- FAQ : contenu dans src/content/faq/lejeu/ (un fichier par question) -->
+	<Faq group="lejeu" id="faq" />
 	<section class="cta-section">
 		<h2>Prêt à entrer dans l'aventure<br />qui fait grandir ?</h2>
-		<a href="/inscription" class="btn-primary">Rejoignez l'aventure !</a>
+		<a href="/inscription/" class="btn-primary">Rejoignez l'aventure !</a>
 	</section>
  
 </KitamiLayout>
@@ -281,53 +217,6 @@ const JeuFaqSchema = JSON.stringify({
 		font-style: italic;
 	}
 
-	.faq { 
-		padding: 3rem 0; 
-	}
-	
-	/* Le parent Accordéon */
-	details.faq-parent { 
-		margin-bottom: 1rem; 
-		overflow: hidden; 
-		border-radius: 0.5rem;
-		text-align: left;
-	}
-
-	summary { 
-		padding: 1rem 1.5rem; 
-		cursor: pointer; 
-		font-weight: bold; 
-		transition: background-color 0.3s; 
-		color: var(--dark-purple); /* Texte sombre lisible */
-		list-style: none;
-	}
-	summary::-webkit-details-marker { display: none; } /* Enleve la flèche native */
-	summary::after { content: "+"; float: right; }
-	details[open] > summary::after { content: "−"; }
-
-	details.faq-parent p, 
-	details.faq-parent ul, 
-	details.faq-parent h3 { 
-		padding: 0.5rem 1.5rem; 
-		color: var(--dark-purple) !important; /* Force l'écriture en couleur lisible */
-	}
-
-	details.faq-parent a {
-		color: var(--deep-blue);
-	}
-
-
-	details.faq-parent ul {
-		margin-left: 3rem;
-		margin-bottom: 1rem;
-	}
-
-	.faq-child { 
-		margin-left: 1.5rem; 
-		margin-top: 0.5rem; 
-		border-radius: 0.25rem;
-	}
-	.faq-child > summary { font-size: 0.95rem; font-weight: 600; }
 
 
 </style>

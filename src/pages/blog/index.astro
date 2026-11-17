@@ -1,0 +1,73 @@
+---
+import '@styles/Blog.css';
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import BlogSearch from '@/components/BlogSearch.astro';
+import { collectTags, getPublishedPosts, postTags, tagHref } from '@/lib/blog';
+import { ids } from '@/lib/structured-data';
+
+const posts = await getPublishedPosts();
+const allTags = collectTags(posts);
+const description = "Actualités, science et coulisses de l'aventure Piki & Co et Ki-tämi.";
+
+const blogSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': ids.blog,
+  name: 'Le Blog Ki-tämi',
+  description,
+  url: new URL('/blog/', Astro.site).href,
+  inLanguage: 'fr-FR',
+  publisher: { '@id': ids.organization },
+  isPartOf: { '@id': ids.website },
+  blogPost: posts.map((post) => ({
+    '@type': 'BlogPosting',
+    '@id': new URL(`/blog/${post.id}/#article`, Astro.site).href,
+    headline: post.data.title,
+    url: new URL(`/blog/${post.id}/`, Astro.site).href,
+    datePublished: post.data.pubDate.toISOString(),
+  })),
+});
+---
+
+<KitamiLayout
+  title="Blog"
+  description={description}
+  breadcrumbs={[{ name: 'Blog', href: '/blog/' }]}
+  pageType="CollectionPage"
+>
+  <script slot="head" type="application/ld+json" set:html={blogSchema} />
+  <section class="blog-hero">
+    <div class="container">
+      <p class="blog-eyebrow">Le blog Ki-tämi</p>
+      <h1>Blog</h1>
+      <p class="blog-lead">
+        Science, équipe, parentalité — nos réflexions sur le jeu et le développement de l'enfant.
+      </p>
+    </div>
+  </section>
+
+  <section class="blog-body">
+    <div class="container">
+      <BlogSearch />
+
+      <div id="blog-listing">
+        {allTags.length > 0 && (
+          <ul class="blog-tags blog-tags--spaced" aria-label="Thèmes">
+            {allTags.map((tag) => (
+              <li><a href={tagHref(tag.label)} class="blog-tag">#{tag.label}</a></li>
+            ))}
+          </ul>
+        )}
+
+        {posts.length === 0 ? (
+          <p class="blog-empty">Les premiers articles arrivent bientôt.</p>
+        ) : (
+          <div class="blog-grid">
+            {posts.map((post) => <BlogCard post={post} tags={postTags(post, allTags)} />)}
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</KitamiLayout>

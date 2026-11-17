@@ -2,43 +2,20 @@
 import KitamiLayout from '@/layouts/KitamiLayout.astro';
 
 import { Image } from 'astro:assets';
-
-const CpsFaqSchema = JSON.stringify({
-	"@context": "https://schema.org",
-	"@type": "FAQPage",
-	"mainEntity": [
-		{
-			"@type": "Question",
-			"name": "Qu'est-ce que la santé mentale positive ?",
-			"acceptedAnswer": {
-				"@type": "Answer",
-					"text": "L'OMS définit la santé comme un état de complet bien-être physique, mental et social. La santé mentale positive correspond au sentiment de bien-être général et d'épanouissement social. Elle repose sur les compétences psychosociales (CPS) de la personne.",
-			},
-		},
-		{
-		"@type": "Question",
-		"name": "Qu'est-ce que les compétences psychosociales (CPS) ?",
-		"acceptedAnswer": {
-			"@type": "Answer",
-			"text": "Les CPS sont des ressources psychologiques permettant de faire face aux aléas de la vie. Elles sont centrales dans le programme de Santé Publique France et font l'objet d'actions prioritaires dans le cadre de la Grande Cause Nationale 2025-2026 sur la Santé Mentale.",
-			},
-		},
-	],
-});
+import Faq from '@/components/Faq.astro';
 ---
 <KitamiLayout
 		title="Les compétences humaines"
 		description="Le socle de l'équilibre mental et émotionnel de votre enfant."
-		breadcrumbs={[{ name: 'Ki-tami', href: '/' }, { name: 'Les CPS', href: '/cps' }]}
-		faqSchema = {CpsFaqSchema}
+		breadcrumbs={[{ name: 'Les CPS', href: '/cps/' }]}
 >
 
 	<!-- CPS -->
 	<section class="section section--tinted" id="CPS">
 		<div class="container">
 			<p class="section-eyebrow">Un jeu qui fait bien grandir</p>
-			<h2 class="section-heading">Les compétences psychosociales (CPS) : le socle de 
-				<span class="highlight" style="display:block;">la santé mentale positive</span></h2>
+			<h1 class="section-heading">Les compétences psychosociales (CPS) : le socle de 
+				<span class="highlight" style="display:block;">la santé mentale positive</span></h1>
 			<p class="section-lead">
 				Ce sont les compétences de vie ou compétences humaines qui permettent à votre enfant 
 				de faire face aux défis de l'existence, de maintenir son équilibre émotionnel et de construire 
@@ -75,39 +52,11 @@ const CpsFaqSchema = JSON.stringify({
 		</div>
 	</section>
 
-	<section class="section faq" id="CPS-faq">
-    	<div class="container">
-			<p class="section-eyebrow">Questions fréquentes</p>
-			<details class="faq-parent">
-				<summary>Qu'est-ce que la santé mentale positive ?</summary>
-				<p>L'OMS définit la santé comme <q>un état de complet bien-être physique, mental et social</q>. 
-				Santé Publique France définit trois dimensions de la santé mentale :</p>
-					<ul>
-						<li><strong>La santé mentale positive</strong> : sentiment de bien-être général et 
-						d'épanouissement social.</li>
-						<li><strong>La résilience</strong> : capacité à faire face à la détresse psychologique.</li>
-						<li>La présence ou l'absence de troubles psychiatriques.</li>
-					</ul>
-					<p><strong>La santé mentale positive repose sur les compétences psychosociales</strong> de la personne 
-					— ses ressources psychologiques pour faire face aux aléas de la vie.</p>
-					<p><a href="https://www.santepubliquefrance.fr/maladies-et-traumatismes/sante-mentale" 
-						target="_blank" rel="noopener noreferrer">Page dédiée à la santé mentale — Santé Publique France</a></p>
-			</details>
-
-			<details class="faq-parent">
-				<summary>Où peut-on en apprendre plus sur les compétences psychosociales ?</summary>
-				<p>Les CPS sont centrales dans le programme de promotion de la santé mentale de Santé Publique France. 
-				Leur renforcement auprès des enfants fait l'objet d'actions prioritaires dans le cadre de la 
-				Grande Cause Nationale 2025-2026, la Santé Mentale.</p>
-				<p><a href="https://www.santepubliquefrance.fr/competences-psychosociales" 
-					  target="_blank" rel="noopener noreferrer">
-					Page dédiée aux compétences psychosociales — Santé Publique France</a></p>
-				</details>
-		</div>
-	</section>
+	<!-- FAQ : contenu dans src/content/faq/cps/ (un fichier par question) -->
+	<Faq group="cps" id="CPS-faq" />
 	<section class="cta-section">
 		<h2>Prêt à entrer dans l'aventure<br />qui fait grandir ?</h2>
-		<a href="/inscription" class="btn-primary">Rejoignez l'aventure !</a>
+		<a href="/inscription/" class="btn-primary">Rejoignez l'aventure !</a>
 	</section>
 </KitamiLayout>
 <style>
@@ -199,49 +148,6 @@ const CpsFaqSchema = JSON.stringify({
 		opacity: 0.9;
 	}
 	
-	.faq { 
-		padding: 3rem 0; 
-	}
-	
-	/* Le parent Accordéon */
-	details.faq-parent { 
-		margin-bottom: 1rem; 
-		overflow: hidden; 
-		border-radius: 0.5rem;
-		text-align: left;
-	}
-
-	summary { 
-		padding: 1rem 1.5rem; 
-		cursor: pointer; 
-		font-weight: bold; 
-		transition: background-color 0.3s; 
-		color: var(--dark-purple); /* Texte sombre lisible */
-		list-style: none;
-	}
-	summary::-webkit-details-marker { display: none; } /* Enleve la flèche native */
-	summary::after { content: "+"; float: right; }
-	details[open] > summary::after { content: "−"; }
-
-	details.faq-parent p, 
-	details.faq-parent ul, 
-	details.faq-parent h3 { 
-		padding: 0.5rem 1.5rem; 
-		color: var(--dark-purple) !important; /* Force l'écriture en couleur lisible */
-	}
-
-	details.faq-parent ul {
-		margin-left: 3rem;
-		margin-bottom: 1rem;
-	}
-
-	.faq-child { 
-		margin-left: 1.5rem; 
-		margin-top: 0.5rem; 
-		border-radius: 0.25rem;
-	}
-	.faq-child > summary { font-size: 0.95rem; font-weight: 600; }
-
 	.quoting { 
 		font-size: 0.8rem; 
 		opacity: 0.7;
