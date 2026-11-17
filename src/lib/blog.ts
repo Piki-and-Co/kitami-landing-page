@@ -34,13 +34,15 @@ export interface Tag {
 
 /** Every tag used by the given posts, merged by slug, sorted by label. */
 export function collectTags(posts: Post[]): Tag[] {
-  const bySlug = new Map<string, { spellings: Map<string, number>; posts: Post[] }>();
+  type TagEntry = { spellings: Map<string, number>; posts: Post[] };
+  const bySlug = new Map<string, TagEntry>();
   for (const post of posts) {
     const seen = new Set<string>();
     for (const tag of post.data.tags) {
       const slug = tagSlug(tag);
       if (!slug) continue;
-      const entry = bySlug.get(slug) ?? { spellings: new Map(), posts: [] };
+      // Explicit type: otherwise the fallback's empty array is typed never[] and push() rejects Post
+      const entry: TagEntry = bySlug.get(slug) ?? { spellings: new Map(), posts: [] };
       entry.spellings.set(tag, (entry.spellings.get(tag) ?? 0) + 1);
       if (!seen.has(slug)) entry.posts.push(post);
       seen.add(slug);
