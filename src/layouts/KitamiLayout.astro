@@ -1,7 +1,8 @@
 ---
 import '@styles/Kitami.css';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
+import { siteGraph, type PageType } from '@/lib/structured-data';
 
 import logoImage from '@assets/logo.webp';
 import logoKitamiDark from '@assets/LogoKitamiLight.webp';
@@ -15,59 +16,50 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
-  faqSchema?: string;
   breadcrumbs?: Array<{ name: string; href: string }>;
   /** Keep the page out of search results (e.g. confirmation pages). */
   noindex?: boolean;
+  /** Open Graph type: "article" for blog posts. */
+  ogType?: 'website' | 'article';
+  /** schema.org type of the page in the structured data (see src/lib/structured-data.ts). */
+  pageType?: PageType;
 }
 
 const {
   title,
   description = "Ki-tämi — L'application qui accompagne votre enfant.",
   image,
-  faqSchema,
   breadcrumbs = [],
   noindex = false,
+  ogType = 'website',
+  pageType = 'WebPage',
 } = Astro.props;
 
 const robots = noindex
   ? 'noindex, follow'
   : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
 
+// "<title> | Ki-tämi", unless the title already names the brand (any spelling).
+const fullTitle = /ki-?t[äa]mi/i.test(title) ? title : `${title} | Ki-tämi`;
+
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 
-const breadcrumbSchema = breadcrumbs.length > 0 ? JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": new URL('/', Astro.site).href },
-    ...breadcrumbs.map((crumb, i) => ({
-      "@type": "ListItem",
-      "position": i + 2,
-      "name": crumb.name,
-      "item": new URL(crumb.href, Astro.site).href,
-    })),
-  ],
-}) : null;
 const ogImage = image
   ? new URL(image, Astro.site).href
   : new URL('/assets/LogoKitamiLight.png', Astro.site).href;
 
-const appSchema = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Ki-tämi",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "Web, iOS, Android",
-  "description": "Application éducative qui accompagne les enfants de 4 à 10 ans dans le développement des compétences psychosociales via des jeux vidéo immersifs et engageants.",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-  "author": {
-    "@type": "Organization",
-    "name": "Piki & Co",
-    "url": "https://piki-and-co.com",
-  },
-  "url": "https://ki-tami.com/",
-});
+// Organisation logo for structured data: Piki & Co logo, exported as PNG at build time.
+const orgLogo = await getImage({ src: logoImage, format: 'png' });
+
+const structuredData = JSON.stringify(siteGraph({
+  url: canonicalUrl,
+  title,
+  description,
+  pageType,
+  logoUrl: new URL(orgLogo.src, Astro.site).href,
+  imageUrl: image ? ogImage : undefined,
+  breadcrumbs,
+}));
 ---
 
 <!DOCTYPE html>
@@ -78,16 +70,17 @@ const appSchema = JSON.stringify({
 		<meta name="description" content={description} />
 		<meta name="author" content="Piki & Co" />
 		<meta name="robots" content={robots} />
-		<title>{title} | Ki-tämi</title>
+		<title>{fullTitle}</title>
 		<BaseHead />
 		<link rel="canonical" href={canonicalUrl} />
 		<link rel="icon" type="image/png" href="/assets/IcoKitami.png" />
 		<link rel="apple-touch-icon" href="/assets/LogoPhoneKitami.png" />
+		<link rel="alternate" type="application/rss+xml" title="Le Blog Ki-tämi" href="/rss.xml" />
 
 		<!-- Open Graph -->
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:title" content={`${title} | Ki-tämi`} />
+		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:locale" content="fr_FR" />
@@ -95,13 +88,12 @@ const appSchema = JSON.stringify({
 
 		<!-- Twitter / X -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={`${title} | Ki-tämi`} />
+		<meta name="twitter:title" content={fullTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
 		<!-- JSON-LD -->
-		<script type="application/ld+json" set:html={appSchema} />
-		{breadcrumbSchema && <script type="application/ld+json" set:html={breadcrumbSchema} />}
+		<script type="application/ld+json" set:html={structuredData} />
 
 <script is:inline>
     window.dataLayer = window.dataLayer || [];
@@ -132,7 +124,6 @@ const appSchema = JSON.stringify({
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
 		<slot name="head" />
-		{faqSchema && <script type="application/ld+json" set:html={faqSchema} />}
 	</head>
 
 	<body>
@@ -142,7 +133,7 @@ const appSchema = JSON.stringify({
 		<header>
 		</header>
 		<nav class="nav">
-			<a href="https://ki-tami.com/piki-and-co" target="_blank" rel="noopener noreferrer" class="logo">
+			<a href="/piki-and-co" target="_blank" rel="noopener noreferrer" class="logo">
 				<Image src={logoImage} alt="Piki & Co" width={68} height={48} loading="eager" format="webp"/>
 			</a>
 			<button class="menu-toggle" aria-label="Ouvrir le menu">
@@ -153,10 +144,11 @@ const appSchema = JSON.stringify({
 			<div class="nav-menu"> 
 				<ul class="nav-links">
 					<li><a href="/">Accueil</a></li>
-					<li><a href="/cps">Les CPS</a></li>
-					<li><a href="/approche">Innovation</a></li>
-					<li><a href="/lejeu">Le jeu</a></li>
-					<li><a href="/piki-and-co">Le studio</a></li>
+					<li><a href="/cps/">Les CPS</a></li>
+					<li><a href="/approche/">Innovation</a></li>
+					<li><a href="/lejeu/">Le jeu</a></li>
+					<li><a href="/piki-and-co/">Le studio</a></li>
+					<li><a href="/blog/">Blog</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -185,7 +177,7 @@ const appSchema = JSON.stringify({
 					<Image src={youtube} alt="Youtube chanel Piki & Co" width={48} height={48} loading="eager" format="webp"/>
 				</a>
 			</nav>
-			<p><a href="/legal/mention">Mentions légales</a> · <a href="/legal/privacy">Politique de confidentialité</a> · <a href="/legal/cookies">Cookies</a></p>
+			<p><a href="/legal/mention/">Mentions légales</a> · <a href="/legal/privacy/">Politique de confidentialité</a> · <a href="/legal/cookies/">Cookies</a></p>
 		</footer>
 
 		<script>

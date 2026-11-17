@@ -1,54 +1,23 @@
 ---
 import KitamiLayout from '@/layouts/KitamiLayout.astro';
+import Faq from '@/components/Faq.astro';
 
 import { Image } from 'astro:assets';
 
 import kitamiSmile from '@assets/Kitami_Smile.webp';
 import tomAmazed from '@assets/Tom_Amazing.webp';
 import tomLaugh from '@assets/Tom_Laugh.webp';
-
-const ApprocheFaqSchema = JSON.stringify({
-	"@context": "https://schema.org",
-	"@type": "FAQPage",
-	"mainEntity": [
-	{
-      "@type": "Question",
-      "name": "Les écrans, les jeux vidéo et les enfants : quelles recommandations ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Pas d'écrans avant 3 ans. À partir de 3 ans, limiter à 1h maximum par jour. Choisir des contenus adaptés à la maturité cognitive et émotionnelle de l'enfant. Le jeu vidéo offre une expérience sensorielle et émotionnelle complète qui en fait un média puissant d'apprentissage, à condition d'une utilisation saine.",
-      },
-    },
-    {
-      "@type": "Question",
-      "name": "Quels sont les bienfaits des jeux vidéo pour les enfants ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Les jeux vidéo permettent de développer : la curiosité, la créativité, la persévérance, la capacité d'élaboration de stratégie, la coopération, la prise de décision, l'attention, la résolution de problème, la littéracie numérique et le plurilinguisme.",
-      },
-    },
-    {
-      "@type": "Question",
-      "name": "Qu'est-ce qu'une utilisation saine des jeux vidéo ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Limiter le temps d'écran (pas d'écran avant 3 ans, 1h max consécutive ensuite), veiller à ce que des activités alternatives soient disponibles, et utiliser le jeu comme sujet de conversation et d'échange en famille.",
-      },
-    }
-	],
-});
 ---
 <KitamiLayout
 		title="Notre approche"
 		description="Une toute nouvelle pédagogie issue de la recherche publique française en sciences humaines"
-		breadcrumbs={[{ name: 'Ki-tämi', href: '/' }, { name: 'Notre approche', href: '/approche' }]}
-		faqSchema = {ApprocheFaqSchema}
+		breadcrumbs={[{ name: 'Notre approche', href: '/approche/' }]}
 >
 
 	<!-- Notre approche -->
 	<section class="section section--tinted" id="Approche">
 		<div class="container">
-			<p class="section-eyebrow">Les trois piliers de notre approche</p>
+			<h1 class="section-eyebrow">Les trois piliers de notre approche</h1>
 			<h2 class="section-heading">Comment ça marche ?</h2>
 			<p class="section-lead">
 			Issue d'une collaboration pérenne avec des laboratoires de recherche publique en sciences humaines, 
@@ -113,105 +82,12 @@ const ApprocheFaqSchema = JSON.stringify({
 		</div>
 	</section>
 	
-	<section class="section faq" id="faq">
-    <div class="container">
-      <p class="section-eyebrow">Questions fréquentes</p>
-
-      <details class="faq-parent">
-        <summary>Les écrans, les jeux vidéo et les enfants : recommandations et points d'attention</summary>
-        <p>Le jeu vidéo offre aux joueurs et joueuses une expérience complète, sensorielle et émotionnelle, ce qui en fait un média puissant d'apprentissage.</p>
-        <p>Issus de différents documents officiels*, voici quelques points clefs à retenir :</p>
-        <ul>
-          <li>Pas d'écrans avant 3 ans,</li>
-          <li>À partir de 3 ans, limiter le temps d'écran à 1h maximum par jour,</li>
-          <li>Choisir des contenus adaptés à votre enfant vis-à-vis de sa maturité cognitive et émotionnelle.</li>
-        </ul>
-        <p>Il est important de garder à l'esprit que ce qui rend les écrans toxiques pour vos enfants est l'appauvrissement des interactions sociales qui en découlent. Si vous utilisez le contenu vidéo comme prétexte pour discuter et passer du temps ensemble, alors tout ira bien !</p>
-		<p class="quoting">* Rapport remis à l'Élysée en avril 2024 
-		<a href="https://www.elysee.fr/admin/upload/default/0001/16/fbec6abe9d9cc1bff3043d87b9f7951e62779b09.pdf"
-		 target="_blank" rel="noopener noreferrer">Enfants et écrans, À la recherche du temps perdu"</a></p>
-      </details>
-
-      <details class="faq-parent">
-        <summary>Quels sont les bienfaits des jeux vidéo ?</summary>
-        <p>D'après les travaux en sciences humaines, voici quelques compétences que les jeux vidéo permettent de développer :</p>
-        <ul>
-          <li>La curiosité et la capacité à oser,</li>
-          <li>La créativité, la persévérance,</li>
-          <li>La capacité d'élaboration de stratégie,</li>
-          <li>La coopération, l'esprit de communauté,</li>
-          <li>La prise de décision, l'attention, le temps de réaction,</li>
-          <li>La résolution de problème,</li>
-          <li>La littéracie numérique,</li>
-		  <li>Le plurilinguisme et les langues étrangères,</li>
-          <li>Et bien d'autres encore...</li>
-        </ul>
-        <details class="faq-child">
-          <summary>Pour aller plus loin</summary>
-		  <p>Voici quelques articles scientifiques que nous avons sélectionné pour vous : 
-			<ul>
-				<li>Bavelier, D., Green, C. S., Pouget, A., & Schrater, P. 2012. 
-					<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-neuro-060909-152832" 
-					target="_blank" rel="noopener noreferrer">Brain plasticity through the life span: Learning to learn and action video games.</a>
-					<i>Annual Review of Neuroscience</i>, 35(1), 391–416.</li>
-				<li>Berry, V. 2012.
-					<i><a href="https://journals.openedition.org/questionsdecommunication/9170" 
-					target="_blank" rel="noopener noreferrer">L’expérience virtuelle. Jouer, vivre, apprendre dans un jeu vidéo.</a></i>
-					Presses universitaires de Rennes.</li>
-				<li>Gee, J. P. 2007. 
-					<i><a href="https://dl.acm.org/doi/abs/10.1145/950566.950595" 
-						  target="_blank" rel="noopener noreferrer">What video games have to teach us about learning and literacy.</a>
-					</i> Palgrave Macmillan.</li>
-				<li>Greenfield, P. 1994.
-					<i><a href="https://www.cdmc.ucla.edu/wp-content/uploads/sites/170/2018/05/greenfield_1994.pdf"
-					target="_blank" rel="noopener noreferrer">Les jeux vidéo comme instruments de socialisation cognitive.</a>
-					</i> Dans <i>Les jeux vidéo, Réseaux, 12,</i> n°67, 33-56.</li>
-				<li>Jenkins, H. & American Council of Learned Societies. 2006. 
-					<i><a href="https://dn721903.ca.archive.org/0/items/communication-zangana-jenkins-2006/communication-zangana-jenkins-2006.pdf" 
-					target="_blank" rel="noopener noreferrer">Convergence culture where old and new media collidep.</a></i></li>
-				<li>Lacasa, P. 2013. 
-					<i><a href="https://link.springer.com/book/10.1057/9781137312051" 
-					target="_blank" rel="noopener noreferrer">Learning in real and virtual worlds. Commercial video games as educational tools.</a></i> 
-					Palgrave Macmillan.</li>
-				<li>Thorne, S. L. 2008. 
-					<a href="https://www.scirp.org/reference/referencespapers?referenceid=3224692" 
-					target="_blank" rel="noopener noreferrer">Transcultural communication in open Internet environments and massively multiplayer online games.</a> 
-					In Magnan, Sally Sieloff (dir.), <i>Mediating discourse online.</i> John Benjamins.</li>
-				<li>Thorne, S. L. & Fischer, I. 2012. 
-					<a href="https://pure.rug.nl/ws/portalfiles/portal/134750180/Online_gaming_as_sociable_media.pdf" 
-					target="_blank" rel="noopener noreferrer">Online gaming as sociable media. </a>
-					<i>Alsic,</i> Vol. 15, n°1.</li>
-				<li>Thorne, S. L., Fischer, I. & Lu, X. 2012.
-				<a href="https://research.rug.nl/en/publications/the-semiotic-ecology-and-linguistic-complexity-of-an-online-game-/" 
-				target="_blank" rel="noopener noreferrer">The semiotic ecology of an online game world.</a> 
-				<i>ReCALL,</i> 24, n°3. 279-301.</li>
-			</ul>
-		  </p>
-        </details>
-      </details>
-
-      <details class="faq-parent">
-        <summary>Concrètement, qu'est-ce qu'une "utilisation saine" des jeux vidéo ?</summary>
-        <p>Pour que le jeu vidéo soit bénéfique, quelques habitudes simples sont à mettre en place pour toute la famille.</p>
-        <h3>Limitez le temps passé sur un écran</h3>
-        <p>En dessous de 3 ans, il est fortement recommandé d'interdire complètement l'écran. Ensuite, le temps sur écran doit rester occasionnel et ne pas dépasser une heure d'utilisation consécutive.</p>
-        <h3>Veillez à ce que des activités alternatives soient toujours disponibles</h3>
-        <p>Coloriage, jeux de construction, création artistique ou jeux dehors — il est important que votre enfant puisse s'amuser autrement qu'en jouant sur un écran.</p>
-        <h3>Utilisez le jeu comme sujet de conversation et d'échange</h3>
-        <p>Comme avec un film ou un livre, le jeu vidéo fournit des sujets de conversation pour alimenter les moments en famille.</p>
-        <ul>
-          <li>Quelle histoire raconte ton jeu ? Qui sont les personnages ?</li>
-          <li>Quelles sont les règles de ton jeu ?</li>
-          <li>Qu'est-ce que tu ressens quand tu joues ? Quand tu réussis ? Quand tu te trompes ?</li>
-        </ul>
-        <p>Quelques ressources utiles : <a href="https://pegi.info/fr/page/game-advice" target="_blank" rel="noopener noreferrer">PEGI</a>, <a href="https://www.mon-enfant-et-les-ecrans.fr/" target="_blank" rel="noopener noreferrer">Mon enfant et les écrans (UNAF)</a>.</p>
-      </details>
-	</div>
-	</section>
+	<!-- FAQ : contenu dans src/content/faq/approche/ (un fichier par question) -->
+	<Faq group="approche" id="faq" />
 
 	<section class="cta-section">
 		<h2>Prêt à entrer dans l'aventure<br />qui fait grandir ?</h2>
-		<a href="/inscription" class="btn-primary">Rejoignez l'aventure !</a>
+		<a href="/inscription/" class="btn-primary">Rejoignez l'aventure !</a>
 	</section>
 
 
@@ -358,51 +234,4 @@ const ApprocheFaqSchema = JSON.stringify({
 
 
 	
-	.faq { 
-		padding: 3rem 0; 
-	}
-	
-	/* Le parent Accordéon */
-	details.faq-parent { 
-		margin-bottom: 1rem; 
-		overflow: hidden; 
-		border-radius: 0.5rem;
-		text-align: left;
-	}
-
-	summary { 
-		padding: 1rem 1.5rem; 
-		cursor: pointer; 
-		font-weight: bold; 
-		transition: background-color 0.3s; 
-		color: var(--dark-purple); /* Texte sombre lisible */
-		list-style: none;
-	}
-	summary::-webkit-details-marker { display: none; } /* Enleve la flèche native */
-	summary::after { content: "+"; float: right; }
-	details[open] > summary::after { content: "−"; }
-
-	details.faq-parent p, 
-	details.faq-parent ul, 
-	details.faq-parent h3 { 
-		padding: 0.5rem 1.5rem; 
-		color: var(--dark-purple) !important; /* Force l'écriture en couleur lisible */
-	}
-
-	details.faq-parent a {
-		color: var(--deep-blue);
-	}
-
-
-	details.faq-parent ul {
-		margin-left: 3rem;
-		margin-bottom: 1rem;
-	}
-
-	.faq-child { 
-		margin-left: 1.5rem; 
-		margin-top: 0.5rem; 
-		border-radius: 0.25rem;
-	}
-	.faq-child > summary { font-size: 0.95rem; font-weight: 600; }
 </style>

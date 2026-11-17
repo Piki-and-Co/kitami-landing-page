@@ -1,0 +1,33 @@
+---
+import { formatDate, frenchSpacing, tagHref, type Post, type Tag } from '@/lib/blog';
+
+interface Props {
+  post: Post;
+  tags: Tag[];
+  /** Slug of the tag page being shown, highlighted on the card. */
+  activeTag?: string;
+}
+
+const { post, tags, activeTag } = Astro.props;
+---
+
+<article class="blog-card">
+  {tags.length > 0 && (
+    <ul class="blog-tags blog-tags--left" aria-label="Thèmes">
+      {tags.map((tag) => (
+        <li>
+          <a href={tagHref(tag.label)} class:list={['blog-tag', { 'blog-tag--active': tag.slug === activeTag }]}>
+            #{tag.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+  <h2>
+    <a href={`/blog/${post.id}/`} class="blog-card-link">{frenchSpacing(post.data.title)}</a>
+  </h2>
+  <p>{frenchSpacing(post.data.description)}</p>
+  <p class="blog-card-meta">
+    <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time> · {post.data.author}
+  </p>
+</article>

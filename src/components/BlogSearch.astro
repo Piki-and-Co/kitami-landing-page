@@ -1,0 +1,47 @@
+---
+// Blog search (Pagefind). The index is written to dist/pagefind/ at build time by
+// integrations/pagefind.mjs, so search only works on a built site
+// (`npm run build && npm run preview`, or production), not under `astro dev`.
+---
+
+<div class="blog-search">
+  <div id="search"></div>
+</div>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+<script src="/pagefind/pagefind-ui.js" is:inline></script>
+<script is:inline>
+  window.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('search');
+    if (!el) return;
+    if (typeof PagefindUI === 'undefined') {
+      el.innerHTML = '<p class="blog-search-notice">Recherche disponible une fois le site construit (<code>npm run build</code> puis <code>npm run preview</code>).</p>';
+      return;
+    }
+    new PagefindUI({
+      element: '#search',
+      showSubResults: false,
+      showImages: false,
+      debounceTimeoutMs: 100,
+      excerptLength: 20,
+      translations: {
+        placeholder: 'Rechercher un article…',
+        zero_results: 'Aucun résultat pour [SEARCH_TERM]',
+      },
+    });
+
+    // Hide the regular listing while a search is typed.
+    const listing = document.getElementById('blog-listing');
+    if (!listing) return;
+    const observer = new MutationObserver(() => {
+      const input = el.querySelector('.pagefind-ui__search-input');
+      if (!input) return;
+      observer.disconnect();
+      const toggle = () => { listing.hidden = input.value.trim() !== ''; };
+      input.addEventListener('input', toggle);
+      // The clear button empties the field without an input event.
+      el.addEventListener('click', () => setTimeout(toggle, 0));
+    });
+    observer.observe(el, { childList: true, subtree: true });
+  });
+</script>

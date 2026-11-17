@@ -1,0 +1,218 @@
+---
+/**
+ * FAQ block: collapsed questions (+ / −) and the matching FAQPage structured data,
+ * both built from the same files in src/content/faq/<group>/ so they never drift apart.
+ * Adding or editing a question: docs/faq.md
+ */
+import { getCollection, render } from 'astro:content';
+import { frenchSpacing } from '@/lib/blog';
+
+// Question as displayed: French spacing (no "?" alone on a line) and "Ki-tämi" never
+// split at its hyphen. The text itself is unchanged.
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const displayQuestion = (q: string) =>
+  escapeHtml(frenchSpacing(q)).replace(/Ki-tämi/g, '<span class="nowrap">Ki-tämi</span>');
+
+interface Props {
+  /** Folder under src/content/faq/, e.g. "accueil". */
+  group: string;
+  eyebrow?: string;
+  id?: string;
+}
+
+const { group, eyebrow = 'Questions fréquentes', id = `faq-${group}` } = Astro.props;
+
+const entries = (await getCollection('faq', (e) => e.id.startsWith(`${group}/`)))
+  .sort((a, b) => a.id.localeCompare(b.id));
+
+const items = await Promise.all(entries.map(async (entry) => ({ entry, ...(await render(entry)) })));
+
+// Structured data: same question and answer as shown. TODO markers are left out and
+// site-relative links become absolute (the data is read without the page around it).
+const toAnswerHtml = (html = '') =>
+  html
+    .replace(/\s*<mark class="todo">[\s\S]*?<\/mark>/g, '')
+    .replace(/<!--[\s\S]*?-->\s*/g, '')
+    // Google accepts a limited set of tags in answers: a nested collapsible
+    // ("Pour aller plus loin") becomes a bold line followed by its content.
+    .replace(/<summary>([\s\S]*?)<\/summary>/g, '<p><strong>$1</strong></p>')
+    .replace(/<\/?details[^>]*>/g, '')
+    .replace(/href="(\/[^"]*)"/g, (_, path) => `href="${new URL(path, Astro.site).href}"`)
+    .trim();
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': new URL(`${Astro.url.pathname}#${id}`, Astro.site).href,
+  inLanguage: 'fr-FR',
+  mainEntity: entries.map((entry) => ({
+    '@type': 'Question',
+    name: entry.data.question,
+    ...(entry.data.variant ? { alternateName: entry.data.variant } : {}),
+    acceptedAnswer: { '@type': 'Answer', text: toAnswerHtml(entry.rendered?.html) },
+  })),
+});
+---
+
+{items.length > 0 && (
+  <section class="faq" id={id} aria-labelledby={`${id}-title`}>
+    <div class="faq-container">
+      <h2 class="faq-eyebrow" id={`${id}-title`}>{eyebrow}</h2>
+      {items.map(({ entry, Content }) => (
+        <details class="faq-item">
+          <summary set:html={displayQuestion(entry.data.question)} />
+          <div class="faq-answer">
+            <Content />
+          </div>
+        </details>
+      ))}
+    </div>
+    <script type="application/ld+json" set:html={faqSchema} />
+  </section>
+)}
+
+<style>
+  .faq {
+    background: var(--light-purple);
+    color: var(--dark-purple);
+    padding: 3rem 0;
+  }
+
+  .faq-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  /* Same look as the "Questions fréquentes" label on the CPS page */
+  .faq-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .faq-item {
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    text-align: left;
+  }
+
+  summary {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    color: var(--dark-purple);
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; float: right; margin-left: 1rem; }
+  details[open] > summary::after { content: "−"; }
+
+  /* Drawn inside: the item's overflow:hidden would clip an outside outline */
+  summary:focus-visible {
+    outline: 3px solid var(--pikico-accent);
+    outline-offset: -3px;
+    border-radius: 0.5rem;
+  }
+
+  /* Inserted with set:html, so it does not carry the scoped attribute */
+  summary :global(.nowrap) {
+    white-space: nowrap;
+  }
+
+  .faq-answer {
+    padding: 0 1.5rem 0.5rem;
+  }
+
+  /* The answer comes from Markdown, so its elements are styled through :global() */
+  .faq-answer :global(p),
+  .faq-answer :global(ul) {
+    padding: 0.5rem 0;
+    color: var(--dark-purple);
+  }
+
+  .faq-answer :global(ul),
+  .faq-answer :global(ol) {
+    margin-left: 1.5rem;
+  }
+
+  .faq-answer :global(ol) {
+    padding: 0.5rem 0;
+    color: var(--dark-purple);
+  }
+
+  /* Nested list (e.g. a category and its numbered skills) */
+  .faq-answer :global(li > ul),
+  .faq-answer :global(li > ol) {
+    padding: 0.25rem 0 0.25rem;
+  }
+
+  .faq-answer :global(li) {
+    margin-bottom: 0.25rem;
+  }
+
+  .faq-answer :global(a) {
+    color: var(--deep-blue);
+  }
+
+  .faq-answer :global(h3) {
+    padding: 0.5rem 0;
+    font-size: 1.05rem;
+    color: var(--dark-purple);
+  }
+
+  /* Source note under an answer */
+  .faq-answer :global(.quoting) {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    font-style: italic;
+  }
+
+  /* Nested question inside an answer ("Pour aller plus loin") */
+  .faq-answer :global(details.faq-child) {
+    margin: 0.5rem 0 0.5rem 1.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .faq-answer :global(details.faq-child > summary) {
+    padding: 0.5rem 0;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dark-purple);
+    list-style: none;
+  }
+
+  .faq-answer :global(details.faq-child > summary::-webkit-details-marker) { display: none; }
+  .faq-answer :global(details.faq-child > summary::after) { content: "+"; margin-left: 0.5rem; }
+  .faq-answer :global(details.faq-child[open] > summary::after) { content: "−"; }
+
+  .faq-answer :global(details.faq-child > summary:focus-visible) {
+    outline: 3px solid var(--pikico-accent);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+
+  .faq-answer :global(mark.todo) {
+    display: inline-block;
+    margin-left: 0.25rem;
+    padding: 0 0.4rem;
+    border: 2px dashed var(--dark-yellow);
+    border-radius: 0.5rem;
+    background: rgba(0, 0, 0, 0.75);
+    color: var(--dark-yellow);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .faq-answer :global(mark.todo a) {
+    color: inherit;
+  }
+</style>

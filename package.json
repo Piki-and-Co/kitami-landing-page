@@ -6,14 +6,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "blog:images": "node integrations/blog-images.mjs"
   },
   "dependencies": {
+    "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.4.2",
     "tarteaucitronjs": "1.37.0"
   },
   "allowScripts": {
     "fsevents@2.3.3": true
+  },
+  "devDependencies": {
+    "pagefind": "1.6.0"
   }
 }
