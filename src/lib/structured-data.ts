@@ -63,7 +63,7 @@ export function siteGraph({ url, title, description, pageType, logoUrl, imageUrl
     publisher: { '@id': ids.organization },
     about: { '@id': ids.product },
   };
-  =
+
   const product = {
     '@type': 'Game',
     '@id': ids.product,
