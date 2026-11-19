@@ -1,0 +1,33 @@
+---
+// Shown after signing up for the Observatoire results.
+// Migrated from cps-observatoire.piki-and-co.com/inscription/confirmation-inscription.html.
+// No ad conversion tag here: the one on /inscription/confirmation-inscription/ is for the newsletter.
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
+---
+<KitamiLayout
+	title="Observatoire des CPS : demande prise en compte"
+	description="Votre demande a bien été prise en compte."
+	noindex
+>
+	<section class="section section--tinted confirmation">
+		<div class="container">
+			<h1>Votre demande a bien été prise en compte&nbsp;!</h1>
+			<p>Vous allez recevoir un e-mail vous permettant de confirmer votre adresse.</p>
+			<a href="/observatoire-cps/" class="btn-primary">Revenir à la page d'accueil</a>
+		</div>
+	</section>
+</KitamiLayout>
+<style>
+	.confirmation {
+		min-height: 70vh;
+		display: flex;
+		align-items: center;
+	}
+
+	.confirmation p {
+		margin: 1.5rem 0 2.5rem;
+		font-size: 1.1rem;
+		line-height: 1.8;
+		opacity: 0.9;
+	}
+</style>

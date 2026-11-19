@@ -1,0 +1,44 @@
+---
+// Sign-up for the Observatoire results (Brevo form, embedded as in the original page).
+// Migrated from cps-observatoire.piki-and-co.com/inscription/.
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
+---
+<KitamiLayout
+	title="Observatoire des CPS : recevoir les résultats"
+	description="Vous souhaitez simplement obtenir les résultats de l'Observatoire des compétences psychosociales ?"
+	breadcrumbs={[
+		{ name: 'Observatoire des CPS', href: '/observatoire-cps/' },
+		{ name: 'Recevoir les résultats', href: '/observatoire-cps/inscription/' },
+	]}
+	noindex
+>
+	<section class="section section--tinted results-signup">
+		<div class="container">
+			<!-- The form's own title is inside the Brevo frame -->
+			<h1 class="visually-hidden">Recevoir les résultats</h1>
+			<iframe
+				src="https://d83ccb86.sibforms.com/serve/MUIFAEzQcrNCy9kQ1z4Cz5pguYKuG4X7C7JDkc9ctfXaxkwpArNBmdCVK8NLu2JQackKWe_tUERwSzNr9zQ_qYp20m9-N-Q5l2qeZc80X3kpdvwgVrwWxg1e20Ua7a4r6bTu9BEfW2QMTvIbnQJHk7FR_9CNtqNUdyy069ur6pJSdyf6xJGF5in-eBmA3uiTw1BEEwk5SqDqTE-suQ=="
+				title="Formulaire d'inscription aux résultats de l'Observatoire"
+				width="540"
+				height="900"
+				allowfullscreen
+			></iframe>
+			<p class="back-link"><a href="/observatoire-cps/">Revenir à la page d'accueil</a></p>
+		</div>
+	</section>
+</KitamiLayout>
+<style>
+	.results-signup iframe {
+		display: block;
+		width: 100%;
+		max-width: 540px;
+		height: 900px;
+		margin: 0 auto;
+		border: 0;
+		border-radius: 0.75rem;
+	}
+
+	.back-link {
+		margin-top: 2rem;
+	}
+</style>

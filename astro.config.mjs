@@ -7,10 +7,15 @@ import blogImages from './integrations/blog-images.mjs';
 
 // Pages kept out of the sitemap:
 // - any page whose last path segment starts with "confirmation-" (e.g. /inscription/confirmation-email/);
-// - blog tag pages (/blog/tags/…): short lists, marked noindex.
+// - blog tag pages (/blog/tags/…): short lists, marked noindex;
+// - the Observatoire results sign-up (/observatoire-cps/inscription/): a form only, marked noindex.
 const isExcludedFromSitemap = (page) => {
 	const { pathname } = new URL(page);
-	return /\/confirmation-[^/]*\/?$/.test(pathname) || pathname.startsWith('/blog/tags/');
+	return (
+		/\/confirmation-[^/]*\/?$/.test(pathname) ||
+		pathname.startsWith('/blog/tags/') ||
+		pathname === '/observatoire-cps/inscription/'
+	);
 };
 
 // Sitemap <lastmod> for blog posts: their pubDate. /blog/ gets the latest one.

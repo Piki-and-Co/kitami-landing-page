@@ -1,0 +1,248 @@
+---
+// Migrated from cps-observatoire.piki-and-co.com (piki-and-co-landing-page/observatoire-cps/index.html).
+// Reached only from the home FAQ (contact question): no menu item, on purpose.
+import KitamiLayout from '@/layouts/KitamiLayout.astro';
+import { Image } from 'astro:assets';
+import imgLogoPiki from '@assets/logo.webp';
+
+const reasons = [
+	{
+		icon: '🔍',
+		title: 'Un constat',
+		text: "Il n'existe pas encore d'Observatoire National des Compétences Psychosociales en France, hors milieu scolaire. Piki & Co souhaite combler ce manque.",
+	},
+	{
+		icon: '🖋️',
+		title: "L'ambition",
+		text: "Suivre dans la durée l'état de développement des compétences psychosociales en France chez les enfants, les jeunes et les adultes pour éclairer les pratiques éducatives et managériales.",
+	},
+	{
+		icon: '🛡️',
+		title: 'Anonyme & Confidentiel',
+		text: 'Vos réponses sont entièrement anonymes et confidentielles. Elles contribueront à mieux comprendre comment les CPS sont perçues et soutenues pour concevoir des solutions concrètes ancrées dans votre réalité.',
+	},
+];
+
+const participants = [
+	{ icon: '👥', title: 'Parents', text: 'Partagez votre regard sur le développement de votre enfant.' },
+	{ icon: '📙', title: 'Enseignant.e.s', text: 'Apportez votre expertise quotidienne du terrain éducatif.' },
+	{ icon: '🩺', title: 'Professionnel.le.s de santé', text: 'Contribuez avec votre regard clinique et préventif.' },
+	{
+		icon: '✅',
+		title: 'Éducateur.rice.s ou Formateur·trice',
+		text: "Faites valoir votre expérience d'accompagnement des jeunes ou des adultes.",
+	},
+	{ icon: '🩺', title: 'Manager', text: 'Apportez votre expertise quotidienne du milieu professionnel.' },
+	{
+		icon: '✅',
+		title: "Proches d'enfants ou curieux·ses",
+		text: 'Les regards extérieurs sont précieux et soutiennent la pensée critique.',
+	},
+];
+---
+<KitamiLayout
+	title="Observatoire des Compétences Psychosociales par Piki & Co"
+	description="Observatoire des compétences psychosociales par Piki & Co. Suivre le développement de ces compétences et éclairer les pratiques éducatives et managériales."
+	breadcrumbs={[{ name: 'Observatoire des CPS', href: '/observatoire-cps/' }]}
+>
+
+	<!-- Hero -->
+	<section class="section section--tinted obs-hero">
+		<div class="container hero-grid">
+			<div class="hero-content">
+				<h1>Observatoire des compétences psychosociales</h1>
+				<p class="hero-lead">
+					Participez à la création du premier Observatoire National des CPS. Votre voix compte pour mieux
+					comprendre et soutenir le développement des compétences humaines des enfants, des jeunes et des adultes.
+				</p>
+				<a href="#questionnaire" class="btn-primary hero-cta">Répondre au questionnaire</a>
+			</div>
+			<div class="hero-visual">
+				<Image src={imgLogoPiki} alt="Piki & Co" width={309} height={220} loading="eager" format="webp"/>
+			</div>
+		</div>
+	</section>
+
+	<!-- Pourquoi -->
+	<section class="section" id="pourquoi">
+		<div class="container">
+			<h2 class="section-heading">Pourquoi un observatoire des CPS&nbsp;?</h2>
+			<ul class="card-grid">
+				{reasons.map((card) => (
+					<li class="obs-card">
+						<span class="obs-icon" aria-hidden="true">{card.icon}</span>
+						<h3>{card.title}</h3>
+						<p>{card.text}</p>
+					</li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Qui peut participer -->
+	<section class="section section--tinted" id="participer">
+		<div class="container">
+			<h2 class="section-heading">Qui peut participer&nbsp;?</h2>
+			<ul class="card-grid">
+				{participants.map((card) => (
+					<li class="obs-card">
+						<span class="obs-icon" aria-hidden="true">{card.icon}</span>
+						<h3>{card.title}</h3>
+						<p>{card.text}</p>
+					</li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Questionnaire (Google Forms) -->
+	<section class="section" id="questionnaire">
+		<div class="container">
+			<h2 class="section-heading">Le questionnaire</h2>
+			<p class="section-lead">
+				Administré une à deux fois par an, il permet d'observer les évolutions et d'identifier les tendances à
+				l'échelle nationale.
+				<strong class="obs-duration">Comptez entre 5 et 10 minutes.</strong>
+			</p>
+			<div class="form-frame">
+				<iframe
+					src="https://docs.google.com/forms/d/e/1FAIpQLSellCiyuqMLLGcuHB6F1Zhlrt2B37gRW2p8uTJ_RQCUHO0C8Q/viewform?embedded=true"
+					title="Questionnaire de l'Observatoire des compétences psychosociales"
+					width="640"
+					height="1000"
+					loading="lazy"
+				>Chargement…</iframe>
+			</div>
+		</div>
+	</section>
+
+	<!-- Résultats -->
+	<section class="cta-section">
+		<h2>Vous souhaitez simplement <br />obtenir les résultats&nbsp;?</h2>
+		<a href="/observatoire-cps/inscription/" class="btn-primary">Recevoir les résultats</a>
+	</section>
+
+	<!-- Piki & Co -->
+	<section class="section obs-studio">
+		<div class="container">
+			<h2 class="section-heading">Vous souhaitez découvrir l'univers Piki&nbsp;&amp;&nbsp;Co&nbsp;?</h2>
+			<p><a href="/piki-and-co/">Aller sur le site de Piki&nbsp;&amp;&nbsp;Co</a></p>
+		</div>
+	</section>
+</KitamiLayout>
+<style>
+	/* Sections, headings and buttons: shared styles in src/styles/Kitami.css.
+	   Hero: same layout as the studio page (logo on a light tile). */
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+		align-items: center;
+		justify-items: center;
+	}
+
+	.hero-content h1 {
+		margin-bottom: 1.5rem;
+	}
+
+	.hero-lead {
+		max-width: 44rem;
+		margin: 0 auto;
+		font-size: 1.05rem;
+		line-height: 1.8;
+		opacity: 0.9;
+	}
+
+	.hero-cta {
+		margin-top: 2rem;
+	}
+
+	.hero-visual {
+		background: var(--light-purple);
+		border-radius: 1.5rem;
+		padding: 1.25rem 1.75rem;
+		box-shadow: 0 18px 45px -15px rgba(0, 0, 0, 0.5);
+	}
+
+	.hero-visual img {
+		display: block;
+		width: min(100%, 12rem);
+		height: auto;
+	}
+
+	@media (min-width: 48rem) {
+		.hero-grid {
+			grid-template-columns: 1fr auto;
+			gap: 3rem;
+			text-align: left;
+		}
+
+		.hero-lead {
+			margin: 0;
+		}
+
+		.hero-visual img {
+			width: 15rem;
+		}
+	}
+
+	/* Cards: white, like the studio values and the CPS page cards */
+	.card-grid {
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+		gap: 1.5rem;
+		text-align: left;
+	}
+
+	.obs-card {
+		background: var(--white);
+		border: 2px solid var(--light-purple);
+		border-radius: 0.75rem;
+		padding: 2rem;
+		box-shadow: 0 10px 30px -10px rgba(18, 19, 44, 0.3);
+		color: var(--dark-purple);
+	}
+
+	.obs-icon {
+		display: block;
+		font-size: 2rem;
+		line-height: 1;
+		margin-bottom: 0.75rem;
+	}
+
+	.obs-card h3 {
+		font-size: 1.1rem;
+		margin-bottom: 0.5rem;
+		color: var(--pikico-accent);
+	}
+
+	.obs-card p {
+		font-size: 0.95rem;
+		line-height: 1.7;
+	}
+
+	/* Questionnaire */
+	.obs-duration {
+		display: block;
+		margin-top: 0.75rem;
+		color: var(--pikico-accent);
+	}
+
+	.form-frame iframe {
+		display: block;
+		width: 100%;
+		max-width: 640px;
+		height: 1000px;
+		margin: 0 auto;
+		border: 0;
+		border-radius: 0.75rem;
+		background: var(--white);
+	}
+
+	/* Link to the studio page */
+	.obs-studio a {
+		color: var(--pikico-accent);
+		font-weight: 700;
+	}
+</style>
