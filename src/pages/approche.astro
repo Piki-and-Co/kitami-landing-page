@@ -7,11 +7,13 @@ import { Image } from 'astro:assets';
 import kitamiSmile from '@assets/Kitami_Smile.webp';
 import tomAmazed from '@assets/Tom_Amazing.webp';
 import tomLaugh from '@assets/Tom_Laugh.webp';
+import { ids } from '@/lib/structured-data';
 ---
 <KitamiLayout
 		title="Notre approche"
 		description="Une toute nouvelle pédagogie issue de la recherche publique française en sciences humaines"
 		breadcrumbs={[{ name: 'Notre approche', href: '/approche/' }]}
+		about={[{ '@id': ids.product }]}
 >
 
 	<!-- Notre approche -->

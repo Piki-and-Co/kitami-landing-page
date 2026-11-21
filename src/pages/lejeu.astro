@@ -6,11 +6,13 @@ import { Image } from 'astro:assets';
 import doudou from '@assets/Doudou_NewDA-HD_Droite.webp';
 import uniteDiag from '@assets/UniteDiag_NewDA-HD_Droite.webp';
 import fleur from '@assets/FleurChoupie.webp';
+import { ids } from '@/lib/structured-data';
 ---
 <KitamiLayout
 		title="Ki-tämi, jeu multi-supports"
 		description="Ki-tämi repose sur trois composants produit sur trois supports différents."
 		breadcrumbs={[{ name: 'Le jeu', href: '/lejeu/' }]}
+		about={[{ '@id': ids.product }]}
 >
 	<!-- les composants -->
 	<section class="section section--tinted" id="leJeu">

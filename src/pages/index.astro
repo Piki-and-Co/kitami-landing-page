@@ -13,6 +13,7 @@ import imgLivretParents from '@assets/KitamiLivretParents.webp';
 import imgAppliComp from '@assets/KitamiAppliComp.webp';
 import posterVideo1 from '@assets/videos/JeuVideoKitami-Demo.webp';
 import posterVideo2 from '@assets/videos/PrixLaurenceSchmoll.webp';
+import { ids } from '@/lib/structured-data';
 
 const stats = [
 	{ value: "10 ans", label: "de recherche académique française" },
@@ -62,6 +63,7 @@ const videos = await Promise.all(videoList.map(async (v) => ({
 <KitamiLayout
 	title="Le jeu multi-support des 4-10 ans"
 	description="Ki-tämi : jeu vidéo, jeu de plateau et livret de l'adulte pour renforcer les compétences humaines des enfants par leur éveil à l'anglais."
+	about={[{ '@id': ids.product }]}
 >
 	<div class="accueil">
 

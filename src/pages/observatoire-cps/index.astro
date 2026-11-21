@@ -4,6 +4,19 @@
 import KitamiLayout from '@/layouts/KitamiLayout.astro';
 import { Image } from 'astro:assets';
 import imgLogoPiki from '@assets/logo.webp';
+import { ids, SITE } from '@/lib/structured-data';
+
+// Structured data: the Observatoire as a research project run by Piki & Co (text from this page).
+const researchProject = {
+	'@type': 'ResearchProject',
+	'@id': `${SITE}observatoire-cps/#observatoire`,
+	name: 'Observatoire des compétences psychosociales',
+	url: `${SITE}observatoire-cps/`,
+	description:
+		"Suivre dans la durée l'état de développement des compétences psychosociales en France chez les enfants, les jeunes et les adultes pour éclairer les pratiques éducatives et managériales.",
+	parentOrganization: { '@id': ids.organization },
+	about: { '@id': ids.cps },
+};
 
 const reasons = [
 	{
@@ -44,6 +57,8 @@ const participants = [
 	title="Observatoire des Compétences Psychosociales par Piki & Co"
 	description="Observatoire des compétences psychosociales par Piki & Co. Suivre le développement de ces compétences et éclairer les pratiques éducatives et managériales."
 	breadcrumbs={[{ name: 'Observatoire des CPS', href: '/observatoire-cps/' }]}
+	about={[{ '@id': researchProject['@id'] }]}
+	graphNodes={[researchProject]}
 >
 
 	<!-- Hero -->

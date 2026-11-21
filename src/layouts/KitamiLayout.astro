@@ -2,7 +2,7 @@
 import '@styles/Kitami.css';
 import { Image, getImage } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
-import { siteGraph, type PageType } from '@/lib/structured-data';
+import { siteGraph, type PageType, type Ref } from '@/lib/structured-data';
 
 import logoImage from '@assets/logo.webp';
 import logoKitamiDark from '@assets/LogoKitamiLight.webp';
@@ -23,6 +23,10 @@ interface Props {
   ogType?: 'website' | 'article';
   /** schema.org type of the page in the structured data (see src/lib/structured-data.ts). */
   pageType?: PageType;
+  /** What the page is about, in the structured data (e.g. [{ '@id': ids.product }]). */
+  about?: Ref[];
+  /** Extra structured-data nodes for this page only. */
+  graphNodes?: Record<string, unknown>[];
 }
 
 const {
@@ -33,6 +37,8 @@ const {
   noindex = false,
   ogType = 'website',
   pageType = 'WebPage',
+  about = [],
+  graphNodes = [],
 } = Astro.props;
 
 const robots = noindex
@@ -58,7 +64,10 @@ const structuredData = JSON.stringify(siteGraph({
   pageType,
   logoUrl: new URL(orgLogo.src, Astro.site).href,
   imageUrl: image ? ogImage : undefined,
+  productImageUrl: new URL('/assets/LogoKitamiLight.png', Astro.site).href,
   breadcrumbs,
+  about,
+  nodes: graphNodes,
 }));
 ---
 

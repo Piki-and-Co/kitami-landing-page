@@ -3,11 +3,13 @@ import KitamiLayout from '@/layouts/KitamiLayout.astro';
 
 import { Image } from 'astro:assets';
 import Faq from '@/components/Faq.astro';
+import { ids } from '@/lib/structured-data';
 ---
 <KitamiLayout
 		title="Les compétences humaines"
 		description="Le socle de l'équilibre mental et émotionnel de votre enfant."
 		breadcrumbs={[{ name: 'Les CPS', href: '/cps/' }]}
+		about={[{ '@id': ids.cps }]}
 >
 
 	<!-- CPS -->
